@@ -1,1409 +1,652 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jimmy Maina - Data Analyst Portfolio</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary-color: #7c3aed;
-            --accent-color: #06b6d4;
-            --success-color: #059669;
-            --text-color: #1f2937;
-            --text-secondary: #6b7280;
-            --text-light: #9ca3af;
-            --bg-color: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-dark: #0f172a;
-            --border-color: #e5e7eb;
-            --card-bg: #ffffff;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        [data-theme="dark"] {
-            --text-color: #f9fafb;
-            --text-secondary: #d1d5db;
-            --text-light: #9ca3af;
-            --bg-color: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-dark: #020617;
-            --border-color: #374151;
-            --card-bg: #1e293b;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background: var(--bg-color);
-            transition: all 0.3s ease;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        [data-theme="dark"] nav {
-            background: rgba(15, 23, 42, 0.95);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 32px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 50%;
-            background: var(--primary-color);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: 2px solid var(--border-color);
-            color: var(--text-color);
-            padding: 8px 12px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 16px;
-        }
-
-        .theme-toggle:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-            transform: scale(1.05);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, var(--bg-color) 0%, var(--bg-secondary) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 25% 25%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-text h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--text-color), var(--text-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .hero-description {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 32px;
-            line-height: 1.7;
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 20px;
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 16px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
-            color: white;
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text-color);
-            border: 2px solid var(--border-color);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        .hero-visual {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .hero-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 32px;
-            box-shadow: var(--shadow-xl);
-            border: 1px solid var(--border-color);
-            transform: rotate(-2deg);
-            transition: all 0.3s ease;
-        }
-
-        .hero-card:hover {
-            transform: rotate(0deg) scale(1.02);
-        }
-
-        .hero-chart {
-            width: 300px;
-            height: 200px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        /* Projects Section */
-        .projects {
-            padding: 100px 0;
-            background: var(--bg-color);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--text-color);
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Filter and Search Styles */
-        .projects-controls {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 40px;
-        }
-
-        .search-box {
-            position: relative;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 20px 12px 45px;
-            border: 2px solid var(--border-color);
-            border-radius: 30px;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.3s;
-            background: var(--card-bg);
-            color: var(--text-color);
-        }
-
-        .search-input:focus {
-            border-color: var(--primary-color);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
-
-        .filter-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-        }
-
-        .filter-btn {
-            padding: 10px 20px;
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-color);
-        }
-
-        .filter-btn:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        .filter-btn.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        .project-count {
-            text-align: center;
-            margin-bottom: 20px;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 32px;
-        }
-
-        .project-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .project-card.hidden {
-            display: none;
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .project-image {
-            height: 200px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .project-card:hover .project-image img {
-            transform: scale(1.05);
-        }
-
-        .project-content {
-            padding: 24px;
-        }
-
-        .project-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--text-color);
-        }
-
-        .project-description {
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .tech-tag {
-            background: rgba(37, 99, 235, 0.1);
-            color: var(--primary-color);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 12px;
-        }
-
-        .project-metrics {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin: 16px 0;
-            padding: 16px;
-            background: var(--bg-secondary);
-            border-radius: 8px;
-        }
-
-        .metric {
-            text-align: center;
-        }
-
-        .metric-value {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--success-color);
-        }
-
-        .metric-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 2px;
-        }
-
-        .no-projects {
-            text-align: center;
-            grid-column: 1 / -1;
-            padding: 60px 40px;
-            background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-        }
-
-        .no-projects i {
-            font-size: 3rem;
-            color: var(--text-light);
-            margin-bottom: 15px;
-        }
-
-        .no-projects h3 {
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-        }
-
-        .no-projects p {
-            color: var(--text-secondary);
-        }
-
-        /* About Section */
-        .about {
-            padding: 100px 0;
-            background: var(--bg-secondary);
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: start;
-        }
-
-        .about-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 24px;
-            color: var(--text-color);
-            font-weight: 700;
-        }
-
-        .about-text p {
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
-        }
-
-        .skill-category h3 {
-            font-size: 1.2rem;
-            margin-bottom: 16px;
-            color: var(--text-color);
-            font-weight: 600;
-        }
-
-        .skill-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .skill-name {
-            font-weight: 500;
-            color: var(--text-color);
-        }
-
-        .skill-level {
-            font-size: 0.9rem;
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        .skill-bar {
-            height: 4px;
-            background: var(--border-color);
-            border-radius: 2px;
-            margin: 4px 0 20px;
-            overflow: hidden;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            border-radius: 2px;
-            transition: width 1s ease-in-out;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 100px 0;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary-dark) 100%);
-            color: white;
-            text-align: center;
-        }
-
-        .contact h2 {
-            font-size: 2.5rem;
-            margin-bottom: 16px;
-            font-weight: 700;
-        }
-
-        .contact p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            opacity: 0.9;
-        }
-
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            margin-bottom: 60px;
-            flex-wrap: wrap;
-        }
-
-        .contact-link {
-            color: white;
-            text-decoration: none;
-            padding: 16px 32px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .contact-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: white;
-            transform: translateY(-2px);
-        }
-
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 32px;
-            margin-top: 60px;
-            padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .contact-item h4 {
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-
-        .contact-item p {
-            opacity: 0.8;
-            margin: 0;
-            font-size: 1rem;
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .slide-up {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
-        }
-
-        .slide-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-links {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .projects-controls {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .filter-buttons {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 16px;
-            }
-
-            .nav-container {
-                padding: 12px 16px;
-            }
-
-            .hero-text h1 {
-                font-size: 2rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .filter-btn {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Jimmy Maina | Senior BI Developer – Power BI & Microsoft Fabric</title>
+<style>
+  :root{
+    --bg:#0a0f1e;--surface:#111827;--card:#161f35;--border:#1e2d4a;
+    --accent:#f59e0b;--accent2:#3b82f6;--text:#e2e8f0;--muted:#94a3b8;--success:#10b981;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6;}
+
+  /* NAV */
+  nav{position:fixed;top:0;width:100%;background:rgba(10,15,30,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:200;padding:0 2rem;}
+  .nav-inner{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;height:60px;}
+  .logo{font-weight:800;font-size:.95rem;color:var(--accent);}
+  .nav-links{display:flex;gap:1.8rem;list-style:none;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .2s;}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-cta{background:var(--accent);color:#000;padding:.38rem 1rem;border-radius:6px;font-weight:700;font-size:.8rem;text-decoration:none;}
+
+  /* HERO */
+  #hero{min-height:100vh;display:flex;align-items:center;padding:80px 2rem 4rem;position:relative;overflow:hidden;}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.25;}
+  .hero-glow{position:absolute;top:30%;left:40%;width:700px;height:500px;background:radial-gradient(ellipse,rgba(245,158,11,.1) 0%,transparent 70%);pointer-events:none;}
+  .hero-inner{max-width:1200px;margin:auto;position:relative;z-index:1;}
+  .badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--success);padding:.3rem .9rem;border-radius:20px;font-size:.78rem;font-weight:600;margin-bottom:1.5rem;}
+  .badge-dot{width:7px;height:7px;border-radius:50%;background:var(--success);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;line-height:1.12;margin-bottom:1rem;}
+  h1 span{color:var(--accent);}
+  .hero-sub{font-size:1rem;color:var(--muted);max-width:600px;margin-bottom:2rem;}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem;}
+  .tag{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:.25rem .75rem;border-radius:20px;font-size:.76rem;font-weight:500;}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+  .btn-primary{background:var(--accent);color:#000;padding:.7rem 1.8rem;border-radius:8px;font-weight:700;text-decoration:none;font-size:.9rem;}
+  .btn-secondary{border:1px solid var(--border);color:var(--text);padding:.7rem 1.8rem;border-radius:8px;font-weight:600;text-decoration:none;font-size:.9rem;transition:border-color .2s,color .2s;}
+  .btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
+  .hero-stats{display:flex;gap:2.5rem;margin-top:3rem;flex-wrap:wrap;}
+  .stat{border-left:3px solid var(--accent);padding-left:1rem;}
+  .stat-num{font-size:1.9rem;font-weight:800;color:var(--accent);}
+  .stat-label{font-size:.76rem;color:var(--muted);}
+
+  /* SECTIONS */
+  section{padding:5rem 2rem;}
+  .section-inner{max-width:1200px;margin:auto;}
+  .section-label{color:var(--accent);font-size:.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.4rem;}
+  .section-title{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin-bottom:.4rem;}
+  .section-sub{color:var(--muted);font-size:.9rem;margin-bottom:3rem;max-width:560px;}
+  .divider{height:1px;background:var(--border);}
+
+  /* PROJECT TABS */
+  #projects{background:var(--surface);}
+  .proj-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;}
+  .proj-tab{padding:.45rem 1.1rem;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;}
+  .proj-tab.active,.proj-tab:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+
+  /* PROJECT CARD */
+  .proj-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem;}
+  .proj-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .2s,border-color .2s;display:none;}
+  .proj-card.visible{display:flex;flex-direction:column;}
+  .proj-card:hover{transform:translateY(-4px);border-color:var(--accent);}
+  .proj-thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden;}
+  .proj-thumb canvas{position:absolute;inset:0;}
+  .proj-thumb-icon{position:relative;z-index:1;}
+  .proj-body{padding:1.3rem;flex:1;display:flex;flex-direction:column;}
+  .proj-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;}
+  .proj-industry{background:rgba(245,158,11,.1);color:var(--accent);font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:10px;}
+  .proj-title{font-size:1rem;font-weight:700;margin-bottom:.4rem;}
+  .proj-desc{color:var(--muted);font-size:.82rem;line-height:1.55;margin-bottom:.8rem;flex:1;}
+  .proj-metrics{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem;}
+  .metric{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);color:var(--success);font-size:.72rem;font-weight:600;padding:.18rem .55rem;border-radius:4px;}
+  .proj-tags{display:flex;flex-wrap:wrap;gap:.35rem;padding-top:.8rem;border-top:1px solid var(--border);}
+  .ptag{background:var(--surface);color:var(--muted);font-size:.7rem;padding:.18rem .5rem;border-radius:4px;}
+  .proj-cta{display:flex;align-items:center;gap:.5rem;margin-top:1rem;color:var(--accent2);font-size:.8rem;font-weight:600;}
+
+  /* MODAL / EMBED VIEWER */
+  #modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:500;align-items:center;justify-content:center;padding:1rem;}
+  #modal.open{display:flex;}
+  .modal-box{background:var(--card);border:1px solid var(--border);border-radius:16px;width:100%;max-width:1000px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;}
+  .modal-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border);}
+  .modal-title{font-weight:700;font-size:1rem;}
+  .modal-close{background:none;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;line-height:1;}
+  .modal-close:hover{color:var(--text);}
+  .modal-body{flex:1;overflow:hidden;position:relative;min-height:500px;}
+  .embed-frame{width:100%;height:100%;border:none;min-height:500px;background:#000;}
+  .embed-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem;text-align:center;}
+  .embed-placeholder canvas{border-radius:12px;}
+  .embed-note{color:var(--muted);font-size:.82rem;max-width:420px;line-height:1.6;}
+  .embed-url-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;font-size:.78rem;color:var(--accent2);font-family:monospace;word-break:break-all;}
+  .modal-footer{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:.8rem;flex-wrap:wrap;}
+  .modal-btn{padding:.5rem 1.2rem;border-radius:6px;font-size:.8rem;font-weight:600;text-decoration:none;cursor:pointer;border:none;}
+  .modal-btn-primary{background:var(--accent);color:#000;}
+  .modal-btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border);}
+
+  /* SKILLS */
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.1rem;}
+  .skill-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem;transition:border-color .2s;}
+  .skill-card:hover{border-color:var(--accent);}
+  .skill-icon{font-size:1.5rem;margin-bottom:.6rem;}
+  .skill-name{font-weight:700;font-size:.9rem;margin-bottom:.2rem;}
+  .skill-desc{color:var(--muted);font-size:.8rem;line-height:1.5;margin-bottom:.7rem;}
+  .skill-bar-wrap{background:var(--border);border-radius:4px;height:3px;}
+  .skill-bar{height:3px;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 1s ease;}
+
+  /* EXPERIENCE */
+  #experience{background:var(--surface);}
+  .tl{display:flex;flex-direction:column;gap:1.8rem;}
+  .tl-item{display:grid;grid-template-columns:150px 1fr;gap:2rem;}
+  .tl-date{color:var(--accent);font-size:.8rem;font-weight:700;padding-top:.2rem;}
+  .tl-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem;}
+  .tl-role{font-weight:700;font-size:.95rem;}
+  .tl-co{color:var(--muted);font-size:.82rem;margin-bottom:.7rem;}
+  .tl-list{list-style:none;display:flex;flex-direction:column;gap:.35rem;}
+  .tl-list li{color:var(--muted);font-size:.82rem;padding-left:1rem;position:relative;}
+  .tl-list li::before{content:"▸";position:absolute;left:0;color:var(--accent);}
+
+  /* CERTS */
+  .certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;}
+  .cert-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;text-align:center;}
+  .cert-icon{font-size:1.8rem;margin-bottom:.4rem;}
+  .cert-name{font-weight:700;font-size:.84rem;margin-bottom:.2rem;}
+  .cert-issuer{color:var(--muted);font-size:.75rem;}
+
+  /* CONTACT */
+  #contact{background:var(--surface);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
+  .contact-item{display:flex;align-items:center;gap:.9rem;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.9rem;}
+  .ci-icon{font-size:1.2rem;}
+  .ci-label{color:var(--muted);font-size:.72rem;}
+  .ci-val{font-weight:600;font-size:.88rem;}
+  .ci-val a{color:var(--accent2);text-decoration:none;}
+  .avail{display:inline-flex;align-items:center;gap:.5rem;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--success);padding:.45rem .9rem;border-radius:8px;font-size:.82rem;font-weight:600;margin-bottom:1.2rem;}
+  .cta-block{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.8rem;}
+  .cta-block h3{font-weight:700;font-size:1.1rem;margin-bottom:.4rem;}
+  .cta-block p{color:var(--muted);font-size:.85rem;margin-bottom:1.3rem;}
+  .cta-links{display:flex;flex-direction:column;gap:.7rem;}
+  .cta-link{display:flex;align-items:center;gap:.7rem;color:var(--text);text-decoration:none;font-size:.85rem;font-weight:500;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;transition:border-color .2s,color .2s;}
+  .cta-link:hover{border-color:var(--accent);color:var(--accent);}
+
+  footer{text-align:center;padding:2rem;color:var(--muted);font-size:.78rem;border-top:1px solid var(--border);}
+
+  @media(max-width:700px){
+    .tl-item{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    .proj-cards{grid-template-columns:1fr;}
+  }
+</style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">JM Analytics</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="theme-toggle" onclick="toggleTheme()">
-                <i class="fas fa-moon" id="theme-icon"></i>
-            </button>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">JM · Senior BI Developer</div>
+    <ul class="nav-links">
+      <li><a href="#projects">Dashboards</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#certs">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="mailto:jimmymwas@gmail.com" class="nav-cta">Hire Me</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="badge"><span class="badge-dot"></span> Available Now · Dubai / GCC / Remote</div>
+    <h1>Senior BI Developer<br><span>Power BI & Microsoft Fabric</span></h1>
+    <p class="hero-sub">7+ years building enterprise semantic models, advanced DAX solutions, and scalable Power BI platforms across Retail, Healthcare, and Finance in the GCC region.</p>
+    <div class="hero-tags">
+      <span class="tag">Power BI</span><span class="tag">Microsoft Fabric</span><span class="tag">DAX</span>
+      <span class="tag">Azure Synapse</span><span class="tag">Star Schema</span><span class="tag">Row-Level Security</span>
+      <span class="tag">SQL Server</span><span class="tag">Direct Lake</span><span class="tag">OneLake</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View Live Dashboards</a>
+      <a href="mailto:jimmymwas@gmail.com" class="btn-secondary">Contact Me</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">7+</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Dashboards Delivered</div></div>
+      <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Daily Active Users</div></div>
+      <div class="stat"><div class="stat-num">12%</div><div class="stat-label">Revenue Impact</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS WITH EMBEDDED VIEWER -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">Live Dashboards</div>
+    <h2 class="section-title">Featured Projects</h2>
+    <p class="section-sub">Click any project to view the embedded dashboard demo. Replace iframe URLs with your Power BI publish-to-web links.</p>
+
+    <div class="proj-tabs">
+      <button class="proj-tab active" onclick="filterProj('all',this)">All</button>
+      <button class="proj-tab" onclick="filterProj('retail',this)">Retail</button>
+      <button class="proj-tab" onclick="filterProj('healthcare',this)">Healthcare</button>
+      <button class="proj-tab" onclick="filterProj('fabric',this)">Fabric / Azure</button>
+      <button class="proj-tab" onclick="filterProj('finance',this)">Finance</button>
+    </div>
+
+    <div class="proj-cards" id="projCards">
+
+      <div class="proj-card visible" data-cat="retail" onclick="openModal(0)">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#1a2540,#0f1d36);">
+          <canvas id="c0" width="340" height="160"></canvas>
+          <span class="proj-thumb-icon">🛒</span>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="hero-subtitle fade-in">Data Analyst</div>
-                    <h1 class="fade-in">Jimmy Maina</h1>
-                    <p class="hero-description fade-in">
-                        Transforming complex datasets into actionable business insights that drive measurable growth.
-                        7+ years of experience in data visualization, predictive modeling, and business intelligence.
-                    </p>
-
-                    <div class="hero-stats">
-                        <div class="stat-item fade-in">
-                            <span class="stat-number">7+</span>
-                            <span class="stat-label">Years Experience</span>
-                        </div>
-                        <div class="stat-item fade-in">
-                            <span class="stat-number">85%</span>
-                            <span class="stat-label">Process Automation</span>
-                        </div>
-                        <div class="stat-item fade-in">
-                            <span class="stat-label">Revenue Impact</span>
-                            <span class="stat-number">+12%</span>
-                        </div>
-                    </div>
-
-                    <div class="hero-buttons fade-in">
-                        <a href="#projects" class="btn btn-primary">
-                            <i class="fas fa-chart-line"></i> View Projects
-                        </a>
-                        <a href="#contact" class="btn btn-outline">
-                            <i class="fas fa-envelope"></i> Get In Touch
-                        </a>
-                    </div>
-                </div>
-
-                <div class="hero-visual fade-in">
-                    <div class="hero-card">
-                        <div class="hero-chart">
-                            <i class="fas fa-chart-bar"></i>
-                            <div style="margin-left: 16px;">
-                                <div>Data-Driven</div>
-                                <div>Insights</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="proj-body">
+          <div class="proj-meta"><span class="proj-industry">Retail</span></div>
+          <div class="proj-title">Retail Revenue & Pricing Intelligence</div>
+          <div class="proj-desc">Tracks revenue, margin, and pricing KPIs across 50+ product categories. Advanced DAX for dynamic segmentation and pricing band analysis.</div>
+          <div class="proj-metrics"><span class="metric">+12% Revenue</span><span class="metric">200+ Users</span></div>
+          <div class="proj-tags"><span class="ptag">Power BI</span><span class="ptag">DAX</span><span class="ptag">Star Schema</span><span class="ptag">Azure SQL</span></div>
+          <div class="proj-cta">▶ View Dashboard Demo</div>
         </div>
-    </section>
+      </div>
 
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title fade-in">Featured Projects</h2>
-                <p class="section-subtitle fade-in">
-                    Real-world data solutions that delivered measurable business results across diverse industries
-                </p>
-            </div>
-
-            <!-- Filter and Search Controls -->
-            <div class="projects-controls fade-in">
-                <div class="search-box">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" class="search-input" id="projectSearch" placeholder="Search projects...">
-                </div>
-
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">
-                        <i class="fas fa-layer-group"></i> All
-                    </button>
-                    <button class="filter-btn" data-filter="Excel">
-                        <i class="fas fa-file-excel"></i> Excel
-                    </button>
-                    <button class="filter-btn" data-filter="Power BI">
-                        <i class="fas fa-chart-bar"></i> Power BI
-                    </button>
-                    <button class="filter-btn" data-filter="Tableau">
-                        <i class="fas fa-chart-pie"></i> Tableau
-                    </button>
-                    <button class="filter-btn" data-filter="Python">
-                        <i class="fab fa-python"></i> Python
-                    </button>
-                    <button class="filter-btn" data-filter="SQL">
-                        <i class="fas fa-database"></i> SQL
-                    </button>
-                </div>
-            </div>
-
-            <div class="project-count fade-in" id="projectCount">Showing 6 of 6 projects</div>
-
-            <div class="projects-grid" id="projectsGrid">
-                <!-- Executive Sales Dashboard -->
-                <div class="project-card fade-in" data-categories="Power BI,SQL" data-tech="Power BI,DAX,SQL Server,Python">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Executive Sales Dashboard">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Executive Sales Performance Dashboard</h3>
-                        <p class="project-description">
-                            Interactive Power BI dashboard tracking KPIs, sales trends, and regional performance
-                             with automated data refresh from multiple business systems.
-                        </p>
-
-                        <div class="project-metrics">
-                            <div class="metric">
-                                <div class="metric-value">45%</div>
-                                <div class="metric-label">Faster Decisions</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value">80%</div>
-                                <div class="metric-label">Automation</div>
-                            </div>
-                        </div>
-
-                        <div class="project-tech">
-                            <span class="tech-tag">Power BI</span>
-                            <span class="tech-tag">DAX</span>
-                            <span class="tech-tag">SQL Server</span>
-                            <span class="tech-tag">Python</span>
-                        </div>
-
-                        <div class="project-links">
-                            <a href="https://public.tableau.com/app/profile/jimmy4920" class="btn btn-primary">View Live Demo</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Customer Journey Analytics -->
-                <div class="project-card fade-in" data-categories="Tableau,Python" data-tech="Tableau,Python,SQL,Statistical Analysis">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwa90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Customer Journey Analytics">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Customer Journey Analytics</h3>
-                        <p class="project-description">
-                            Comprehensive analysis of customer behavior patterns and conversion funnels
-                             for the travel industry, resulting in improved customer engagement strategies.
-                        </p>
-
-                        <div class="project-metrics">
-                            <div class="metric">
-                                <div class="metric-value">25%</div>
-                                <div class="metric-label">Conversion Up</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value">18%</div>
-                                <div class="metric-label">Engagement</div>
-                            </div>
-                        </div>
-
-                        <div class="project-tech">
-                            <span class="tech-tag">Tableau</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">SQL</span>
-                            <span class="tech-tag">Statistical Analysis</span>
-                        </div>
-
-                        <div class="project-links">
-                            <a href="https://public.tableau.com/app/profile/jimmy4920" class="btn btn-primary">View Analysis</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Predictive Analytics Model -->
-                <div class="project-card fade-in" data-categories="Python" data-tech="Python,Scikit-learn,Pandas,Time Series">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Predictive Analytics Model">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Demand Forecasting Model</h3>
-                        <p class="project-description">
-                            Machine learning model for travel demand forecasting with automated data pipeline,
-                             feature engineering, and model retraining capabilities.
-                        </p>
-
-                        <div class="project-metrics">
-                            <div class="metric">
-                                <div class="metric-value">12%</div>
-                                <div class="metric-label">Revenue Growth</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value">87%</div>
-                                <div class="metric-label">Accuracy</div>
-                            </div>
-                        </div>
-
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Scikit-learn</span>
-                            <span class="tech-tag">Pandas</span>
-                            <span class="tech-tag">Time Series</span>
-                        </div>
-
-                        <div class="project-links">
-                            <a href="https://github.com/jimal254" class="btn btn-primary">View Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- COVID-19 Data Exploration -->
-                <div class="project-card fade-in" data-categories="Python" data-tech="Python,Pandas,Matplotlib,Data Visualization">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1584118624012-df056829fbd0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="COVID-19 Data Analysis">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">COVID-19 Data Exploration</h3>
-                        <p class="project-description">
-                            Comprehensive analysis of global COVID-19 data, identifying trends, patterns,
-                            and correlations to support public health decision-making.
-                        </p>
-
-                        <div class="project-metrics">
-                            <div class="metric">
-                                <div class="metric-value">1M+</div>
-                                <div class="metric-label">Data Points</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value">15+</div>
-                                <div class="metric-label">Visualizations</div>
-                            </div>
-                        </div>
- 
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Pandas</span>
-                            <span class="tech-tag">Matplotlib</span>
-                            <span class="tech-tag">Data Visualization</span>
-                        </div>
-
-                        <div class="project-links">
-                            <a href="https://www.datacamp.com/datalab/w/12b47918-cec9-4806-96ca-5bc954200424#2-confirmed-cases-throughout-the-world"class="btn btn-primary">View Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Financial Dashboard -->
-                <div class="project-card fade-in" data-categories="Excel" data-tech=" Excel, Power Query, VBA, Financial Modeling">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Financial Dashboard">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Financial Performance Dashboard</h3>
-                        <p class="project-description">
-                            Automated Excel dashboard for financial reporting with interactive controls,
-                            dynamic charts, and automated data processing from multiple sources.
-                        </p>
-
-                        <div class="project-metrics">
-                            <div class="metric">
-                                <div class="metric-value">70%</div>
-                                <div class="metric-label">Time Saved</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value">95%</div>
-                                <div class="metric-label">Accuracy</div>
-                            </div>
-                        </div>
-
-                        <div class="project-tech">
-                            <span class="tech-tag">Excel</span>
-                            <span class="tech-tag">Power Query</span>
-                            <span class="tech-tag">VBA</span>
-                            <span class="tech-tag">Financial Modeling</span>
-                        </div>
-
-                        <div class="project-links">
-                            <a href="https://github.com/jimal254" class="btn btn-primary">View Project</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- E-commerce Analytics -->
-                <div class="project-card fade-in" data-categories="SQL,Python" data-tech="SQL,Python,ETL,Data Warehousing">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="E-commerce Analytics">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">E-commerce Analytics Pipeline</h3>
-                        <p class="project-description">
-                            End-to-end data pipeline for e-commerce analytics, from data extraction
-                            and transformation to visualization and automated reporting.
-                        </p>
-
-                        <div class="project-metrics">
-                            <div class="metric">
-                                <div class="metric-value">60%</div>
-                                <div class="metric-label">Faster Reporting</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value">99%</div>
-                                <div class="metric-label">Uptime</div>
-                            </div>
-                        </div>
-
-                        <div class="project-tech">
-                            <span class="tech-tag">SQL</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">ETL</span>
-                            <span class="tech-tag">Data Warehousing</span>
-                        </div>
-
-                        <div class="project-links">
-                            <a href="https://github.com/jimal254" class="btn btn-primary">View Project</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="proj-card visible" data-cat="fabric" onclick="openModal(1)">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#1a1535,#0d1128);">
+          <canvas id="c1" width="340" height="160"></canvas>
+          <span class="proj-thumb-icon">⚡</span>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="fade-in">About Me</h2>
-                    <p class="fade-in">
-                        I'm a Senior Data Analyst with over 7 years of experience in transforming complex datasets
-                        into actionable business insights. My expertise spans data visualization, predictive modeling,
-                        and business intelligence.
-                    </p>
-                    <p class="fade-in">
-                        I specialize in creating data-driven solutions that help organizations make informed decisions,
-                        optimize processes, and drive measurable growth. My technical skills include Power BI, Tableau,
-                        Python, SQL, and advanced Excel.
-                    </p>
-                    <p class="fade-in">
-                        When I'm not analyzing data, I enjoy contributing to open-source projects, writing technical blogs,
-                        and mentoring aspiring data professionals.
-                    </p>
-                </div>
-
-                <div class="skills-grid">
-                    <div class="skill-category fade-in">
-                        <h3>Data Visualization</h3>
-                        <div class="skill-item">
-                            <span class="skill-name">Power BI</span>
-                            <span class="skill-level">Expert</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 95%"></div>
-                        </div>
-
-                        <div class="skill-item">
-                            <span class="skill-name">Tableau</span>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%"></div>
-                        </div>
-
-                        <div class="skill-item">
-                            <span class="skill-name">Excel Dashboards</span>
-                            <span class="skill-level">Expert</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 90%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-category fade-in">
-                        <h3>Programming & Analytics</h3>
-                        <div class="skill-item">
-                            <span class="skill-name">Python</span>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%"></div>
-                        </div>
-
-                        <div class="skill-item">
-                            <span class="skill-name">SQL</span>
-                            <span class="skill-level">Expert</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 90%"></div>
-                        </div>
-
-                        <div class="skill-item">
-                            <span class="skill-name">Statistical Analysis</span>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="proj-body">
+          <div class="proj-meta"><span class="proj-industry">Microsoft Fabric</span></div>
+          <div class="proj-title">Fabric Lakehouse Analytics Platform</div>
+          <div class="proj-desc">Migrated legacy SSAS model to Microsoft Fabric. Direct Lake mode for sub-second queries. OneLake pipelines replacing 6 manual ETL processes.</div>
+          <div class="proj-metrics"><span class="metric">Sub-second Queries</span><span class="metric">6 ETL Eliminated</span></div>
+          <div class="proj-tags"><span class="ptag">Microsoft Fabric</span><span class="ptag">OneLake</span><span class="ptag">Direct Lake</span><span class="ptag">Notebooks</span></div>
+          <div class="proj-cta">▶ View Dashboard Demo</div>
         </div>
-    </section>
+      </div>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="fade-in">Let's Work Together</h2>
-            <p class="fade-in">
-                I'm always interested in new challenges and opportunities to leverage data for business growth.
-            </p>
-
-            <div class="contact-links fade-in">
-                <a href="mailto:jimmy.maina@example.com" class="contact-link">
-                    <i class="fas fa-envelope"></i> Email Me
-                </a>
-                <a href="https://www.linkedin.com/in/jimmymaina" class="contact-link">
-                    <i class="fab fa-linkedin"></i> LinkedIn
-                </a>
-                <a href="https://github.com/jimal254" class="contact-link">
-                    <i class="fab fa-github"></i> GitHub
-                </a>
-            </div>
-
-            <div class="contact-info fade-in">
-                <div class="contact-item">
-                    <h4>Location</h4>
-                    <p>Nairobi, Kenya</p>
-                </div>
-                <div class="contact-item">
-                    <h4>Availability</h4>
-                    <p>Open to Freelance Projects</p>
-                </div>
-                <div class="contact-item">
-                    <h4>Response Time</h4>
-                    <p>Within 24 Hours</p>
-                </div>
-            </div>
+      <div class="proj-card visible" data-cat="healthcare" onclick="openModal(2)">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#0d2030,#091520);">
+          <canvas id="c2" width="340" height="160"></canvas>
+          <span class="proj-thumb-icon">🏥</span>
         </div>
-    </section>
+        <div class="proj-body">
+          <div class="proj-meta"><span class="proj-industry">Healthcare</span></div>
+          <div class="proj-title">Healthcare Operations KPI Dashboard</div>
+          <div class="proj-desc">Multi-department Power BI report with dynamic RLS. Tracks patient throughput, bed occupancy, and operational KPIs across 8 clinical departments.</div>
+          <div class="proj-metrics"><span class="metric">Dynamic RLS</span><span class="metric">8 Departments</span></div>
+          <div class="proj-tags"><span class="ptag">Power BI</span><span class="ptag">RLS</span><span class="ptag">DAX</span><span class="ptag">SQL Server</span></div>
+          <div class="proj-cta">▶ View Dashboard Demo</div>
+        </div>
+      </div>
 
-    <script>
-        // Theme Toggle
-        function toggleTheme() {
-            const body = document.body;
-            const themeIcon = document.getElementById('theme-icon');
-            
-            if (body.getAttribute('data-theme') === 'dark') {
-                body.removeAttribute('data-theme');
-                themeIcon.className = 'fas fa-moon';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                themeIcon.className = 'fas fa-sun';
-                localStorage.setItem('theme', 'dark');
-            }
-        }
+      <div class="proj-card visible" data-cat="retail" onclick="openModal(3)">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#1f1a10,#14110a);">
+          <canvas id="c3" width="340" height="160"></canvas>
+          <span class="proj-thumb-icon">📦</span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-meta"><span class="proj-industry">Retail</span></div>
+          <div class="proj-title">Inventory & Supply Chain Suite</div>
+          <div class="proj-desc">15+ interconnected reports covering stock levels, supplier performance, and replenishment triggers. 60% faster load through model optimization.</div>
+          <div class="proj-metrics"><span class="metric">15+ Reports</span><span class="metric">60% Faster Load</span></div>
+          <div class="proj-tags"><span class="ptag">Power BI</span><span class="ptag">Power Query</span><span class="ptag">Incremental Refresh</span><span class="ptag">ADF</span></div>
+          <div class="proj-cta">▶ View Dashboard Demo</div>
+        </div>
+      </div>
 
-        // Check for saved theme preference
-        document.addEventListener('DOMContentLoaded', function() {
-            const savedTheme = localStorage.getItem('theme');
-            const themeIcon = document.getElementById('theme-icon');
-            
-            if (savedTheme === 'dark') {
-                document.body.setAttribute('data-theme', 'dark');
-                themeIcon.className = 'fas fa-sun';
-            } else {
-                document.body.removeAttribute('data-theme');
-                themeIcon.className = 'fas fa-moon';
-            }
+      <div class="proj-card visible" data-cat="finance" onclick="openModal(4)">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#0f2010,#091508);">
+          <canvas id="c4" width="340" height="160"></canvas>
+          <span class="proj-thumb-icon">📈</span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-meta"><span class="proj-industry">Finance</span></div>
+          <div class="proj-title">Executive Financial Reporting Model</div>
+          <div class="proj-desc">Boardroom-ready semantic model with time intelligence DAX for YoY, QoQ, and rolling 12-month comparisons. Azure Synapse backend.</div>
+          <div class="proj-metrics"><span class="metric">C-Suite Adoption</span><span class="metric">Azure Synapse</span></div>
+          <div class="proj-tags"><span class="ptag">Power BI</span><span class="ptag">Azure Synapse</span><span class="ptag">Time Intelligence</span><span class="ptag">DAX</span></div>
+          <div class="proj-cta">▶ View Dashboard Demo</div>
+        </div>
+      </div>
 
-            // Initialize project filtering
-            initProjectFiltering();
-            
-            // Initialize animations
-            initAnimations();
-        });
+      <div class="proj-card visible" data-cat="fabric" onclick="openModal(5)">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#20101a,#150a12);">
+          <canvas id="c5" width="340" height="160"></canvas>
+          <span class="proj-thumb-icon">🔐</span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-meta"><span class="proj-industry">Enterprise</span></div>
+          <div class="proj-title">Enterprise RLS Governance Framework</div>
+          <div class="proj-desc">Reusable RLS architecture serving 500+ users across 12 business units. Sensitivity labels, workspace governance, and certified dataset layer.</div>
+          <div class="proj-metrics"><span class="metric">500+ Users</span><span class="metric">12 Business Units</span></div>
+          <div class="proj-tags"><span class="ptag">Power BI</span><span class="ptag">RLS</span><span class="ptag">Governance</span><span class="ptag">Fabric</span></div>
+          <div class="proj-cta">▶ View Dashboard Demo</div>
+        </div>
+      </div>
 
-        // Project Filtering and Search
-        function initProjectFiltering() {
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const searchInput = document.getElementById('projectSearch');
-            const projectCards = document.querySelectorAll('.project-card');
-            const projectCount = document.getElementById('projectCount');
-            
-            let activeFilter = 'all';
-            let searchTerm = '';
-            
-            // Filter button click event
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // Update active button
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    
-                    // Set active filter
-                    activeFilter = button.getAttribute('data-filter');
-                    
-                    // Filter projects
-                    filterProjects();
-                });
-            });
-            
-            // Search input event
-            searchInput.addEventListener('input', () => {
-                searchTerm = searchInput.value.toLowerCase();
-                filterProjects();
-            });
-            
-            // Filter projects based on active filter and search term
-            function filterProjects() {
-                let visibleCount = 0;
-                
-                projectCards.forEach(card => {
-                    const categories = card.getAttribute('data-categories').toLowerCase();
-                    const tech = card.getAttribute('data-tech').toLowerCase();
-                    const title = card.querySelector('.project-title').textContent.toLowerCase();
-                    const description = card.querySelector('.project-description').textContent.toLowerCase();
-                    
-                    // Check if project matches filter
-                    const matchesFilter = activeFilter === 'all' || 
-                                         categories.includes(activeFilter.toLowerCase()) || 
-                                         tech.includes(activeFilter.toLowerCase());
-                    
-                    // Check if project matches search term
-                    const matchesSearch = searchTerm === '' || 
-                                         title.includes(searchTerm) || 
-                                         description.includes(searchTerm) || 
-                                         categories.includes(searchTerm) || 
-                                         tech.includes(searchTerm);
-                    
-                    // Show or hide project based on matches
-                    if (matchesFilter && matchesSearch) {
-                        card.classList.remove('hidden');
-                        visibleCount++;
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
-                
-                // Update project count
-                projectCount.textContent = `Showing ${visibleCount} of ${projectCards.length} projects`;
-                
-                // Show no projects message if none are visible
-                if (visibleCount === 0) {
-                    if (!document.getElementById('noProjectsMessage')) {
-                        const noProjects = document.createElement('div');
-                        noProjects.id = 'noProjectsMessage';
-                        noProjects.className = 'no-projects';
-                        noProjects.innerHTML = `
-                            <i class="fas fa-search"></i>
-                            <h3>No projects found</h3>
-                            <p>Try adjusting your search or filter criteria</p>
-                        `;
-                        document.getElementById('projectsGrid').appendChild(noProjects);
-                    }
-                } else {
-                    const noProjects = document.getElementById('noProjectsMessage');
-                    if (noProjects) {
-                        noProjects.remove();
-                    }
-                }
-            }
-        }
+    </div>
+  </div>
+</section>
 
-        // Scroll animations
-        function initAnimations() {
-            const fadeElements = document.querySelectorAll('.fade-in');
-            const slideElements = document.querySelectorAll('.slide-up');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-            
-            fadeElements.forEach(element => {
-                observer.observe(element);
-            });
-            
-            slideElements.forEach(element => {
-                observer.observe(element);
-            });
-            
-            // Animate skill bars
-            const skillBars = document.querySelectorAll('.skill-progress');
-            const skillsObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const width = entry.target.style.width;
-                        entry.target.style.width = '0';
-                        setTimeout(() => {
-                            entry.target.style.width = width;
-                        }, 300);
-                    }
-                });
-            }, {
-                threshold: 0.5
-            });
-            
-            skillBars.forEach(bar => {
-                skillsObserver.observe(bar);
-            });
-        }
-    </script>
+<!-- MODAL -->
+<div id="modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Dashboard</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <!-- content injected by JS -->
+    </div>
+    <div class="modal-footer">
+      <a href="mailto:jimmymwas@gmail.com" class="modal-btn modal-btn-primary">Request Full Access</a>
+      <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">Core Competencies</div>
+    <h2 class="section-title">Technical Skills</h2>
+    <p class="section-sub">Enterprise BI skills aligned to the Microsoft modern data stack.</p>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-name">Power BI Development</div><div class="skill-desc">Report design, semantic models, bookmarks, drill-through, mobile layouts, incremental refresh.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:97%"></div></div></div>
+      <div class="skill-card"><div class="skill-icon">🧮</div><div class="skill-name">Advanced DAX</div><div class="skill-desc">Time intelligence, CALCULATE, iterators, dynamic segmentation, pricing KPIs, complex measures.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:95%"></div></div></div>
+      <div class="skill-card"><div class="skill-icon">🏗️</div><div class="skill-name">Data Modelling</div><div class="skill-desc">Star schema, fact/dimension tables, slowly changing dimensions, relationship optimization.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:93%"></div></div></div>
+      <div class="skill-card"><div class="skill-icon">⚡</div><div class="skill-name">Microsoft Fabric</div><div class="skill-desc">Lakehouses, data pipelines, OneLake, Fabric notebooks, Direct Lake mode.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div>
+      <div class="skill-card"><div class="skill-icon">☁️</div><div class="skill-name">Azure Data Platform</div><div class="skill-desc">Azure Synapse, Azure Data Factory, Azure SQL, Blob Storage integration.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
+      <div class="skill-card"><div class="skill-icon">🔐</div><div class="skill-name">Row-Level Security</div><div class="skill-desc">Static and dynamic RLS, workspace roles, sensitivity labels, governance frameworks.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:92%"></div></div></div>
+      <div class="skill-card"><div class="skill-icon">🗄️</div><div class="skill-name">SQL & Query Tuning</div><div class="skill-desc">T-SQL, stored procedures, indexing strategies, query performance optimization.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></div>
+      <div class="skill-card"><div class="skill-icon">🔄</div><div class="skill-name">ETL / Data Pipelines</div><div class="skill-desc">Power Query (M), dataflows, scheduled refresh, incremental load, error handling.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">Career History</div>
+    <h2 class="section-title">Work Experience</h2>
+    <p class="section-sub">7+ years delivering enterprise BI solutions.</p>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-date">2022 – Present</div>
+        <div class="tl-card">
+          <div class="tl-role">Senior BI Developer</div>
+          <div class="tl-co">Retail & Analytics Consultancy · Contract</div>
+          <ul class="tl-list">
+            <li>Designed 15+ Power BI dashboards serving 200+ daily retail users.</li>
+            <li>Built scalable star schema semantic models with fact and dimension design.</li>
+            <li>Developed advanced DAX measures for pricing, revenue, and KPI tracking.</li>
+            <li>Delivered 12% revenue impact through data-driven pricing segmentation.</li>
+            <li>Migrated legacy models to Microsoft Fabric with Direct Lake and OneLake pipelines.</li>
+            <li>Implemented dynamic Row-Level Security across multi-department workspaces.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2019 – 2022</div>
+        <div class="tl-card">
+          <div class="tl-role">BI Developer / Data Analyst</div>
+          <div class="tl-co">Enterprise Data Solutions · Full-time</div>
+          <ul class="tl-list">
+            <li>Built Power BI report suites for retail operations and finance teams.</li>
+            <li>Optimised dashboard performance through model tuning and refresh improvements.</li>
+            <li>Developed ETL pipelines using Power Query and Azure Data Factory.</li>
+            <li>Translated business requirements into dimensional models independently.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2017 – 2019</div>
+        <div class="tl-card">
+          <div class="tl-role">Data Analyst</div>
+          <div class="tl-co">Analytics & Reporting Team · Full-time</div>
+          <ul class="tl-list">
+            <li>Created operational reports and dashboards for business stakeholders.</li>
+            <li>Wrote complex SQL queries for data extraction and ad-hoc reporting.</li>
+            <li>Supported migration from Excel to Power BI self-service models.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="section-inner">
+    <div class="section-label">Credentials</div>
+    <h2 class="section-title">Certifications & Education</h2>
+    <p class="section-sub">Microsoft-aligned credentials supporting the Senior BI Developer role.</p>
+    <div class="certs-grid">
+      <div class="cert-card"><div class="cert-icon">🏆</div><div class="cert-name">PL-300: Power BI Data Analyst</div><div class="cert-issuer">Microsoft Certified</div></div>
+      <div class="cert-card"><div class="cert-icon">⚡</div><div class="cert-name">DP-600: Fabric Analytics Engineer</div><div class="cert-issuer">Microsoft Certified</div></div>
+      <div class="cert-card"><div class="cert-icon">☁️</div><div class="cert-name">DP-900: Azure Data Fundamentals</div><div class="cert-issuer">Microsoft Certified</div></div>
+      <div class="cert-card"><div class="cert-icon">🎓</div><div class="cert-name">BSc. Information Technology</div><div class="cert-issuer">University Degree</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Available for Dubai Contract</h2>
+    <p class="section-sub">Open to immediate engagement on Power BI and Microsoft Fabric projects in Dubai and the GCC region.</p>
+    <div class="contact-grid">
+      <div>
+        <div class="avail"><span style="width:8px;height:8px;border-radius:50%;background:var(--success);display:inline-block;"></span> Actively Available · Dubai / GCC / Remote</div>
+        <div class="contact-item"><div class="ci-icon">📧</div><div><div class="ci-label">Email</div><div class="ci-val"><a href="mailto:jimmymwas@gmail.com">jimmymwas@gmail.com</a></div></div></div>
+        <div class="contact-item"><div class="ci-icon">📱</div><div><div class="ci-label">Phone / WhatsApp</div><div class="ci-val">+254 723 116 737</div></div></div>
+        <div class="contact-item"><div class="ci-icon">💼</div><div><div class="ci-label">LinkedIn</div><div class="ci-val"><a href="https://linkedin.com/in/jimmymaina" target="_blank">linkedin.com/in/jimmymaina</a></div></div></div>
+        <div class="contact-item"><div class="ci-icon">💻</div><div><div class="ci-label">GitHub</div><div class="ci-val"><a href="https://github.com/jimal254" target="_blank">github.com/jimal254</a></div></div></div>
+      </div>
+      <div class="cta-block">
+        <h3>Ready to Contribute Immediately</h3>
+        <p>Available for Power BI and Microsoft Fabric contract roles in Dubai and the GCC. Minimal onboarding required.</p>
+        <div class="cta-links">
+          <a href="mailto:jimmymwas@gmail.com" class="cta-link">📧 &nbsp;Send me an email</a>
+          <a href="tel:+254723116737" class="cta-link">📞 &nbsp;Call or WhatsApp</a>
+          <a href="https://linkedin.com/in/jimmymaina" target="_blank" class="cta-link">💼 &nbsp;Connect on LinkedIn</a>
+          <a href="https://github.com/jimal254" target="_blank" class="cta-link">💻 &nbsp;View GitHub</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2025 Jimmy Maina · Senior BI Developer · Power BI & Microsoft Fabric · Dubai / GCC</footer>
+
+<script>
+// ─── PROJECT DATA ────────────────────────────────────────────────────────────
+const projects = [
+  {
+    title:"Retail Revenue & Pricing Intelligence",
+    embedUrl:"YOUR_POWERBI_EMBED_URL_1", // ← replace with publish-to-web URL
+    desc:"Tracks revenue, margin, and pricing KPIs across 50+ product categories. Dynamic segmentation and pricing band analysis via advanced DAX.",
+    colors:["#f59e0b","#3b82f6","#10b981","#ef4444","#8b5cf6"]
+  },
+  {
+    title:"Fabric Lakehouse Analytics Platform",
+    embedUrl:"YOUR_POWERBI_EMBED_URL_2",
+    desc:"Microsoft Fabric migration with Direct Lake mode for sub-second queries. OneLake-connected pipelines replacing 6 manual ETL processes.",
+    colors:["#8b5cf6","#3b82f6","#06b6d4","#f59e0b","#10b981"]
+  },
+  {
+    title:"Healthcare Operations KPI Dashboard",
+    embedUrl:"YOUR_POWERBI_EMBED_URL_3",
+    desc:"Dynamic RLS securing 8 clinical departments. Tracks patient throughput, bed occupancy, and operational performance KPIs.",
+    colors:["#10b981","#3b82f6","#f59e0b","#06b6d4","#8b5cf6"]
+  },
+  {
+    title:"Inventory & Supply Chain Suite",
+    embedUrl:"YOUR_POWERBI_EMBED_URL_4",
+    desc:"15+ interconnected reports. Stock levels, supplier performance, replenishment triggers. 60% faster load through incremental refresh.",
+    colors:["#f59e0b","#ef4444","#10b981","#3b82f6","#8b5cf6"]
+  },
+  {
+    title:"Executive Financial Reporting Model",
+    embedUrl:"YOUR_POWERBI_EMBED_URL_5",
+    desc:"Boardroom-ready time intelligence DAX: YoY, QoQ, rolling 12-month comparisons. Azure Synapse backend. C-Suite adoption.",
+    colors:["#10b981","#f59e0b","#3b82f6","#8b5cf6","#ef4444"]
+  },
+  {
+    title:"Enterprise RLS Governance Framework",
+    embedUrl:"YOUR_POWERBI_EMBED_URL_6",
+    desc:"Reusable RLS for 500+ users across 12 business units. Sensitivity labels, workspace governance, certified dataset layer.",
+    colors:["#ef4444","#8b5cf6","#3b82f6","#10b981","#f59e0b"]
+  }
+];
+
+// ─── MINI CHART THUMBNAILS ────────────────────────────────────────────────────
+function drawMiniChart(canvasId, colors) {
+  const c = document.getElementById(canvasId);
+  if(!c) return;
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+  // bar chart
+  const bars = [0.55,0.75,0.45,0.85,0.65,0.9,0.7,0.5,0.8,0.6];
+  const bw = w / (bars.length * 1.8);
+  const gap = bw * 0.8;
+  const startX = (w - (bars.length * (bw + gap) - gap)) / 2;
+  ctx.clearRect(0,0,w,h);
+  bars.forEach((v,i) => {
+    const bh = v * (h * 0.65);
+    const x = startX + i*(bw+gap);
+    const y = h - bh - 15;
+    const grad = ctx.createLinearGradient(0,y,0,h);
+    grad.addColorStop(0, colors[i % colors.length] + 'cc');
+    grad.addColorStop(1, colors[i % colors.length] + '22');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.roundRect(x, y, bw, bh, 3);
+    ctx.fill();
+  });
+  // line overlay
+  ctx.beginPath();
+  ctx.strokeStyle = '#ffffff33';
+  ctx.lineWidth = 1.5;
+  bars.forEach((v,i) => {
+    const bh = v * (h * 0.65);
+    const x = startX + i*(bw+gap) + bw/2;
+    const y = h - bh - 15;
+    i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+  // dots
+  bars.forEach((v,i) => {
+    const bh = v * (h * 0.65);
+    const x = startX + i*(bw+gap) + bw/2;
+    const y = h - bh - 15;
+    ctx.beginPath();
+    ctx.arc(x,y,3,0,Math.PI*2);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+  });
+}
+
+document.querySelectorAll('[id^="c"]').forEach(c => {
+  const idx = parseInt(c.id.replace('c',''));
+  if(!isNaN(idx) && projects[idx]) drawMiniChart(c.id, projects[idx].colors);
+});
+
+// ─── FILTER TABS ──────────────────────────────────────────────────────────────
+function filterProj(cat, btn) {
+  document.querySelectorAll('.proj-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.proj-card').forEach(c => {
+    c.classList.toggle('visible', cat === 'all' || c.dataset.cat === cat);
+  });
+}
+
+// ─── MODAL ────────────────────────────────────────────────────────────────────
+function openModal(i) {
+  const p = projects[i];
+  document.getElementById('modalTitle').textContent = p.title;
+  const body = document.getElementById('modalBody');
+  const isReal = !p.embedUrl.startsWith('YOUR_');
+
+  if(isReal) {
+    body.innerHTML = `<iframe class="embed-frame" src="${p.embedUrl}" allowfullscreen></iframe>`;
+  } else {
+    // Demo visualization
+    body.innerHTML = `
+      <div class="embed-placeholder">
+        <canvas id="demoChart" width="700" height="300" style="max-width:100%;border-radius:10px;background:var(--surface);border:1px solid var(--border);"></canvas>
+        <p class="embed-note"><strong style="color:var(--text)">${p.title}</strong><br>${p.desc}</p>
+        <div class="embed-url-box">Paste your Power BI publish-to-web URL here:<br>${p.embedUrl}</div>
+      </div>`;
+    drawDemoChart('demoChart', p.colors);
+  }
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('modalBody').innerHTML = '';
+}
+
+document.getElementById('modal').addEventListener('click', e => {
+  if(e.target === document.getElementById('modal')) closeModal();
+});
+
+function drawDemoChart(id, colors) {
+  const c = document.getElementById(id);
+  if(!c) return;
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+  ctx.clearRect(0,0,w,h);
+
+  // Title
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '12px Segoe UI,sans-serif';
+  ctx.fillText('Monthly KPI Performance · Power BI Demo Preview', 20, 25);
+
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const vals = [62,71,58,80,75,88,72,91,85,79,93,87];
+  const vals2 = [45,52,48,60,58,70,65,72,68,75,80,78];
+
+  const padL=50, padR=20, padT=45, padB=35;
+  const cw = w-padL-padR, ch = h-padT-padB;
+  const max = 100;
+
+  // Grid lines
+  for(let g=0;g<=4;g++){
+    const y = padT + (ch/4)*g;
+    ctx.strokeStyle='#1e2d4a';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(padL+cw,y);ctx.stroke();
+    ctx.fillStyle='#475569';ctx.font='10px Segoe UI';
+    ctx.fillText((100-g*25)+'%', 8, y+4);
+  }
+
+  // Bars
+  const bw = cw/months.length * 0.35;
+  months.forEach((m,i) => {
+    const x = padL + (cw/months.length)*i + cw/months.length*0.15;
+    // bar 1
+    const bh1 = (vals[i]/max)*ch;
+    const grad1 = ctx.createLinearGradient(0,padT+ch-bh1,0,padT+ch);
+    grad1.addColorStop(0, colors[0]+'ee');
+    grad1.addColorStop(1, colors[0]+'33');
+    ctx.fillStyle=grad1;
+    ctx.beginPath();ctx.roundRect(x,padT+ch-bh1,bw,bh1,3);ctx.fill();
+    // bar 2
+    const bh2 = (vals2[i]/max)*ch;
+    const grad2 = ctx.createLinearGradient(0,padT+ch-bh2,0,padT+ch);
+    grad2.addColorStop(0, colors[1]+'ee');
+    grad2.addColorStop(1, colors[1]+'33');
+    ctx.fillStyle=grad2;
+    ctx.beginPath();ctx.roundRect(x+bw+2,padT+ch-bh2,bw,bh2,3);ctx.fill();
+    // x-label
+    ctx.fillStyle='#475569';ctx.font='9px Segoe UI';
+    ctx.fillText(m, x, padT+ch+14);
+  });
+
+  // Line
+  ctx.beginPath();ctx.strokeStyle=colors[2]+'cc';ctx.lineWidth=2;
+  months.forEach((m,i)=>{
+    const x = padL+(cw/months.length)*i+cw/months.length*0.5;
+    const y = padT+ch-(vals[i]/max)*ch;
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+
+  // Legend
+  [[colors[0],'KPI Actual'],[colors[1],'KPI Target'],[colors[2],'Trend']].forEach(([col,lbl],i)=>{
+    ctx.fillStyle=col;ctx.fillRect(padL+i*110,12,10,10);
+    ctx.fillStyle='#94a3b8';ctx.font='10px Segoe UI';
+    ctx.fillText(lbl,padL+i*110+14,21);
+  });
+}
+</script>
 </body>
-</html>
+          </html>
