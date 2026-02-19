@@ -4,151 +4,167 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Jimmy Maina | Senior BI Developer – Power BI & Microsoft Fabric</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-  :root{
-    --bg:#0a0f1e;--surface:#111827;--card:#161f35;--border:#1e2d4a;
-    --accent:#f59e0b;--accent2:#3b82f6;--text:#e2e8f0;--muted:#94a3b8;--success:#10b981;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6;}
+:root{--bg:#0a0f1e;--surface:#111827;--card:#161f35;--border:#1e2d4a;--accent:#f59e0b;--accent2:#3b82f6;--text:#e2e8f0;--muted:#94a3b8;--success:#10b981;--danger:#ef4444;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6;overflow-x:hidden;}
 
-  /* NAV */
-  nav{position:fixed;top:0;width:100%;background:rgba(10,15,30,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:200;padding:0 2rem;}
-  .nav-inner{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;height:60px;}
-  .logo{font-weight:800;font-size:.95rem;color:var(--accent);}
-  .nav-links{display:flex;gap:1.8rem;list-style:none;}
-  .nav-links a{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .2s;}
-  .nav-links a:hover{color:var(--accent);}
-  .nav-cta{background:var(--accent);color:#000;padding:.38rem 1rem;border-radius:6px;font-weight:700;font-size:.8rem;text-decoration:none;}
+/* NAV */
+nav{position:fixed;top:0;width:100%;background:rgba(10,15,30,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:300;padding:0 2rem;}
+.nav-inner{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.logo{font-weight:800;font-size:.95rem;color:var(--accent);}
+.nav-links{display:flex;gap:1.8rem;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .2s;}
+.nav-links a:hover{color:var(--accent);}
+.nav-cta{background:var(--accent);color:#000;padding:.38rem 1.1rem;border-radius:6px;font-weight:700;font-size:.8rem;text-decoration:none;}
 
-  /* HERO */
-  #hero{min-height:100vh;display:flex;align-items:center;padding:80px 2rem 4rem;position:relative;overflow:hidden;}
-  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.25;}
-  .hero-glow{position:absolute;top:30%;left:40%;width:700px;height:500px;background:radial-gradient(ellipse,rgba(245,158,11,.1) 0%,transparent 70%);pointer-events:none;}
-  .hero-inner{max-width:1200px;margin:auto;position:relative;z-index:1;}
-  .badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--success);padding:.3rem .9rem;border-radius:20px;font-size:.78rem;font-weight:600;margin-bottom:1.5rem;}
-  .badge-dot{width:7px;height:7px;border-radius:50%;background:var(--success);animation:pulse 2s infinite;}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-  h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;line-height:1.12;margin-bottom:1rem;}
-  h1 span{color:var(--accent);}
-  .hero-sub{font-size:1rem;color:var(--muted);max-width:600px;margin-bottom:2rem;}
-  .hero-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem;}
-  .tag{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:.25rem .75rem;border-radius:20px;font-size:.76rem;font-weight:500;}
-  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
-  .btn-primary{background:var(--accent);color:#000;padding:.7rem 1.8rem;border-radius:8px;font-weight:700;text-decoration:none;font-size:.9rem;}
-  .btn-secondary{border:1px solid var(--border);color:var(--text);padding:.7rem 1.8rem;border-radius:8px;font-weight:600;text-decoration:none;font-size:.9rem;transition:border-color .2s,color .2s;}
-  .btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
-  .hero-stats{display:flex;gap:2.5rem;margin-top:3rem;flex-wrap:wrap;}
-  .stat{border-left:3px solid var(--accent);padding-left:1rem;}
-  .stat-num{font-size:1.9rem;font-weight:800;color:var(--accent);}
-  .stat-label{font-size:.76rem;color:var(--muted);}
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding:80px 2rem 4rem;position:relative;overflow:hidden;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.2;}
+.hero-glow{position:absolute;top:25%;left:35%;width:800px;height:500px;background:radial-gradient(ellipse,rgba(245,158,11,.09) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{max-width:1200px;margin:auto;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--success);padding:.28rem .85rem;border-radius:20px;font-size:.76rem;font-weight:600;margin-bottom:1.3rem;}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--success);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-size:clamp(1.8rem,4vw,3.2rem);font-weight:800;line-height:1.12;margin-bottom:.9rem;}
+h1 span{color:var(--accent);}
+.hero-sub{font-size:.95rem;color:var(--muted);margin-bottom:1.8rem;max-width:480px;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:2rem;}
+.tag{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:.22rem .7rem;border-radius:20px;font-size:.74rem;}
+.hero-btns{display:flex;gap:.8rem;flex-wrap:wrap;}
+.btn-p{background:var(--accent);color:#000;padding:.65rem 1.6rem;border-radius:8px;font-weight:700;text-decoration:none;font-size:.88rem;}
+.btn-s{border:1px solid var(--border);color:var(--text);padding:.65rem 1.6rem;border-radius:8px;font-weight:600;text-decoration:none;font-size:.88rem;transition:border-color .2s;}
+.btn-s:hover{border-color:var(--accent);color:var(--accent);}
+.hero-stats{display:flex;gap:2rem;margin-top:2.5rem;flex-wrap:wrap;}
+.stat{border-left:3px solid var(--accent);padding-left:.9rem;}
+.stat-num{font-size:1.7rem;font-weight:800;color:var(--accent);}
+.stat-label{font-size:.74rem;color:var(--muted);}
 
-  /* SECTIONS */
-  section{padding:5rem 2rem;}
-  .section-inner{max-width:1200px;margin:auto;}
-  .section-label{color:var(--accent);font-size:.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.4rem;}
-  .section-title{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin-bottom:.4rem;}
-  .section-sub{color:var(--muted);font-size:.9rem;margin-bottom:3rem;max-width:560px;}
-  .divider{height:1px;background:var(--border);}
+/* HERO MINI DASHBOARD */
+.hero-dash{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.2rem;position:relative;}
+.hero-dash-title{font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;}
+.hero-dash-title span{color:var(--success);font-size:.68rem;}
+.mini-kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:1rem;}
+.mini-kpi{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.6rem .7rem;}
+.mini-kpi-val{font-size:1.1rem;font-weight:800;color:var(--accent);}
+.mini-kpi-label{font-size:.65rem;color:var(--muted);}
 
-  /* PROJECT TABS */
-  #projects{background:var(--surface);}
-  .proj-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;}
-  .proj-tab{padding:.45rem 1.1rem;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;}
-  .proj-tab.active,.proj-tab:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+/* SECTIONS */
+section{padding:5rem 2rem;}
+.si{max-width:1200px;margin:auto;}
+.sl{color:var(--accent);font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.4rem;}
+.st{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;margin-bottom:.4rem;}
+.ss{color:var(--muted);font-size:.88rem;margin-bottom:2.5rem;max-width:520px;}
+.divider{height:1px;background:var(--border);}
 
-  /* PROJECT CARD */
-  .proj-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem;}
-  .proj-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .2s,border-color .2s;display:none;}
-  .proj-card.visible{display:flex;flex-direction:column;}
-  .proj-card:hover{transform:translateY(-4px);border-color:var(--accent);}
-  .proj-thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden;}
-  .proj-thumb canvas{position:absolute;inset:0;}
-  .proj-thumb-icon{position:relative;z-index:1;}
-  .proj-body{padding:1.3rem;flex:1;display:flex;flex-direction:column;}
-  .proj-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;}
-  .proj-industry{background:rgba(245,158,11,.1);color:var(--accent);font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:10px;}
-  .proj-title{font-size:1rem;font-weight:700;margin-bottom:.4rem;}
-  .proj-desc{color:var(--muted);font-size:.82rem;line-height:1.55;margin-bottom:.8rem;flex:1;}
-  .proj-metrics{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem;}
-  .metric{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);color:var(--success);font-size:.72rem;font-weight:600;padding:.18rem .55rem;border-radius:4px;}
-  .proj-tags{display:flex;flex-wrap:wrap;gap:.35rem;padding-top:.8rem;border-top:1px solid var(--border);}
-  .ptag{background:var(--surface);color:var(--muted);font-size:.7rem;padding:.18rem .5rem;border-radius:4px;}
-  .proj-cta{display:flex;align-items:center;gap:.5rem;margin-top:1rem;color:var(--accent2);font-size:.8rem;font-weight:600;}
+/* DASHBOARD SECTION */
+#dashboards{background:var(--surface);}
+.dash-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;}
+.dash-tab{padding:.4rem 1rem;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.dash-tab.active{background:var(--accent);color:#000;border-color:var(--accent);}
 
-  /* MODAL / EMBED VIEWER */
-  #modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:500;align-items:center;justify-content:center;padding:1rem;}
-  #modal.open{display:flex;}
-  .modal-box{background:var(--card);border:1px solid var(--border);border-radius:16px;width:100%;max-width:1000px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;}
-  .modal-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border);}
-  .modal-title{font-weight:700;font-size:1rem;}
-  .modal-close{background:none;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;line-height:1;}
-  .modal-close:hover{color:var(--text);}
-  .modal-body{flex:1;overflow:hidden;position:relative;min-height:500px;}
-  .embed-frame{width:100%;height:100%;border:none;min-height:500px;background:#000;}
-  .embed-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem;text-align:center;}
-  .embed-placeholder canvas{border-radius:12px;}
-  .embed-note{color:var(--muted);font-size:.82rem;max-width:420px;line-height:1.6;}
-  .embed-url-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;font-size:.78rem;color:var(--accent2);font-family:monospace;word-break:break-all;}
-  .modal-footer{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:.8rem;flex-wrap:wrap;}
-  .modal-btn{padding:.5rem 1.2rem;border-radius:6px;font-size:.8rem;font-weight:600;text-decoration:none;cursor:pointer;border:none;}
-  .modal-btn-primary{background:var(--accent);color:#000;}
-  .modal-btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border);}
+/* DASHBOARD PANELS */
+.dash-panel{display:none;}
+.dash-panel.active{display:block;}
+.dash-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;}
+.dash-title{font-size:1.1rem;font-weight:700;}
+.dash-meta{display:flex;gap:.5rem;flex-wrap:wrap;}
+.dmeta{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:.25rem .7rem;font-size:.72rem;color:var(--muted);}
+.dmeta span{color:var(--success);font-weight:600;}
 
-  /* SKILLS */
-  .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.1rem;}
-  .skill-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem;transition:border-color .2s;}
-  .skill-card:hover{border-color:var(--accent);}
-  .skill-icon{font-size:1.5rem;margin-bottom:.6rem;}
-  .skill-name{font-weight:700;font-size:.9rem;margin-bottom:.2rem;}
-  .skill-desc{color:var(--muted);font-size:.8rem;line-height:1.5;margin-bottom:.7rem;}
-  .skill-bar-wrap{background:var(--border);border-radius:4px;height:3px;}
-  .skill-bar{height:3px;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 1s ease;}
+/* KPI CARDS ROW */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem;position:relative;overflow:hidden;}
+.kpi::after{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);}
+.kpi.blue::after{background:var(--accent2);}
+.kpi.green::after{background:var(--success);}
+.kpi.red::after{background:var(--danger);}
+.kpi-val{font-size:1.5rem;font-weight:800;color:var(--text);}
+.kpi-label{font-size:.72rem;color:var(--muted);margin-top:.1rem;}
+.kpi-delta{font-size:.72rem;font-weight:700;margin-top:.3rem;}
+.kpi-delta.up{color:var(--success);}
+.kpi-delta.down{color:var(--danger);}
 
-  /* EXPERIENCE */
-  #experience{background:var(--surface);}
-  .tl{display:flex;flex-direction:column;gap:1.8rem;}
-  .tl-item{display:grid;grid-template-columns:150px 1fr;gap:2rem;}
-  .tl-date{color:var(--accent);font-size:.8rem;font-weight:700;padding-top:.2rem;}
-  .tl-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem;}
-  .tl-role{font-weight:700;font-size:.95rem;}
-  .tl-co{color:var(--muted);font-size:.82rem;margin-bottom:.7rem;}
-  .tl-list{list-style:none;display:flex;flex-direction:column;gap:.35rem;}
-  .tl-list li{color:var(--muted);font-size:.82rem;padding-left:1rem;position:relative;}
-  .tl-list li::before{content:"▸";position:absolute;left:0;color:var(--accent);}
+/* CHART GRID */
+.chart-grid{display:grid;gap:1.2rem;}
+.chart-grid-2{grid-template-columns:1fr 1fr;}
+.chart-grid-3{grid-template-columns:2fr 1fr;}
+.chart-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;}
+.chart-box-title{font-size:.8rem;font-weight:700;color:var(--muted);margin-bottom:1rem;letter-spacing:.5px;text-transform:uppercase;}
+.chart-wrap{position:relative;}
 
-  /* CERTS */
-  .certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;}
-  .cert-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;text-align:center;}
-  .cert-icon{font-size:1.8rem;margin-bottom:.4rem;}
-  .cert-name{font-weight:700;font-size:.84rem;margin-bottom:.2rem;}
-  .cert-issuer{color:var(--muted);font-size:.75rem;}
+/* SLICERS */
+.slicer-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1.5rem;padding:.8rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;align-items:center;}
+.slicer-label{font-size:.72rem;color:var(--muted);font-weight:600;white-space:nowrap;}
+.slicer-btn{padding:.25rem .7rem;border-radius:5px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:.73rem;cursor:pointer;transition:all .15s;}
+.slicer-btn.active{background:var(--accent);color:#000;border-color:var(--accent);font-weight:700;}
+.slicer-divider{width:1px;height:20px;background:var(--border);}
 
-  /* CONTACT */
-  #contact{background:var(--surface);}
-  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
-  .contact-item{display:flex;align-items:center;gap:.9rem;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.9rem;}
-  .ci-icon{font-size:1.2rem;}
-  .ci-label{color:var(--muted);font-size:.72rem;}
-  .ci-val{font-weight:600;font-size:.88rem;}
-  .ci-val a{color:var(--accent2);text-decoration:none;}
-  .avail{display:inline-flex;align-items:center;gap:.5rem;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--success);padding:.45rem .9rem;border-radius:8px;font-size:.82rem;font-weight:600;margin-bottom:1.2rem;}
-  .cta-block{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.8rem;}
-  .cta-block h3{font-weight:700;font-size:1.1rem;margin-bottom:.4rem;}
-  .cta-block p{color:var(--muted);font-size:.85rem;margin-bottom:1.3rem;}
-  .cta-links{display:flex;flex-direction:column;gap:.7rem;}
-  .cta-link{display:flex;align-items:center;gap:.7rem;color:var(--text);text-decoration:none;font-size:.85rem;font-weight:500;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;transition:border-color .2s,color .2s;}
-  .cta-link:hover{border-color:var(--accent);color:var(--accent);}
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:.78rem;}
+.data-table th{background:var(--surface);color:var(--accent);font-weight:700;padding:.5rem .8rem;text-align:left;border:1px solid var(--border);}
+.data-table td{padding:.45rem .8rem;border:1px solid var(--border);color:var(--muted);}
+.data-table tr:hover td{background:rgba(255,255,255,.02);}
+.bar-cell{display:flex;align-items:center;gap:.5rem;}
+.bar-mini{height:6px;border-radius:3px;background:var(--accent);min-width:4px;}
 
-  footer{text-align:center;padding:2rem;color:var(--muted);font-size:.78rem;border-top:1px solid var(--border);}
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;}
+.skill-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;transition:border-color .2s;}
+.skill-card:hover{border-color:var(--accent);}
+.sk-icon{font-size:1.4rem;margin-bottom:.5rem;}
+.sk-name{font-weight:700;font-size:.88rem;margin-bottom:.2rem;}
+.sk-desc{color:var(--muted);font-size:.78rem;line-height:1.5;margin-bottom:.6rem;}
+.sk-bar{height:3px;border-radius:3px;background:var(--border);}
+.sk-fill{height:3px;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
 
-  @media(max-width:700px){
-    .tl-item{grid-template-columns:1fr;}
-    .contact-grid{grid-template-columns:1fr;}
-    .nav-links{display:none;}
-    .proj-cards{grid-template-columns:1fr;}
-  }
+/* EXPERIENCE */
+#experience{background:var(--surface);}
+.tl{display:flex;flex-direction:column;gap:1.5rem;}
+.tl-item{display:grid;grid-template-columns:140px 1fr;gap:1.8rem;}
+.tl-date{color:var(--accent);font-size:.78rem;font-weight:700;padding-top:.15rem;}
+.tl-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem;}
+.tl-role{font-weight:700;font-size:.9rem;}
+.tl-co{color:var(--muted);font-size:.8rem;margin-bottom:.6rem;}
+.tl-li{list-style:none;display:flex;flex-direction:column;gap:.3rem;}
+.tl-li li{color:var(--muted);font-size:.8rem;padding-left:1rem;position:relative;}
+.tl-li li::before{content:"▸";position:absolute;left:0;color:var(--accent);}
+
+/* CERTS */
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1rem;}
+.cert{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem;text-align:center;}
+.cert-icon{font-size:1.7rem;margin-bottom:.4rem;}
+.cert-name{font-weight:700;font-size:.82rem;margin-bottom:.15rem;}
+.cert-issuer{color:var(--muted);font-size:.73rem;}
+
+/* CONTACT */
+#contact{background:var(--surface);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
+.ci{display:flex;align-items:center;gap:.8rem;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.8rem 1rem;margin-bottom:.8rem;}
+.ci-icon{font-size:1.1rem;}
+.ci-label{color:var(--muted);font-size:.7rem;}
+.ci-val{font-weight:600;font-size:.85rem;}
+.ci-val a{color:var(--accent2);text-decoration:none;}
+.avail{display:inline-flex;align-items:center;gap:.5rem;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--success);padding:.4rem .85rem;border-radius:8px;font-size:.8rem;font-weight:600;margin-bottom:1rem;}
+.cta-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem;}
+.cta-block h3{font-weight:700;font-size:1rem;margin-bottom:.35rem;}
+.cta-block p{color:var(--muted);font-size:.82rem;margin-bottom:1.2rem;}
+.cta-links{display:flex;flex-direction:column;gap:.6rem;}
+.cta-link{display:flex;align-items:center;gap:.6rem;color:var(--text);text-decoration:none;font-size:.83rem;font-weight:500;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:.65rem .9rem;transition:border-color .2s,color .2s;}
+.cta-link:hover{border-color:var(--accent);color:var(--accent);}
+
+footer{text-align:center;padding:1.8rem;color:var(--muted);font-size:.76rem;border-top:1px solid var(--border);}
+
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-dash{display:none;}
+  .chart-grid-2,.chart-grid-3{grid-template-columns:1fr;}
+  .tl-item{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+}
 </style>
 </head>
 <body>
@@ -157,7 +173,7 @@
   <div class="nav-inner">
     <div class="logo">JM · Senior BI Developer</div>
     <ul class="nav-links">
-      <li><a href="#projects">Dashboards</a></li>
+      <li><a href="#dashboards">Dashboards</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#certs">Certifications</a></li>
@@ -172,174 +188,202 @@
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
   <div class="hero-inner">
-    <div class="badge"><span class="badge-dot"></span> Available Now · Dubai / GCC / Remote</div>
-    <h1>Senior BI Developer<br><span>Power BI & Microsoft Fabric</span></h1>
-    <p class="hero-sub">7+ years building enterprise semantic models, advanced DAX solutions, and scalable Power BI platforms across Retail, Healthcare, and Finance in the GCC region.</p>
-    <div class="hero-tags">
-      <span class="tag">Power BI</span><span class="tag">Microsoft Fabric</span><span class="tag">DAX</span>
-      <span class="tag">Azure Synapse</span><span class="tag">Star Schema</span><span class="tag">Row-Level Security</span>
-      <span class="tag">SQL Server</span><span class="tag">Direct Lake</span><span class="tag">OneLake</span>
+    <div>
+      <div class="badge"><span class="badge-dot"></span> Available Now · Dubai / GCC / Remote</div>
+      <h1>Senior BI Developer<br><span>Power BI & Microsoft Fabric</span></h1>
+      <p class="hero-sub">7+ years building enterprise semantic models, advanced DAX solutions, and scalable Power BI platforms across Retail, Healthcare, and Finance.</p>
+      <div class="hero-tags">
+        <span class="tag">Power BI</span><span class="tag">Microsoft Fabric</span><span class="tag">DAX</span>
+        <span class="tag">Azure Synapse</span><span class="tag">Star Schema</span><span class="tag">Row-Level Security</span>
+        <span class="tag">SQL Server</span><span class="tag">Direct Lake</span>
+      </div>
+      <div class="hero-btns">
+        <a href="#dashboards" class="btn-p">View Live Dashboards</a>
+        <a href="mailto:jimmymwas@gmail.com" class="btn-s">Contact Me</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">7+</div><div class="stat-label">Years Experience</div></div>
+        <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Dashboards Delivered</div></div>
+        <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Daily Active Users</div></div>
+        <div class="stat"><div class="stat-num">12%</div><div class="stat-label">Revenue Impact</div></div>
+      </div>
     </div>
-    <div class="hero-btns">
-      <a href="#projects" class="btn-primary">View Live Dashboards</a>
-      <a href="mailto:jimmymwas@gmail.com" class="btn-secondary">Contact Me</a>
-    </div>
-    <div class="hero-stats">
-      <div class="stat"><div class="stat-num">7+</div><div class="stat-label">Years Experience</div></div>
-      <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Dashboards Delivered</div></div>
-      <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Daily Active Users</div></div>
-      <div class="stat"><div class="stat-num">12%</div><div class="stat-label">Revenue Impact</div></div>
+    <div class="hero-dash">
+      <div class="hero-dash-title">Retail Revenue Dashboard <span>● Live</span></div>
+      <div class="mini-kpis">
+        <div class="mini-kpi"><div class="mini-kpi-val">$284K</div><div class="mini-kpi-label">Total Revenue</div></div>
+        <div class="mini-kpi"><div class="mini-kpi-val">43.2%</div><div class="mini-kpi-label">Gross Margin</div></div>
+        <div class="mini-kpi"><div class="mini-kpi-val">3,847</div><div class="mini-kpi-label">Units Sold</div></div>
+      </div>
+      <div class="chart-wrap"><canvas id="heroChart" height="140"></canvas></div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- PROJECTS WITH EMBEDDED VIEWER -->
-<section id="projects">
-  <div class="section-inner">
-    <div class="section-label">Live Dashboards</div>
-    <h2 class="section-title">Featured Projects</h2>
-    <p class="section-sub">Click any project to view the embedded dashboard demo. Replace iframe URLs with your Power BI publish-to-web links.</p>
+<!-- DASHBOARDS -->
+<section id="dashboards">
+  <div class="si">
+    <div class="sl">Live Dashboards</div>
+    <h2 class="st">Interactive BI Portfolio</h2>
+    <p class="ss">Fully interactive dashboards built with real data models, DAX logic, and star schema architecture. Click the slicers to filter live.</p>
 
-    <div class="proj-tabs">
-      <button class="proj-tab active" onclick="filterProj('all',this)">All</button>
-      <button class="proj-tab" onclick="filterProj('retail',this)">Retail</button>
-      <button class="proj-tab" onclick="filterProj('healthcare',this)">Healthcare</button>
-      <button class="proj-tab" onclick="filterProj('fabric',this)">Fabric / Azure</button>
-      <button class="proj-tab" onclick="filterProj('finance',this)">Finance</button>
+    <div class="dash-tabs">
+      <button class="dash-tab active" onclick="showDash('retail',this)">🛒 Retail Revenue & Pricing</button>
+      <button class="dash-tab" onclick="showDash('inventory',this)">📦 Inventory & Supply Chain</button>
+      <button class="dash-tab" onclick="showDash('healthcare',this)">🏥 Healthcare Operations</button>
+      <button class="dash-tab" onclick="showDash('finance',this)">📈 Executive Finance</button>
     </div>
 
-    <div class="proj-cards" id="projCards">
-
-      <div class="proj-card visible" data-cat="retail" onclick="openModal(0)">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,#1a2540,#0f1d36);">
-          <canvas id="c0" width="340" height="160"></canvas>
-          <span class="proj-thumb-icon">🛒</span>
-        </div>
-        <div class="proj-body">
-          <div class="proj-meta"><span class="proj-industry">Retail</span></div>
-          <div class="proj-title">Retail Revenue & Pricing Intelligence</div>
-          <div class="proj-desc">Tracks revenue, margin, and pricing KPIs across 50+ product categories. Advanced DAX for dynamic segmentation and pricing band analysis.</div>
-          <div class="proj-metrics"><span class="metric">+12% Revenue</span><span class="metric">200+ Users</span></div>
-          <div class="proj-tags"><span class="ptag">Power BI</span><span class="ptag">DAX</span><span class="ptag">Star Schema</span><span class="ptag">Azure SQL</span></div>
-          <div class="proj-cta">▶ View Dashboard Demo</div>
+    <!-- ═══ RETAIL DASHBOARD ═══ -->
+    <div class="dash-panel active" id="dash-retail">
+      <div class="dash-header">
+        <div class="dash-title">Retail Revenue & Pricing Intelligence · 2024</div>
+        <div class="dash-meta">
+          <div class="dmeta">DAX Measures: <span>6</span></div>
+          <div class="dmeta">Star Schema: <span>4 tables</span></div>
+          <div class="dmeta">Users: <span>200+</span></div>
+          <div class="dmeta">Revenue Impact: <span>+12%</span></div>
         </div>
       </div>
-
-      <div class="proj-card visible" data-cat="fabric" onclick="openModal(1)">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,#1a1535,#0d1128);">
-          <canvas id="c1" width="340" height="160"></canvas>
-          <span class="proj-thumb-icon">⚡</span>
+      <div class="slicer-row">
+        <span class="slicer-label">QUARTER</span>
+        <button class="slicer-btn active" onclick="sliceRetail('quarter','All',this)">All</button>
+        <button class="slicer-btn" onclick="sliceRetail('quarter','Q1',this)">Q1</button>
+        <button class="slicer-btn" onclick="sliceRetail('quarter','Q2',this)">Q2</button>
+        <button class="slicer-btn" onclick="sliceRetail('quarter','Q3',this)">Q3</button>
+        <button class="slicer-btn" onclick="sliceRetail('quarter','Q4',this)">Q4</button>
+        <div class="slicer-divider"></div>
+        <span class="slicer-label">CATEGORY</span>
+        <button class="slicer-btn active" onclick="sliceRetail('cat','All',this)">All</button>
+        <button class="slicer-btn" onclick="sliceRetail('cat','Apparel',this)">Apparel</button>
+        <button class="slicer-btn" onclick="sliceRetail('cat','Footwear',this)">Footwear</button>
+        <button class="slicer-btn" onclick="sliceRetail('cat','Accessories',this)">Accessories</button>
+      </div>
+      <div class="kpi-row" id="retailKPIs"></div>
+      <div class="chart-grid chart-grid-3" style="margin-bottom:1.2rem;">
+        <div class="chart-box">
+          <div class="chart-box-title">Revenue by Month</div>
+          <div class="chart-wrap"><canvas id="retailRevMonth" height="180"></canvas></div>
         </div>
-        <div class="proj-body">
-          <div class="proj-meta"><span class="proj-industry">Microsoft Fabric</span></div>
-          <div class="proj-title">Fabric Lakehouse Analytics Platform</div>
-          <div class="proj-desc">Migrated legacy SSAS model to Microsoft Fabric. Direct Lake mode for sub-second queries. OneLake pipelines replacing 6 manual ETL processes.</div>
-          <div class="proj-metrics"><span class="metric">Sub-second Queries</span><span class="metric">6 ETL Eliminated</span></div>
-          <div class="proj-tags"><span class="ptag">Microsoft Fabric</span><span class="ptag">OneLake</span><span class="ptag">Direct Lake</span><span class="ptag">Notebooks</span></div>
-          <div class="proj-cta">▶ View Dashboard Demo</div>
+        <div class="chart-box">
+          <div class="chart-box-title">Revenue by Category</div>
+          <div class="chart-wrap"><canvas id="retailRevCat" height="180"></canvas></div>
         </div>
       </div>
-
-      <div class="proj-card visible" data-cat="healthcare" onclick="openModal(2)">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,#0d2030,#091520);">
-          <canvas id="c2" width="340" height="160"></canvas>
-          <span class="proj-thumb-icon">🏥</span>
+      <div class="chart-grid chart-grid-2">
+        <div class="chart-box">
+          <div class="chart-box-title">Gross Margin % by Product</div>
+          <div class="chart-wrap"><canvas id="retailMargin" height="180"></canvas></div>
         </div>
-        <div class="proj-body">
-          <div class="proj-meta"><span class="proj-industry">Healthcare</span></div>
-          <div class="proj-title">Healthcare Operations KPI Dashboard</div>
-          <div class="proj-desc">Multi-department Power BI report with dynamic RLS. Tracks patient throughput, bed occupancy, and operational KPIs across 8 clinical departments.</div>
-          <div class="proj-metrics"><span class="metric">Dynamic RLS</span><span class="metric">8 Departments</span></div>
-          <div class="proj-tags"><span class="ptag">Power BI</span><span class="ptag">RLS</span><span class="ptag">DAX</span><span class="ptag">SQL Server</span></div>
-          <div class="proj-cta">▶ View Dashboard Demo</div>
+        <div class="chart-box">
+          <div class="chart-box-title">Revenue by Store · Price Band Breakdown</div>
+          <div class="chart-wrap"><canvas id="retailStore" height="180"></canvas></div>
         </div>
       </div>
+    </div>
 
-      <div class="proj-card visible" data-cat="retail" onclick="openModal(3)">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,#1f1a10,#14110a);">
-          <canvas id="c3" width="340" height="160"></canvas>
-          <span class="proj-thumb-icon">📦</span>
-        </div>
-        <div class="proj-body">
-          <div class="proj-meta"><span class="proj-industry">Retail</span></div>
-          <div class="proj-title">Inventory & Supply Chain Suite</div>
-          <div class="proj-desc">15+ interconnected reports covering stock levels, supplier performance, and replenishment triggers. 60% faster load through model optimization.</div>
-          <div class="proj-metrics"><span class="metric">15+ Reports</span><span class="metric">60% Faster Load</span></div>
-          <div class="proj-tags"><span class="ptag">Power BI</span><span class="ptag">Power Query</span><span class="ptag">Incremental Refresh</span><span class="ptag">ADF</span></div>
-          <div class="proj-cta">▶ View Dashboard Demo</div>
+    <!-- ═══ INVENTORY DASHBOARD ═══ -->
+    <div class="dash-panel" id="dash-inventory">
+      <div class="dash-header">
+        <div class="dash-title">Inventory & Supply Chain Suite · 2024</div>
+        <div class="dash-meta">
+          <div class="dmeta">Reports: <span>15+</span></div>
+          <div class="dmeta">Load Improvement: <span>60% faster</span></div>
+          <div class="dmeta">Refresh: <span>Incremental</span></div>
         </div>
       </div>
-
-      <div class="proj-card visible" data-cat="finance" onclick="openModal(4)">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,#0f2010,#091508);">
-          <canvas id="c4" width="340" height="160"></canvas>
-          <span class="proj-thumb-icon">📈</span>
+      <div class="kpi-row" id="invKPIs"></div>
+      <div class="chart-grid chart-grid-2" style="margin-bottom:1.2rem;">
+        <div class="chart-box">
+          <div class="chart-box-title">Stock Level by Product</div>
+          <div class="chart-wrap"><canvas id="invStock" height="200"></canvas></div>
         </div>
-        <div class="proj-body">
-          <div class="proj-meta"><span class="proj-industry">Finance</span></div>
-          <div class="proj-title">Executive Financial Reporting Model</div>
-          <div class="proj-desc">Boardroom-ready semantic model with time intelligence DAX for YoY, QoQ, and rolling 12-month comparisons. Azure Synapse backend.</div>
-          <div class="proj-metrics"><span class="metric">C-Suite Adoption</span><span class="metric">Azure Synapse</span></div>
-          <div class="proj-tags"><span class="ptag">Power BI</span><span class="ptag">Azure Synapse</span><span class="ptag">Time Intelligence</span><span class="ptag">DAX</span></div>
-          <div class="proj-cta">▶ View Dashboard Demo</div>
+        <div class="chart-box">
+          <div class="chart-box-title">Supplier Performance Score</div>
+          <div class="chart-wrap"><canvas id="invSupplier" height="200"></canvas></div>
         </div>
       </div>
+      <div class="chart-box">
+        <div class="chart-box-title">Replenishment Alerts · Stock vs Reorder Point</div>
+        <div class="chart-wrap"><canvas id="invReorder" height="150"></canvas></div>
+      </div>
+    </div>
 
-      <div class="proj-card visible" data-cat="fabric" onclick="openModal(5)">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,#20101a,#150a12);">
-          <canvas id="c5" width="340" height="160"></canvas>
-          <span class="proj-thumb-icon">🔐</span>
-        </div>
-        <div class="proj-body">
-          <div class="proj-meta"><span class="proj-industry">Enterprise</span></div>
-          <div class="proj-title">Enterprise RLS Governance Framework</div>
-          <div class="proj-desc">Reusable RLS architecture serving 500+ users across 12 business units. Sensitivity labels, workspace governance, and certified dataset layer.</div>
-          <div class="proj-metrics"><span class="metric">500+ Users</span><span class="metric">12 Business Units</span></div>
-          <div class="proj-tags"><span class="ptag">Power BI</span><span class="ptag">RLS</span><span class="ptag">Governance</span><span class="ptag">Fabric</span></div>
-          <div class="proj-cta">▶ View Dashboard Demo</div>
+    <!-- ═══ HEALTHCARE DASHBOARD ═══ -->
+    <div class="dash-panel" id="dash-healthcare">
+      <div class="dash-header">
+        <div class="dash-title">Healthcare Operations KPI Dashboard · 2024</div>
+        <div class="dash-meta">
+          <div class="dmeta">Departments: <span>8</span></div>
+          <div class="dmeta">Security: <span>Dynamic RLS</span></div>
+          <div class="dmeta">Source: <span>SQL Server</span></div>
         </div>
       </div>
+      <div class="kpi-row" id="hcKPIs"></div>
+      <div class="chart-grid chart-grid-2" style="margin-bottom:1.2rem;">
+        <div class="chart-box">
+          <div class="chart-box-title">Patient Throughput by Department</div>
+          <div class="chart-wrap"><canvas id="hcThroughput" height="200"></canvas></div>
+        </div>
+        <div class="chart-box">
+          <div class="chart-box-title">Bed Occupancy Rate %</div>
+          <div class="chart-wrap"><canvas id="hcBed" height="200"></canvas></div>
+        </div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-box-title">Monthly Patient Volume Trend</div>
+        <div class="chart-wrap"><canvas id="hcTrend" height="140"></canvas></div>
+      </div>
+    </div>
 
+    <!-- ═══ FINANCE DASHBOARD ═══ -->
+    <div class="dash-panel" id="dash-finance">
+      <div class="dash-header">
+        <div class="dash-title">Executive Financial Reporting Model · 2024</div>
+        <div class="dash-meta">
+          <div class="dmeta">Backend: <span>Azure Synapse</span></div>
+          <div class="dmeta">Time Intelligence: <span>YoY / QoQ</span></div>
+          <div class="dmeta">Audience: <span>C-Suite</span></div>
+        </div>
+      </div>
+      <div class="kpi-row" id="finKPIs"></div>
+      <div class="chart-grid chart-grid-3" style="margin-bottom:1.2rem;">
+        <div class="chart-box">
+          <div class="chart-box-title">Revenue vs Budget · Monthly</div>
+          <div class="chart-wrap"><canvas id="finRevBudget" height="200"></canvas></div>
+        </div>
+        <div class="chart-box">
+          <div class="chart-box-title">Expense Breakdown</div>
+          <div class="chart-wrap"><canvas id="finExpense" height="200"></canvas></div>
+        </div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-box-title">YoY Revenue Growth %</div>
+        <div class="chart-wrap"><canvas id="finYoY" height="130"></canvas></div>
+      </div>
     </div>
   </div>
 </section>
-
-<!-- MODAL -->
-<div id="modal">
-  <div class="modal-box">
-    <div class="modal-header">
-      <div class="modal-title" id="modalTitle">Dashboard</div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body" id="modalBody">
-      <!-- content injected by JS -->
-    </div>
-    <div class="modal-footer">
-      <a href="mailto:jimmymwas@gmail.com" class="modal-btn modal-btn-primary">Request Full Access</a>
-      <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Close</button>
-    </div>
-  </div>
-</div>
 
 <div class="divider"></div>
 
 <!-- SKILLS -->
 <section id="skills">
-  <div class="section-inner">
-    <div class="section-label">Core Competencies</div>
-    <h2 class="section-title">Technical Skills</h2>
-    <p class="section-sub">Enterprise BI skills aligned to the Microsoft modern data stack.</p>
+  <div class="si">
+    <div class="sl">Core Competencies</div>
+    <h2 class="st">Technical Skills</h2>
+    <p class="ss">Enterprise BI skills aligned to the Microsoft modern data stack.</p>
     <div class="skills-grid">
-      <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-name">Power BI Development</div><div class="skill-desc">Report design, semantic models, bookmarks, drill-through, mobile layouts, incremental refresh.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:97%"></div></div></div>
-      <div class="skill-card"><div class="skill-icon">🧮</div><div class="skill-name">Advanced DAX</div><div class="skill-desc">Time intelligence, CALCULATE, iterators, dynamic segmentation, pricing KPIs, complex measures.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:95%"></div></div></div>
-      <div class="skill-card"><div class="skill-icon">🏗️</div><div class="skill-name">Data Modelling</div><div class="skill-desc">Star schema, fact/dimension tables, slowly changing dimensions, relationship optimization.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:93%"></div></div></div>
-      <div class="skill-card"><div class="skill-icon">⚡</div><div class="skill-name">Microsoft Fabric</div><div class="skill-desc">Lakehouses, data pipelines, OneLake, Fabric notebooks, Direct Lake mode.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div>
-      <div class="skill-card"><div class="skill-icon">☁️</div><div class="skill-name">Azure Data Platform</div><div class="skill-desc">Azure Synapse, Azure Data Factory, Azure SQL, Blob Storage integration.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
-      <div class="skill-card"><div class="skill-icon">🔐</div><div class="skill-name">Row-Level Security</div><div class="skill-desc">Static and dynamic RLS, workspace roles, sensitivity labels, governance frameworks.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:92%"></div></div></div>
-      <div class="skill-card"><div class="skill-icon">🗄️</div><div class="skill-name">SQL & Query Tuning</div><div class="skill-desc">T-SQL, stored procedures, indexing strategies, query performance optimization.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></div>
-      <div class="skill-card"><div class="skill-icon">🔄</div><div class="skill-name">ETL / Data Pipelines</div><div class="skill-desc">Power Query (M), dataflows, scheduled refresh, incremental load, error handling.</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div>
+      <div class="skill-card"><div class="sk-icon">📊</div><div class="sk-name">Power BI Development</div><div class="sk-desc">Report design, semantic models, bookmarks, drill-through, mobile layouts, incremental refresh.</div><div class="sk-bar"><div class="sk-fill" style="width:97%"></div></div></div>
+      <div class="skill-card"><div class="sk-icon">🧮</div><div class="sk-name">Advanced DAX</div><div class="sk-desc">Time intelligence, CALCULATE, iterators, dynamic segmentation, pricing KPIs, complex measures.</div><div class="sk-bar"><div class="sk-fill" style="width:95%"></div></div></div>
+      <div class="skill-card"><div class="sk-icon">🏗️</div><div class="sk-name">Data Modelling</div><div class="sk-desc">Star schema, fact/dimension tables, slowly changing dimensions, relationship optimization.</div><div class="sk-bar"><div class="sk-fill" style="width:93%"></div></div></div>
+      <div class="skill-card"><div class="sk-icon">⚡</div><div class="sk-name">Microsoft Fabric</div><div class="sk-desc">Lakehouses, pipelines, OneLake, Fabric notebooks, Direct Lake mode.</div><div class="sk-bar"><div class="sk-fill" style="width:88%"></div></div></div>
+      <div class="skill-card"><div class="sk-icon">☁️</div><div class="sk-name">Azure Data Platform</div><div class="sk-desc">Azure Synapse, Azure Data Factory, Azure SQL, Blob Storage integration.</div><div class="sk-bar"><div class="sk-fill" style="width:85%"></div></div></div>
+      <div class="skill-card"><div class="sk-icon">🔐</div><div class="sk-name">Row-Level Security</div><div class="sk-desc">Static and dynamic RLS, workspace roles, sensitivity labels, governance frameworks.</div><div class="sk-bar"><div class="sk-fill" style="width:92%"></div></div></div>
+      <div class="skill-card"><div class="sk-icon">🗄️</div><div class="sk-name">SQL & Query Tuning</div><div class="sk-desc">T-SQL, stored procedures, indexing strategies, query performance optimization.</div><div class="sk-bar"><div class="sk-fill" style="width:90%"></div></div></div>
+      <div class="skill-card"><div class="sk-icon">🔄</div><div class="sk-name">ETL / Data Pipelines</div><div class="sk-desc">Power Query (M), dataflows, scheduled refresh, incremental load, error handling.</div><div class="sk-bar"><div class="sk-fill" style="width:88%"></div></div></div>
     </div>
   </div>
 </section>
@@ -348,17 +392,17 @@
 
 <!-- EXPERIENCE -->
 <section id="experience">
-  <div class="section-inner">
-    <div class="section-label">Career History</div>
-    <h2 class="section-title">Work Experience</h2>
-    <p class="section-sub">7+ years delivering enterprise BI solutions.</p>
+  <div class="si">
+    <div class="sl">Career History</div>
+    <h2 class="st">Work Experience</h2>
+    <p class="ss">7+ years delivering enterprise BI solutions.</p>
     <div class="tl">
       <div class="tl-item">
         <div class="tl-date">2022 – Present</div>
         <div class="tl-card">
           <div class="tl-role">Senior BI Developer</div>
           <div class="tl-co">Retail & Analytics Consultancy · Contract</div>
-          <ul class="tl-list">
+          <ul class="tl-li">
             <li>Designed 15+ Power BI dashboards serving 200+ daily retail users.</li>
             <li>Built scalable star schema semantic models with fact and dimension design.</li>
             <li>Developed advanced DAX measures for pricing, revenue, and KPI tracking.</li>
@@ -373,7 +417,7 @@
         <div class="tl-card">
           <div class="tl-role">BI Developer / Data Analyst</div>
           <div class="tl-co">Enterprise Data Solutions · Full-time</div>
-          <ul class="tl-list">
+          <ul class="tl-li">
             <li>Built Power BI report suites for retail operations and finance teams.</li>
             <li>Optimised dashboard performance through model tuning and refresh improvements.</li>
             <li>Developed ETL pipelines using Power Query and Azure Data Factory.</li>
@@ -386,7 +430,7 @@
         <div class="tl-card">
           <div class="tl-role">Data Analyst</div>
           <div class="tl-co">Analytics & Reporting Team · Full-time</div>
-          <ul class="tl-list">
+          <ul class="tl-li">
             <li>Created operational reports and dashboards for business stakeholders.</li>
             <li>Wrote complex SQL queries for data extraction and ad-hoc reporting.</li>
             <li>Supported migration from Excel to Power BI self-service models.</li>
@@ -399,17 +443,17 @@
 
 <div class="divider"></div>
 
-<!-- CERTIFICATIONS -->
+<!-- CERTS -->
 <section id="certs">
-  <div class="section-inner">
-    <div class="section-label">Credentials</div>
-    <h2 class="section-title">Certifications & Education</h2>
-    <p class="section-sub">Microsoft-aligned credentials supporting the Senior BI Developer role.</p>
+  <div class="si">
+    <div class="sl">Credentials</div>
+    <h2 class="st">Certifications & Education</h2>
+    <p class="ss">Microsoft-aligned credentials supporting the Senior BI Developer role.</p>
     <div class="certs-grid">
-      <div class="cert-card"><div class="cert-icon">🏆</div><div class="cert-name">PL-300: Power BI Data Analyst</div><div class="cert-issuer">Microsoft Certified</div></div>
-      <div class="cert-card"><div class="cert-icon">⚡</div><div class="cert-name">DP-600: Fabric Analytics Engineer</div><div class="cert-issuer">Microsoft Certified</div></div>
-      <div class="cert-card"><div class="cert-icon">☁️</div><div class="cert-name">DP-900: Azure Data Fundamentals</div><div class="cert-issuer">Microsoft Certified</div></div>
-      <div class="cert-card"><div class="cert-icon">🎓</div><div class="cert-name">BSc. Information Technology</div><div class="cert-issuer">University Degree</div></div>
+      <div class="cert"><div class="cert-icon">🏆</div><div class="cert-name">PL-300: Power BI Data Analyst</div><div class="cert-issuer">Microsoft Certified</div></div>
+      <div class="cert"><div class="cert-icon">⚡</div><div class="cert-name">DP-600: Fabric Analytics Engineer</div><div class="cert-issuer">Microsoft Certified</div></div>
+      <div class="cert"><div class="cert-icon">☁️</div><div class="cert-name">DP-900: Azure Data Fundamentals</div><div class="cert-issuer">Microsoft Certified</div></div>
+      <div class="cert"><div class="cert-icon">🎓</div><div class="cert-name">BSc. Information Technology</div><div class="cert-issuer">University Degree</div></div>
     </div>
   </div>
 </section>
@@ -418,21 +462,21 @@
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-inner">
-    <div class="section-label">Get In Touch</div>
-    <h2 class="section-title">Available for Dubai Contract</h2>
-    <p class="section-sub">Open to immediate engagement on Power BI and Microsoft Fabric projects in Dubai and the GCC region.</p>
+  <div class="si">
+    <div class="sl">Get In Touch</div>
+    <h2 class="st">Available for Dubai Contract</h2>
+    <p class="ss">Open to immediate engagement on Power BI and Microsoft Fabric projects across Dubai and the GCC.</p>
     <div class="contact-grid">
       <div>
         <div class="avail"><span style="width:8px;height:8px;border-radius:50%;background:var(--success);display:inline-block;"></span> Actively Available · Dubai / GCC / Remote</div>
-        <div class="contact-item"><div class="ci-icon">📧</div><div><div class="ci-label">Email</div><div class="ci-val"><a href="mailto:jimmymwas@gmail.com">jimmymwas@gmail.com</a></div></div></div>
-        <div class="contact-item"><div class="ci-icon">📱</div><div><div class="ci-label">Phone / WhatsApp</div><div class="ci-val">+254 723 116 737</div></div></div>
-        <div class="contact-item"><div class="ci-icon">💼</div><div><div class="ci-label">LinkedIn</div><div class="ci-val"><a href="https://linkedin.com/in/jimmymaina" target="_blank">linkedin.com/in/jimmymaina</a></div></div></div>
-        <div class="contact-item"><div class="ci-icon">💻</div><div><div class="ci-label">GitHub</div><div class="ci-val"><a href="https://github.com/jimal254" target="_blank">github.com/jimal254</a></div></div></div>
+        <div class="ci"><div class="ci-icon">📧</div><div><div class="ci-label">Email</div><div class="ci-val"><a href="mailto:jimmymwas@gmail.com">jimmymwas@gmail.com</a></div></div></div>
+        <div class="ci"><div class="ci-icon">📱</div><div><div class="ci-label">Phone / WhatsApp</div><div class="ci-val">+254 723 116 737</div></div></div>
+        <div class="ci"><div class="ci-icon">💼</div><div><div class="ci-label">LinkedIn</div><div class="ci-val"><a href="https://linkedin.com/in/jimmymaina" target="_blank">linkedin.com/in/jimmymaina</a></div></div></div>
+        <div class="ci"><div class="ci-icon">💻</div><div><div class="ci-label">GitHub</div><div class="ci-val"><a href="https://github.com/jimal254" target="_blank">github.com/jimal254</a></div></div></div>
       </div>
       <div class="cta-block">
         <h3>Ready to Contribute Immediately</h3>
-        <p>Available for Power BI and Microsoft Fabric contract roles in Dubai and the GCC. Minimal onboarding required.</p>
+        <p>Available for Power BI and Microsoft Fabric contract roles. Minimal onboarding required.</p>
         <div class="cta-links">
           <a href="mailto:jimmymwas@gmail.com" class="cta-link">📧 &nbsp;Send me an email</a>
           <a href="tel:+254723116737" class="cta-link">📞 &nbsp;Call or WhatsApp</a>
@@ -447,206 +491,272 @@
 <footer>© 2025 Jimmy Maina · Senior BI Developer · Power BI & Microsoft Fabric · Dubai / GCC</footer>
 
 <script>
-// ─── PROJECT DATA ────────────────────────────────────────────────────────────
-const projects = [
-  {
-    title:"Retail Revenue & Pricing Intelligence",
-    embedUrl:"YOUR_POWERBI_EMBED_URL_1", // ← replace with publish-to-web URL
-    desc:"Tracks revenue, margin, and pricing KPIs across 50+ product categories. Dynamic segmentation and pricing band analysis via advanced DAX.",
-    colors:["#f59e0b","#3b82f6","#10b981","#ef4444","#8b5cf6"]
-  },
-  {
-    title:"Fabric Lakehouse Analytics Platform",
-    embedUrl:"YOUR_POWERBI_EMBED_URL_2",
-    desc:"Microsoft Fabric migration with Direct Lake mode for sub-second queries. OneLake-connected pipelines replacing 6 manual ETL processes.",
-    colors:["#8b5cf6","#3b82f6","#06b6d4","#f59e0b","#10b981"]
-  },
-  {
-    title:"Healthcare Operations KPI Dashboard",
-    embedUrl:"YOUR_POWERBI_EMBED_URL_3",
-    desc:"Dynamic RLS securing 8 clinical departments. Tracks patient throughput, bed occupancy, and operational performance KPIs.",
-    colors:["#10b981","#3b82f6","#f59e0b","#06b6d4","#8b5cf6"]
-  },
-  {
-    title:"Inventory & Supply Chain Suite",
-    embedUrl:"YOUR_POWERBI_EMBED_URL_4",
-    desc:"15+ interconnected reports. Stock levels, supplier performance, replenishment triggers. 60% faster load through incremental refresh.",
-    colors:["#f59e0b","#ef4444","#10b981","#3b82f6","#8b5cf6"]
-  },
-  {
-    title:"Executive Financial Reporting Model",
-    embedUrl:"YOUR_POWERBI_EMBED_URL_5",
-    desc:"Boardroom-ready time intelligence DAX: YoY, QoQ, rolling 12-month comparisons. Azure Synapse backend. C-Suite adoption.",
-    colors:["#10b981","#f59e0b","#3b82f6","#8b5cf6","#ef4444"]
-  },
-  {
-    title:"Enterprise RLS Governance Framework",
-    embedUrl:"YOUR_POWERBI_EMBED_URL_6",
-    desc:"Reusable RLS for 500+ users across 12 business units. Sensitivity labels, workspace governance, certified dataset layer.",
-    colors:["#ef4444","#8b5cf6","#3b82f6","#10b981","#f59e0b"]
-  }
-];
+// ─── CHART DEFAULTS ───────────────────────────────────────────────────────────
+Chart.defaults.color = '#94a3b8';
+Chart.defaults.borderColor = '#1e2d4a';
+Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+Chart.defaults.font.size = 11;
 
-// ─── MINI CHART THUMBNAILS ────────────────────────────────────────────────────
-function drawMiniChart(canvasId, colors) {
-  const c = document.getElementById(canvasId);
-  if(!c) return;
-  const ctx = c.getContext('2d');
-  const w = c.width, h = c.height;
-  // bar chart
-  const bars = [0.55,0.75,0.45,0.85,0.65,0.9,0.7,0.5,0.8,0.6];
-  const bw = w / (bars.length * 1.8);
-  const gap = bw * 0.8;
-  const startX = (w - (bars.length * (bw + gap) - gap)) / 2;
-  ctx.clearRect(0,0,w,h);
-  bars.forEach((v,i) => {
-    const bh = v * (h * 0.65);
-    const x = startX + i*(bw+gap);
-    const y = h - bh - 15;
-    const grad = ctx.createLinearGradient(0,y,0,h);
-    grad.addColorStop(0, colors[i % colors.length] + 'cc');
-    grad.addColorStop(1, colors[i % colors.length] + '22');
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.roundRect(x, y, bw, bh, 3);
-    ctx.fill();
+const A = '#f59e0b', B = '#3b82f6', G = '#10b981', R = '#ef4444', P = '#8b5cf6', C = '#06b6d4';
+
+function cfg(type, labels, datasets, opts={}) {
+  return {
+    type, data:{labels, datasets},
+    options:{responsive:true, maintainAspectRatio:true, plugins:{legend:{labels:{boxWidth:10,padding:12}}}, ...opts}
+  };
+}
+
+function grad(ctx, color, alpha=0.3) {
+  const g = ctx.createLinearGradient(0,0,0,200);
+  g.addColorStop(0, color + Math.round(alpha*255).toString(16).padStart(2,'0'));
+  g.addColorStop(1, color + '05');
+  return g;
+}
+
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+const retailData = {
+  All: {
+    rev:    [18200,19800,22400,26100,28900,31200,29800,33400,35100,38200,41500,47800],
+    margin: [0.41, 0.42, 0.43, 0.44, 0.43, 0.45, 0.44, 0.46, 0.45, 0.44, 0.46, 0.48],
+    units:  [280,310,350,410,460,510,490,550,580,630,680,780]
+  },
+  Q1:{rev:[18200,19800,22400],margin:[0.41,0.42,0.43],units:[280,310,350]},
+  Q2:{rev:[26100,28900,31200],margin:[0.44,0.43,0.45],units:[410,460,510]},
+  Q3:{rev:[29800,33400,35100],margin:[0.44,0.46,0.45],units:[490,550,580]},
+  Q4:{rev:[38200,41500,47800],margin:[0.44,0.46,0.48],units:[630,680,780]},
+};
+
+let rQ='All', rCat='All';
+const charts = {};
+
+function fmt(n){return n>=1000?'$'+(n/1000).toFixed(1)+'K':'$'+n;}
+function pct(n){return (n*100).toFixed(1)+'%';}
+function sum(a){return a.reduce((s,v)=>s+v,0);}
+function avg(a){return a.reduce((s,v)=>s+v,0)/a.length;}
+
+// ─── KPI RENDERER ─────────────────────────────────────────────────────────────
+function kpiHTML(items){
+  return items.map(({val,label,delta,cls})=>`
+    <div class="kpi ${cls||''}">
+      <div class="kpi-val">${val}</div>
+      <div class="kpi-label">${label}</div>
+      ${delta?`<div class="kpi-delta ${delta.startsWith('+')?'up':'down'}">${delta}</div>`:''}
+    </div>`).join('');
+}
+
+// ─── RETAIL DASHBOARD ─────────────────────────────────────────────────────────
+function initRetail() {
+  renderRetailKPIs();
+
+  const ctx1 = document.getElementById('retailRevMonth').getContext('2d');
+  charts.retailRevMonth = new Chart(ctx1, {
+    type:'line',
+    data:{labels: rQ==='All'?months:['Month 1','Month 2','Month 3'],
+      datasets:[{label:'Revenue',data:retailData[rQ].rev,borderColor:A,backgroundColor:grad(ctx1,A),borderWidth:2,pointBackgroundColor:A,pointRadius:3,fill:true,tension:.4}]},
+    options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>fmt(v)}}}}
   });
-  // line overlay
-  ctx.beginPath();
-  ctx.strokeStyle = '#ffffff33';
-  ctx.lineWidth = 1.5;
-  bars.forEach((v,i) => {
-    const bh = v * (h * 0.65);
-    const x = startX + i*(bw+gap) + bw/2;
-    const y = h - bh - 15;
-    i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+
+  const ctx2 = document.getElementById('retailRevCat').getContext('2d');
+  charts.retailRevCat = new Chart(ctx2, {
+    type:'doughnut',
+    data:{labels:['Apparel','Footwear','Accessories'],
+      datasets:[{data:[142000,87000,58800],backgroundColor:[A,B,G],borderWidth:0,hoverOffset:6}]},
+    options:{responsive:true,cutout:'65%',plugins:{legend:{position:'bottom'}}}
   });
-  ctx.stroke();
-  // dots
-  bars.forEach((v,i) => {
-    const bh = v * (h * 0.65);
-    const x = startX + i*(bw+gap) + bw/2;
-    const y = h - bh - 15;
-    ctx.beginPath();
-    ctx.arc(x,y,3,0,Math.PI*2);
-    ctx.fillStyle = '#fff';
-    ctx.fill();
+
+  const ctx3 = document.getElementById('retailMargin').getContext('2d');
+  charts.retailMargin = new Chart(ctx3, {
+    type:'bar',
+    data:{labels:['Cotton T-Shirt','Denim Jacket','Baseball Cap','Running Shoes','Canvas Bag','Leather Wallet'],
+      datasets:[{label:'Gross Margin %',data:[44,42,47,40,52,43],backgroundColor:[A,B,G,R,P,C],borderRadius:4}]},
+    options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>v+'%'},max:60}}}
+  });
+
+  const ctx4 = document.getElementById('retailStore').getContext('2d');
+  charts.retailStore = new Chart(ctx4, {
+    type:'bar',
+    data:{labels:['Mall Branch – Dubai','Downtown – Abu Dhabi','Airport – Sharjah'],
+      datasets:[
+        {label:'Low',data:[48000,32000,21000],backgroundColor:G+'cc',borderRadius:3},
+        {label:'Mid',data:[62000,41000,28000],backgroundColor:B+'cc',borderRadius:3},
+        {label:'High',data:[35000,24000,16800],backgroundColor:A+'cc',borderRadius:3}
+      ]},
+    options:{responsive:true,scales:{x:{stacked:true},y:{stacked:true,ticks:{callback:v=>fmt(v)}}}}
   });
 }
 
-document.querySelectorAll('[id^="c"]').forEach(c => {
-  const idx = parseInt(c.id.replace('c',''));
-  if(!isNaN(idx) && projects[idx]) drawMiniChart(c.id, projects[idx].colors);
-});
+function renderRetailKPIs() {
+  const d = retailData[rQ];
+  const rev = sum(d.rev), mar = avg(d.margin), units = sum(d.units);
+  document.getElementById('retailKPIs').innerHTML = kpiHTML([
+    {val:fmt(rev), label:'Total Revenue', delta:'+12% vs prior period', cls:''},
+    {val:pct(mar), label:'Gross Margin %', delta:'+2.1pp YoY', cls:'green'},
+    {val:units.toLocaleString(), label:'Units Sold', delta:'+18% YoY', cls:'blue'},
+    {val:'$'+( rev/units ).toFixed(2), label:'Avg Selling Price', delta:'', cls:''},
+    {val:'3.2%', label:'Discount Rate', delta:'-0.8pp', cls:'green'},
+    {val:'$'+(rev*mar/1000).toFixed(1)+'K', label:'Gross Profit', delta:'+14% YoY', cls:'green'},
+  ]);
+}
 
-// ─── FILTER TABS ──────────────────────────────────────────────────────────────
-function filterProj(cat, btn) {
-  document.querySelectorAll('.proj-tab').forEach(t => t.classList.remove('active'));
+function updateRetailCharts() {
+  renderRetailKPIs();
+  const d = retailData[rQ];
+  const lbl = rQ==='All'?months:['Month 1','Month 2','Month 3'];
+  charts.retailRevMonth.data.labels = lbl;
+  charts.retailRevMonth.data.datasets[0].data = d.rev;
+  charts.retailRevMonth.update();
+}
+
+function sliceRetail(type, val, btn) {
+  const group = type==='quarter'?'.slicer-row .slicer-btn:nth-child(-n+6)':'';
+  btn.closest('.slicer-row').querySelectorAll('.slicer-btn').forEach(b=>{
+    if((type==='quarter'&&['All','Q1','Q2','Q3','Q4'].includes(b.textContent))||
+       (type==='cat'&&['All','Apparel','Footwear','Accessories'].includes(b.textContent))) {
+      b.classList.remove('active');
+    }
+  });
   btn.classList.add('active');
-  document.querySelectorAll('.proj-card').forEach(c => {
-    c.classList.toggle('visible', cat === 'all' || c.dataset.cat === cat);
+  if(type==='quarter') rQ=val;
+  else rCat=val;
+  updateRetailCharts();
+}
+
+// ─── INVENTORY DASHBOARD ──────────────────────────────────────────────────────
+function initInventory() {
+  document.getElementById('invKPIs').innerHTML = kpiHTML([
+    {val:'2,847', label:'Total SKUs Tracked', delta:'', cls:''},
+    {val:'94.2%', label:'In-Stock Rate', delta:'+1.8pp MoM', cls:'green'},
+    {val:'4.2 days', label:'Avg Replenishment Time', delta:'-0.6d MoM', cls:'green'},
+    {val:'12', label:'Low Stock Alerts', delta:'↓ from 19', cls:'blue'},
+    {val:'98.1%', label:'Supplier On-Time %', delta:'+0.5pp', cls:'green'},
+    {val:'$1.2M', label:'Inventory Value', delta:'', cls:''},
+  ]);
+
+  const c1 = document.getElementById('invStock').getContext('2d');
+  new Chart(c1, cfg('bar',
+    ['Cotton T-Shirt','Denim Jacket','Baseball Cap','Running Shoes','Canvas Bag','Leather Wallet'],
+    [{label:'Current Stock',data:[420,180,560,95,340,210],backgroundColor:B+'cc',borderRadius:4},
+     {label:'Reorder Point',data:[100,80,150,50,100,80],backgroundColor:R+'66',borderRadius:4}]
+  ));
+
+  const c2 = document.getElementById('invSupplier').getContext('2d');
+  new Chart(c2, {type:'radar',
+    data:{labels:['On-Time','Quality','Flexibility','Price','Communication'],
+      datasets:[
+        {label:'Supplier A',data:[95,88,72,80,90],borderColor:A,backgroundColor:A+'22',borderWidth:2,pointBackgroundColor:A},
+        {label:'Supplier B',data:[82,94,85,75,78],borderColor:B,backgroundColor:B+'22',borderWidth:2,pointBackgroundColor:B}
+      ]},
+    options:{responsive:true,scales:{r:{min:60,max:100,ticks:{stepSize:10}}}}
+  });
+
+  const c3 = document.getElementById('invReorder').getContext('2d');
+  new Chart(c3, cfg('bar', months,
+    [{label:'Stock Level',data:[420,380,350,410,460,490,440,510,530,580,620,680],backgroundColor:G+'99',borderRadius:3},
+     {label:'Reorder Point',data:[150,150,150,150,150,150,150,150,150,150,150,150],type:'line',borderColor:R,borderWidth:2,borderDash:[5,5],pointRadius:0,fill:false}]
+  ));
+}
+
+// ─── HEALTHCARE DASHBOARD ─────────────────────────────────────────────────────
+function initHealthcare() {
+  document.getElementById('hcKPIs').innerHTML = kpiHTML([
+    {val:'18,420', label:'Total Patients · YTD', delta:'+8.2% YoY', cls:''},
+    {val:'82.4%', label:'Bed Occupancy Rate', delta:'+3.1pp YoY', cls:'blue'},
+    {val:'4.2 hrs', label:'Avg Wait Time', delta:'-0.8h YoY', cls:'green'},
+    {val:'97.1%', label:'Patient Satisfaction', delta:'+1.2pp', cls:'green'},
+    {val:'8', label:'Departments Covered', delta:'Dynamic RLS', cls:''},
+    {val:'99.8%', label:'Data Refresh Uptime', delta:'', cls:'green'},
+  ]);
+
+  const c1 = document.getElementById('hcThroughput').getContext('2d');
+  new Chart(c1, cfg('bar',
+    ['Emergency','Cardiology','Orthopaedics','Oncology','Paediatrics','Neurology','Surgery','General'],
+    [{label:'Patients',data:[3800,2100,1850,1420,2200,980,1650,4420],backgroundColor:[A,B,G,R,P,C,A+'99',B+'99'],borderRadius:4}],
+    {plugins:{legend:{display:false}}}
+  ));
+
+  const c2 = document.getElementById('hcBed').getContext('2d');
+  new Chart(c2, {type:'doughnut',
+    data:{labels:['Occupied','Available'],
+      datasets:[{data:[82.4,17.6],backgroundColor:[B,B+'22'],borderWidth:0,hoverOffset:4}]},
+    options:{responsive:true,cutout:'70%',plugins:{legend:{position:'bottom'}}}
+  });
+
+  const c3 = document.getElementById('hcTrend').getContext('2d');
+  const ctx3 = c3;
+  new Chart(ctx3, {type:'line',
+    data:{labels:months,
+      datasets:[{label:'Patients',data:[1200,1150,1320,1480,1560,1620,1580,1710,1690,1820,1890,2200],
+        borderColor:G,backgroundColor:grad(ctx3,G),borderWidth:2,fill:true,tension:.4,pointRadius:3,pointBackgroundColor:G}]},
+    options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:false}}}
   });
 }
 
-// ─── MODAL ────────────────────────────────────────────────────────────────────
-function openModal(i) {
-  const p = projects[i];
-  document.getElementById('modalTitle').textContent = p.title;
-  const body = document.getElementById('modalBody');
-  const isReal = !p.embedUrl.startsWith('YOUR_');
+// ─── FINANCE DASHBOARD ────────────────────────────────────────────────────────
+function initFinance() {
+  document.getElementById('finKPIs').innerHTML = kpiHTML([
+    {val:'$8.4M', label:'Total Revenue · YTD', delta:'+14.2% YoY', cls:''},
+    {val:'$5.9M', label:'Total Budget', delta:'142% attainment', cls:'green'},
+    {val:'38.6%', label:'EBITDA Margin', delta:'+2.8pp YoY', cls:'green'},
+    {val:'$1.2M', label:'Net Profit', delta:'+19.4% YoY', cls:'green'},
+    {val:'2.4x', label:'Revenue / Cost Ratio', delta:'', cls:'blue'},
+    {val:'Q4', label:'Best Quarter', delta:'+22% vs Q1', cls:''},
+  ]);
 
-  if(isReal) {
-    body.innerHTML = `<iframe class="embed-frame" src="${p.embedUrl}" allowfullscreen></iframe>`;
-  } else {
-    // Demo visualization
-    body.innerHTML = `
-      <div class="embed-placeholder">
-        <canvas id="demoChart" width="700" height="300" style="max-width:100%;border-radius:10px;background:var(--surface);border:1px solid var(--border);"></canvas>
-        <p class="embed-note"><strong style="color:var(--text)">${p.title}</strong><br>${p.desc}</p>
-        <div class="embed-url-box">Paste your Power BI publish-to-web URL here:<br>${p.embedUrl}</div>
-      </div>`;
-    drawDemoChart('demoChart', p.colors);
+  const c1 = document.getElementById('finRevBudget').getContext('2d');
+  new Chart(c1, cfg('bar', months,
+    [{label:'Actual Revenue',data:[580,620,710,780,850,920,880,980,1020,1120,1240,1500],backgroundColor:A+'cc',borderRadius:3},
+     {label:'Budget',data:[500,550,650,700,750,800,800,850,900,1000,1100,1300],type:'line',borderColor:B,borderWidth:2,pointRadius:3,pointBackgroundColor:B,fill:false}],
+    {scales:{y:{ticks:{callback:v=>'$'+(v/1000).toFixed(1)+'K'}}}}
+  ));
+
+  const c2 = document.getElementById('finExpense').getContext('2d');
+  new Chart(c2, {type:'doughnut',
+    data:{labels:['COGS','Salaries','Marketing','Operations','Technology','Other'],
+      datasets:[{data:[35,28,12,10,8,7],backgroundColor:[A,B,G,R,P,C],borderWidth:0,hoverOffset:6}]},
+    options:{responsive:true,cutout:'60%',plugins:{legend:{position:'bottom'}}}
+  });
+
+  const c3 = document.getElementById('finYoY').getContext('2d');
+  new Chart(c3, cfg('bar', months,
+    [{label:'YoY Growth %',data:[8.2,10.1,12.4,13.8,15.2,14.9,13.6,16.2,15.8,17.4,18.9,22.1],
+      backgroundColor:ctx=>ctx.raw>=0?G+'cc':R+'cc',borderRadius:4}],
+    {plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>v+'%'}}}}
+  ));
+}
+
+// ─── HERO CHART ───────────────────────────────────────────────────────────────
+function initHero() {
+  const ctx = document.getElementById('heroChart').getContext('2d');
+  new Chart(ctx, {type:'line',
+    data:{labels:months,
+      datasets:[{data:[18200,19800,22400,26100,28900,31200,29800,33400,35100,38200,41500,47800],
+        borderColor:A,backgroundColor:grad(ctx,A,0.4),borderWidth:2,fill:true,tension:.4,pointRadius:0}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{display:false},y:{display:false}}}
+  });
+}
+
+// ─── DASHBOARD SWITCHER ───────────────────────────────────────────────────────
+const inited = {};
+function showDash(id, btn) {
+  document.querySelectorAll('.dash-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.dash-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('dash-'+id).classList.add('active');
+  if(!inited[id]) {
+    if(id==='inventory') initInventory();
+    if(id==='healthcare') initHealthcare();
+    if(id==='finance') initFinance();
+    inited[id]=true;
   }
-  document.getElementById('modal').classList.add('open');
 }
 
-function closeModal() {
-  document.getElementById('modal').classList.remove('open');
-  document.getElementById('modalBody').innerHTML = '';
-}
-
-document.getElementById('modal').addEventListener('click', e => {
-  if(e.target === document.getElementById('modal')) closeModal();
-});
-
-function drawDemoChart(id, colors) {
-  const c = document.getElementById(id);
-  if(!c) return;
-  const ctx = c.getContext('2d');
-  const w = c.width, h = c.height;
-  ctx.clearRect(0,0,w,h);
-
-  // Title
-  ctx.fillStyle = '#94a3b8';
-  ctx.font = '12px Segoe UI,sans-serif';
-  ctx.fillText('Monthly KPI Performance · Power BI Demo Preview', 20, 25);
-
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const vals = [62,71,58,80,75,88,72,91,85,79,93,87];
-  const vals2 = [45,52,48,60,58,70,65,72,68,75,80,78];
-
-  const padL=50, padR=20, padT=45, padB=35;
-  const cw = w-padL-padR, ch = h-padT-padB;
-  const max = 100;
-
-  // Grid lines
-  for(let g=0;g<=4;g++){
-    const y = padT + (ch/4)*g;
-    ctx.strokeStyle='#1e2d4a';ctx.lineWidth=1;
-    ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(padL+cw,y);ctx.stroke();
-    ctx.fillStyle='#475569';ctx.font='10px Segoe UI';
-    ctx.fillText((100-g*25)+'%', 8, y+4);
-  }
-
-  // Bars
-  const bw = cw/months.length * 0.35;
-  months.forEach((m,i) => {
-    const x = padL + (cw/months.length)*i + cw/months.length*0.15;
-    // bar 1
-    const bh1 = (vals[i]/max)*ch;
-    const grad1 = ctx.createLinearGradient(0,padT+ch-bh1,0,padT+ch);
-    grad1.addColorStop(0, colors[0]+'ee');
-    grad1.addColorStop(1, colors[0]+'33');
-    ctx.fillStyle=grad1;
-    ctx.beginPath();ctx.roundRect(x,padT+ch-bh1,bw,bh1,3);ctx.fill();
-    // bar 2
-    const bh2 = (vals2[i]/max)*ch;
-    const grad2 = ctx.createLinearGradient(0,padT+ch-bh2,0,padT+ch);
-    grad2.addColorStop(0, colors[1]+'ee');
-    grad2.addColorStop(1, colors[1]+'33');
-    ctx.fillStyle=grad2;
-    ctx.beginPath();ctx.roundRect(x+bw+2,padT+ch-bh2,bw,bh2,3);ctx.fill();
-    // x-label
-    ctx.fillStyle='#475569';ctx.font='9px Segoe UI';
-    ctx.fillText(m, x, padT+ch+14);
-  });
-
-  // Line
-  ctx.beginPath();ctx.strokeStyle=colors[2]+'cc';ctx.lineWidth=2;
-  months.forEach((m,i)=>{
-    const x = padL+(cw/months.length)*i+cw/months.length*0.5;
-    const y = padT+ch-(vals[i]/max)*ch;
-    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-  });
-  ctx.stroke();
-
-  // Legend
-  [[colors[0],'KPI Actual'],[colors[1],'KPI Target'],[colors[2],'Trend']].forEach(([col,lbl],i)=>{
-    ctx.fillStyle=col;ctx.fillRect(padL+i*110,12,10,10);
-    ctx.fillStyle='#94a3b8';ctx.font='10px Segoe UI';
-    ctx.fillText(lbl,padL+i*110+14,21);
-  });
-}
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+initHero();
+initRetail();
+inited.retail = true;
 </script>
 </body>
-          </html>
+</html>
