@@ -3,764 +3,654 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Jimmy Maina | Senior Data Analyst</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<title>Jimmy Maina · Senior Data Analyst</title>
 <style>
 :root{
-  --bg:#000;--surface:#05070d;--card:#080c14;--border:#0f1825;
-  --text:#e8edf5;--muted:#3d5468;
-  --c1:#f59e0b;--c2:#fb923c;--c3:#00d4ff;--c4:#00e5a0;--c5:#a78bfa;--c6:#f43f5e;
+  --gold:#c9a84c;--gold2:#f0d080;--cyan:#00e5ff;--purple:#7c3aed;
+  --dark:#010208;--card:#07112299;--text:#e2e8f0;--sub:#94a3b8;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6;overflow-x:hidden;}
+body{background:var(--dark);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;overflow-x:hidden;}
+
+/* ── THREE.JS CANVAS ── */
+#three-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+
+/* ── BUJ KHALIFA BG ── */
+.bkh-bg{
+  position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 100%,rgba(201,168,76,.13) 0%,transparent 70%),
+    radial-gradient(ellipse 100% 60% at 50% 0%,rgba(0,10,40,.95) 0%,transparent 100%);
+}
+#bk-svg{position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:0;opacity:.18;pointer-events:none;width:100%;max-width:1400px;}
+
+/* ── ANIMATED GRADIENT ── */
+.grad-orb{
+  position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;
+  animation:orb-float 8s ease-in-out infinite alternate;
+}
+.orb1{width:600px;height:600px;top:-200px;left:-200px;background:radial-gradient(circle,rgba(201,168,76,.18),transparent 70%);}
+.orb2{width:500px;height:500px;top:20%;right:-150px;background:radial-gradient(circle,rgba(0,229,255,.12),transparent 70%);animation-delay:-3s;}
+.orb3{width:400px;height:400px;bottom:10%;left:10%;background:radial-gradient(circle,rgba(124,58,237,.14),transparent 70%);animation-delay:-5s;}
+@keyframes orb-float{from{transform:translate(0,0) scale(1);}to{transform:translate(40px,30px) scale(1.1);}}
 
 /* ── NAV ── */
 nav{
-  position:fixed;top:0;width:100%;
-  background:rgba(0,0,0,.85);backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(245,158,11,.08);z-index:300;
-  transition:background .3s;
+  position:fixed;top:0;width:100%;z-index:200;
+  padding:1.1rem 4rem;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(1,2,8,.75);backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(201,168,76,.12);
 }
-nav.scrolled{background:rgba(0,0,0,.97);}
-.nav-inner{max-width:1160px;margin:auto;display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 1.5rem;}
-.logo{font-weight:800;font-size:.9rem;letter-spacing:1.5px;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.nav-links{display:flex;gap:1.8rem;list-style:none;}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:.79rem;font-weight:500;transition:color .2s;}
-.nav-links a:hover{color:var(--c1);}
-.nav-cta{background:linear-gradient(135deg,var(--c1),var(--c2));color:#000;padding:.35rem 1.2rem;border-radius:6px;font-weight:800;font-size:.78rem;text-decoration:none;}
-
-/* hamburger */
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.3rem;}
-.hamburger span{display:block;width:22px;height:2px;background:var(--muted);border-radius:2px;transition:all .3s;}
-.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-.hamburger.open span:nth-child(2){opacity:0;}
-.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-.mobile-menu{
-  display:none;position:fixed;top:58px;left:0;width:100%;
-  background:rgba(0,0,0,.97);border-bottom:1px solid var(--border);
-  flex-direction:column;padding:1rem 1.5rem;gap:.8rem;z-index:299;
+.logo{font-size:1rem;font-weight:800;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{color:var(--sub);text-decoration:none;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;transition:.3s;}
+.nav-links a:hover{color:var(--gold);}
+.hire-btn{
+  padding:.5rem 1.4rem;border:1px solid var(--gold);color:var(--gold);
+  background:transparent;border-radius:4px;font-size:.78rem;letter-spacing:.1em;
+  cursor:pointer;transition:.3s;text-decoration:none;text-transform:uppercase;
 }
-.mobile-menu.open{display:flex;}
-.mobile-menu a{color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:500;padding:.4rem 0;border-bottom:1px solid var(--border);}
-.mobile-menu a:hover{color:var(--c1);}
+.hire-btn:hover{background:var(--gold);color:#000;}
 
-/* ── HERO — full BG image ── */
+/* ── HERO ── */
 #hero{
-  min-height:100vh;position:relative;
-  display:flex;align-items:center;
-  padding:80px 1.5rem 4rem;
-  background:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=100&w=3840&auto=format&fit=crop') center 20%/cover no-repeat fixed;
+  position:relative;z-index:1;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:8rem 2rem 4rem;
 }
-.hero-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.7) 50%,rgba(0,0,0,.85) 100%);
+.eyebrow{
+  font-size:.68rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.5rem;opacity:.85;
 }
-/* animated amber glow */
-.hero-glow{
-  position:absolute;top:25%;left:5%;
-  width:500px;height:500px;
-  background:radial-gradient(circle,rgba(245,158,11,.07),transparent 70%);
-  animation:glowFloat 6s ease-in-out infinite;pointer-events:none;
-}
-.hero-glow2{
-  position:absolute;bottom:15%;right:10%;
-  width:350px;height:350px;
-  background:radial-gradient(circle,rgba(0,212,255,.05),transparent 70%);
-  animation:glowFloat 8s ease-in-out infinite reverse;pointer-events:none;
-}
-@keyframes glowFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-20px) scale(1.1)}}
-
-.hero-inner{max-width:1160px;margin:auto;position:relative;z-index:1;width:100%;}
-.hero-content{max-width:600px;}
-
-/* animated pill */
-.avail-pill{
-  display:inline-flex;align-items:center;gap:.5rem;
-  background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2);
-  color:var(--c1);padding:.28rem .9rem;border-radius:20px;
-  font-size:.71rem;font-weight:700;margin-bottom:1.5rem;letter-spacing:.3px;
-  animation:fadeDown .8s ease both;
-}
-.avail-dot{width:6px;height:6px;border-radius:50%;background:var(--c4);animation:blink 2s infinite;}
-@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,229,160,.6)}50%{opacity:.3;box-shadow:0 0 0 6px rgba(0,229,160,0)}}
-
 h1{
-  font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;line-height:1.08;
-  letter-spacing:-1.5px;margin-bottom:.9rem;
-  animation:fadeUp .9s ease .1s both;
+  font-size:clamp(3.5rem,9vw,8rem);font-weight:900;line-height:1;
+  background:linear-gradient(135deg,#fff 20%,var(--gold2) 55%,var(--cyan) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  letter-spacing:-.02em;text-shadow:none;
 }
-h1 em{font-style:normal;background:linear-gradient(100deg,var(--c1) 0%,var(--c2) 50%,var(--c3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.tagline{color:rgba(232,237,245,.65);font-size:.95rem;max-width:480px;margin-bottom:2.2rem;line-height:1.75;animation:fadeUp .9s ease .2s both;}
-
-.hero-stats{display:flex;gap:2rem;margin-bottom:2.5rem;flex-wrap:wrap;animation:fadeUp .9s ease .3s both;}
-.hstat-num{font-size:1.9rem;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--c1),var(--c2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hstat-label{font-size:.62rem;color:var(--muted);margin-top:.18rem;text-transform:uppercase;letter-spacing:.8px;}
-.hstat-div{width:1px;background:rgba(255,255,255,.08);align-self:stretch;}
-
-.hero-btns{display:flex;gap:.85rem;flex-wrap:wrap;animation:fadeUp .9s ease .4s both;}
-.btn-p{background:linear-gradient(135deg,var(--c1),var(--c2));color:#000;padding:.72rem 1.9rem;border-radius:8px;font-weight:800;text-decoration:none;font-size:.84rem;letter-spacing:.3px;transition:opacity .2s,transform .2s;}
-.btn-p:hover{opacity:.88;transform:translateY(-2px);}
-.btn-g{border:1px solid rgba(245,158,11,.18);color:#5a7a94;padding:.72rem 1.5rem;border-radius:8px;font-weight:600;text-decoration:none;font-size:.84rem;transition:all .2s;backdrop-filter:blur(4px);}
-.btn-g:hover{border-color:var(--c1);color:var(--c1);transform:translateY(-2px);}
-
-/* scroll indicator */
-.scroll-hint{
-  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:.3rem;
-  color:var(--muted);font-size:.65rem;letter-spacing:1px;text-transform:uppercase;
-  animation:fadeUp 1s ease .8s both;
+.subtitle{
+  font-size:clamp(.95rem,2vw,1.25rem);color:var(--sub);
+  margin:1.5rem 0 2.5rem;max-width:580px;line-height:1.7;
 }
-.scroll-arrow{width:20px;height:20px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);animation:bounce 2s infinite;}
-@keyframes bounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(5px)}}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:5rem;}
+.btn-primary{
+  padding:.9rem 2.6rem;background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#000;font-weight:800;border:none;border-radius:6px;cursor:pointer;
+  font-size:.88rem;letter-spacing:.06em;text-decoration:none;transition:.3s;
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(201,168,76,.45);}
+.btn-ghost{
+  padding:.9rem 2.6rem;border:1px solid rgba(255,255,255,.18);color:var(--text);
+  background:rgba(255,255,255,.03);border-radius:6px;cursor:pointer;
+  font-size:.88rem;text-decoration:none;transition:.3s;
+}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
 
-/* ── ANIMATION KEYFRAMES ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+/* ── FLOATING KPI CARDS ── */
+.kpi-strip{
+  display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;
+  border-top:1px solid rgba(255,255,255,.05);padding-top:3.5rem;
+}
+.kpi-card{
+  background:rgba(7,17,34,.7);border:1px solid rgba(201,168,76,.18);
+  border-radius:14px;padding:1.4rem 2rem;text-align:center;
+  backdrop-filter:blur(20px);position:relative;overflow:hidden;
+  animation:float-card 4s ease-in-out infinite alternate;
+}
+.kpi-card:nth-child(2){animation-delay:.6s;}
+.kpi-card:nth-child(3){animation-delay:1.2s;}
+.kpi-card:nth-child(4){animation-delay:1.8s;}
+.kpi-card:nth-child(5){animation-delay:2.4s;}
+.kpi-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--cyan));
+}
+@keyframes float-card{from{transform:translateY(0);}to{transform:translateY(-10px);}}
+.kpi-val{
+  font-size:2.4rem;font-weight:900;
+  background:linear-gradient(135deg,var(--gold),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.kpi-label{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sub);margin-top:.3rem;}
 
-/* scroll-reveal */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
-.reveal-delay-1{transition-delay:.1s;}
-.reveal-delay-2{transition-delay:.2s;}
-.reveal-delay-3{transition-delay:.3s;}
-
-/* ── DIVIDER ── */
-.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
-
-/* ── SECTIONS ── */
-section{padding:5.5rem 1.5rem;}
-.si{max-width:1160px;margin:auto;}
-.sl{font-size:.67rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:.4rem;}
-.st{font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:800;letter-spacing:-.8px;margin-bottom:.4rem;}
-.ss{color:var(--muted);font-size:.84rem;margin-bottom:2.8rem;max-width:500px;line-height:1.7;}
+/* ── SECTION ── */
+section{position:relative;z-index:1;padding:7rem 4rem;}
+.s-label{font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem;}
+.s-title{font-size:clamp(1.8rem,4vw,3rem);font-weight:800;margin-bottom:1rem;}
+.s-sub{color:var(--sub);max-width:560px;line-height:1.7;margin-bottom:3.5rem;}
 
 /* ── DASHBOARDS ── */
-#dashboards{background:var(--surface);}
-.dash-tabs{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:2rem;background:var(--card);border:1px solid var(--border);border-radius:11px;padding:.4rem;}
-.dash-tab{padding:.4rem 1rem;border-radius:8px;border:none;background:transparent;color:var(--muted);font-size:.76rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;flex:1;min-width:0;}
-.dash-tab:not(.active):hover{color:var(--text);}
-.dash-tab[data-d="retail"].active    {background:rgba(245,158,11,.12);color:var(--c1);box-shadow:inset 0 0 0 1px rgba(245,158,11,.25);}
-.dash-tab[data-d="travel"].active    {background:rgba(0,229,160,.1);color:var(--c4);box-shadow:inset 0 0 0 1px rgba(0,229,160,.25);}
-.dash-tab[data-d="healthcare"].active{background:rgba(0,212,255,.1);color:var(--c3);box-shadow:inset 0 0 0 1px rgba(0,212,255,.25);}
-.dash-tab[data-d="finance"].active   {background:rgba(167,139,250,.1);color:var(--c5);box-shadow:inset 0 0 0 1px rgba(167,139,250,.25);}
-
-.dash-panel{display:none;animation:fadeIn .4s ease;}
+#dashboards{background:rgba(7,17,34,.5);}
+.dash-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;}
+.tab{
+  padding:.5rem 1.3rem;border:1px solid rgba(255,255,255,.08);
+  background:transparent;color:var(--sub);border-radius:4px;cursor:pointer;
+  font-size:.76rem;letter-spacing:.06em;transition:.3s;
+}
+.tab.active,.tab:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.07);}
+.dash-panel{display:none;}
 .dash-panel.active{display:block;}
 
-.dash-topbar{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.8rem;margin-bottom:1.2rem;}
-.dash-name{font-size:.92rem;font-weight:700;}
-.dbadges{display:flex;gap:.35rem;flex-wrap:wrap;}
-.dbadge{background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:.18rem .55rem;font-size:.66rem;color:var(--muted);}
-#dash-retail  .dbadge b{color:var(--c1);}
-#dash-travel  .dbadge b{color:var(--c4);}
-#dash-healthcare .dbadge b{color:var(--c3);}
-#dash-finance .dbadge b{color:var(--c5);}
-
-/* SLICERS */
-.slicers{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;padding:.6rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:1.2rem;}
-.slicer-lbl{font-size:.66rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap;}
-.sbtn{padding:.18rem .62rem;border-radius:5px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:.71rem;cursor:pointer;transition:all .15s;}
-.sbtn:not(.on):hover{color:var(--text);}
-.s-sep{width:1px;height:16px;background:var(--border);}
-#dash-retail  .sbtn.on{background:rgba(245,158,11,.12);color:var(--c1);border-color:rgba(245,158,11,.35);font-weight:700;}
-#dash-travel  .sbtn.on{background:rgba(0,229,160,.1);color:var(--c4);border-color:rgba(0,229,160,.35);font-weight:700;}
-
-/* KPI CARDS */
-.krow{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.75rem;margin-bottom:1.2rem;}
-.kcard{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:.9rem 1rem;position:relative;overflow:hidden;transition:transform .2s,border-color .2s;}
-.kcard:hover{transform:translateY(-2px);}
-.kcard::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;}
-#dash-retail  .kcard::before{background:linear-gradient(90deg,var(--c1),var(--c2));}
-#dash-travel  .kcard::before{background:linear-gradient(90deg,var(--c4),var(--c3));}
-#dash-healthcare .kcard::before{background:linear-gradient(90deg,var(--c3),var(--c4));}
-#dash-finance .kcard::before{background:linear-gradient(90deg,var(--c5),var(--c6));}
-.kval{font-size:1.4rem;font-weight:800;line-height:1.1;letter-spacing:-.5px;}
-.klbl{font-size:.67rem;color:var(--muted);margin-top:.12rem;}
-.kdelta{font-size:.67rem;font-weight:700;margin-top:.28rem;}
-.kdelta.up{color:var(--c4);}
-.kdelta.dn{color:var(--c6);}
-
-/* CHARTS */
-.cg2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
-.cg21{display:grid;grid-template-columns:2.1fr 1fr;gap:1rem;margin-bottom:1rem;}
-.cbox{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:1.2rem;}
-.cbox-title{font-size:.67rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:1rem;}
+/* ── POWER BI EMBED ── */
+.pbi-wrapper{
+  width:100%;border-radius:16px;overflow:hidden;
+  border:1px solid rgba(201,168,76,.2);
+  box-shadow:0 0 80px rgba(201,168,76,.08),0 0 1px rgba(0,229,255,.2);
+  background:rgba(7,17,34,.8);position:relative;
+}
+.pbi-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.06);
+}
+.pbi-dots{display:flex;gap:.5rem;}
+.pbi-dot{width:10px;height:10px;border-radius:50%;}
+.pbi-title-bar{font-size:.72rem;letter-spacing:.1em;color:var(--sub);text-transform:uppercase;}
+.pbi-live{display:flex;align-items:center;gap:.4rem;font-size:.65rem;color:#10b981;}
+.pbi-live::before{content:'';width:6px;height:6px;border-radius:50%;background:#10b981;animation:pulse 1.5s infinite;}
+.pbi-inner{position:relative;padding-bottom:56.25%;height:0;}
+.pbi-inner iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+.pbi-fallback{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1rem;background:rgba(7,17,34,.97);
+}
+.pbi-fallback .icon{font-size:3rem;}
+.pbi-fallback p{color:var(--sub);font-size:.85rem;text-align:center;max-width:300px;line-height:1.6;}
+.pbi-chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-top:1.2rem;}
+.cc{
+  background:rgba(7,17,34,.8);border:1px solid rgba(255,255,255,.06);border-radius:12px;
+  padding:1.3rem;transition:.3s;position:relative;overflow:hidden;
+}
+.cc:hover{border-color:rgba(201,168,76,.25);transform:translateY(-3px);}
+.cc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold),var(--cyan));opacity:0;transition:.3s;}
+.cc:hover::before{opacity:1;}
+.cc-title{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);margin-bottom:1rem;}
+canvas.ch{width:100%!important;height:160px!important;}
+.badge-row{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.8rem;}
+.badge{font-size:.6rem;padding:.2rem .6rem;border-radius:20px;background:rgba(201,168,76,.08);color:var(--gold);border:1px solid rgba(201,168,76,.18);}
 
 /* ── SKILLS ── */
-.sk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.9rem;}
-.sk-card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:1.1rem;transition:transform .25s,border-color .25s;}
-.sk-card:hover{transform:translateY(-3px);}
-.sk-card:nth-child(1):hover{border-color:rgba(245,158,11,.3);}
-.sk-card:nth-child(2):hover{border-color:rgba(251,146,60,.3);}
-.sk-card:nth-child(3):hover{border-color:rgba(0,212,255,.3);}
-.sk-card:nth-child(4):hover{border-color:rgba(0,229,160,.3);}
-.sk-card:nth-child(5):hover{border-color:rgba(245,158,11,.3);}
-.sk-card:nth-child(6):hover{border-color:rgba(0,212,255,.3);}
-.sk-card:nth-child(7):hover{border-color:rgba(0,229,160,.3);}
-.sk-card:nth-child(8):hover{border-color:rgba(167,139,250,.3);}
-.sk-top{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;}
-.sk-icon{font-size:1.2rem;}
-.sk-name{font-weight:700;font-size:.85rem;}
-.sk-bar-bg{height:2px;background:var(--border);border-radius:2px;margin-bottom:.45rem;}
-.sk-bar-fill{height:2px;border-radius:2px;width:0;transition:width 1.2s ease;}
-.sk-card:nth-child(1) .sk-bar-fill{background:linear-gradient(90deg,var(--c1),var(--c2));}
-.sk-card:nth-child(2) .sk-bar-fill{background:linear-gradient(90deg,var(--c2),var(--c6));}
-.sk-card:nth-child(3) .sk-bar-fill{background:linear-gradient(90deg,var(--c3),var(--c4));}
-.sk-card:nth-child(4) .sk-bar-fill{background:linear-gradient(90deg,var(--c4),var(--c3));}
-.sk-card:nth-child(5) .sk-bar-fill{background:linear-gradient(90deg,var(--c1),var(--c3));}
-.sk-card:nth-child(6) .sk-bar-fill{background:linear-gradient(90deg,var(--c3),var(--c5));}
-.sk-card:nth-child(7) .sk-bar-fill{background:linear-gradient(90deg,var(--c4),var(--c1));}
-.sk-card:nth-child(8) .sk-bar-fill{background:linear-gradient(90deg,var(--c5),var(--c3));}
-.sk-tags{display:flex;flex-wrap:wrap;gap:.28rem;}
-.sktag{background:var(--surface);border:1px solid var(--border);color:var(--muted);font-size:.63rem;padding:.08rem .38rem;border-radius:4px;}
-
-/* ── EXPERIENCE ── */
-#experience{background:var(--surface);}
-.tl{display:flex;flex-direction:column;gap:1.2rem;}
-.tl-row{display:grid;grid-template-columns:130px 1fr;gap:1.5rem;}
-.tl-date{font-size:.74rem;font-weight:700;}
-.tl-row:nth-child(1) .tl-date{color:var(--c1);}
-.tl-row:nth-child(2) .tl-date{color:var(--c4);}
-.tl-row:nth-child(3) .tl-date{color:var(--c3);}
-.tl-type{font-size:.63rem;color:var(--muted);margin-top:.12rem;}
-.tl-card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:1.1rem;transition:transform .2s;}
-.tl-card:hover{transform:translateX(4px);}
-.tl-row:nth-child(1) .tl-card{border-left:3px solid var(--c1);}
-.tl-row:nth-child(2) .tl-card{border-left:3px solid var(--c4);}
-.tl-row:nth-child(3) .tl-card{border-left:3px solid var(--c3);}
-.tl-role{font-weight:700;font-size:.9rem;}
-.tl-co{color:var(--muted);font-size:.77rem;margin-bottom:.7rem;}
-.tl-li{list-style:none;display:flex;flex-direction:column;gap:.3rem;}
-.tl-li li{color:var(--muted);font-size:.77rem;padding-left:.9rem;position:relative;line-height:1.55;}
-.tl-li li::before{content:"▸";position:absolute;left:0;font-size:.68rem;}
-.tl-row:nth-child(1) .tl-li li::before{color:var(--c1);}
-.tl-row:nth-child(2) .tl-li li::before{color:var(--c4);}
-.tl-row:nth-child(3) .tl-li li::before{color:var(--c3);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;}
+.sk{
+  background:rgba(7,17,34,.7);border:1px solid rgba(255,255,255,.06);border-radius:12px;
+  padding:1.5rem;transition:.3s;
+}
+.sk:hover{border-color:rgba(0,229,255,.2);transform:translateY(-3px);}
+.sk-icon{font-size:1.6rem;margin-bottom:.7rem;}
+.sk-name{font-size:.88rem;font-weight:700;margin-bottom:.7rem;}
+.tag-wrap{display:flex;flex-wrap:wrap;gap:.35rem;}
+.tag{font-size:.62rem;padding:.22rem .65rem;border-radius:20px;background:rgba(124,58,237,.1);color:#a78bfa;border:1px solid rgba(124,58,237,.18);}
 
 /* ── CERTS ── */
-.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.9rem;}
-.cert-card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:1rem 1.1rem;display:flex;align-items:center;gap:.8rem;transition:transform .2s;}
-.cert-card:hover{transform:translateY(-3px);}
-.cert-card:nth-child(1){border-top:2px solid var(--c1);}
-.cert-card:nth-child(2){border-top:2px solid var(--c3);}
-.cert-card:nth-child(3){border-top:2px solid var(--c5);}
-.cert-card:nth-child(4){border-top:2px solid var(--c4);}
-.cert-icon{font-size:1.45rem;flex-shrink:0;}
-.cert-name{font-weight:700;font-size:.77rem;line-height:1.35;}
-.cert-by{color:var(--muted);font-size:.66rem;margin-top:.12rem;}
-
-/* ── CONTACT — full Burj BG ── */
-#contact{
-  min-height:60vh;display:flex;align-items:center;position:relative;
-  padding:5rem 1.5rem;
-  background:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=100&w=3840&auto=format&fit=crop') center 25%/cover no-repeat fixed;
+#certs{background:rgba(7,17,34,.5);}
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;}
+.cert{
+  background:rgba(7,17,34,.7);border:1px solid rgba(255,255,255,.06);border-radius:10px;
+  padding:1.2rem 1.4rem;display:flex;align-items:flex-start;gap:.9rem;transition:.3s;
 }
-.contact-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.95),rgba(0,0,0,.75) 50%,rgba(0,0,0,.9));}
-.contact-bloom{position:absolute;bottom:0;right:20%;width:400px;height:400px;background:radial-gradient(circle,rgba(245,158,11,.07),transparent 70%);pointer-events:none;}
-.contact-inner{position:relative;z-index:1;max-width:660px;margin:auto;text-align:center;}
-.contact-inner .ss{margin:0 auto 2.5rem;text-align:center;}
-.contact-links{display:flex;justify-content:center;gap:.85rem;flex-wrap:wrap;}
+.cert:hover{border-color:rgba(201,168,76,.22);}
+.cert-ico{font-size:1.4rem;flex-shrink:0;}
+.cert-name{font-size:.84rem;font-weight:600;line-height:1.4;}
+.cert-issuer{font-size:.68rem;color:var(--sub);margin-top:.2rem;}
+
+/* ── CONTACT ── */
+#contact{text-align:center;background:rgba(7,17,34,.5);}
+.avail{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.45rem 1.3rem;border-radius:20px;
+  background:rgba(0,229,255,.07);color:var(--cyan);
+  border:1px solid rgba(0,229,255,.18);font-size:.7rem;letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:2.5rem;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.4);}}
+.avail-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);animation:pulse 1.5s infinite;flex-shrink:0;}
+.contact-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2rem;}
 .clink{
-  display:flex;align-items:center;gap:.55rem;text-decoration:none;
-  font-size:.82rem;font-weight:600;padding:.75rem 1.5rem;
-  border-radius:10px;border:1px solid;
-  background:rgba(0,0,0,.65);backdrop-filter:blur(12px);
-  transition:all .22s;white-space:nowrap;
+  padding:.7rem 1.7rem;border:1px solid rgba(255,255,255,.1);
+  border-radius:6px;text-decoration:none;color:var(--text);font-size:.8rem;
+  letter-spacing:.06em;transition:.3s;background:rgba(255,255,255,.02);
 }
-.clink:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.5);}
-.clink:nth-child(1){border-color:rgba(0,119,181,.5);color:#0a8fd4;}
-.clink:nth-child(1):hover{background:rgba(0,119,181,.1);border-color:#0a8fd4;}
-.clink:nth-child(2){border-color:rgba(255,255,255,.15);color:#8899aa;}
-.clink:nth-child(2):hover{background:rgba(255,255,255,.06);border-color:#ccc;color:#ccc;}
-.clink:nth-child(3){border-color:rgba(245,158,11,.3);color:var(--c1);}
-.clink:nth-child(3):hover{background:rgba(245,158,11,.08);border-color:var(--c1);}
-.clink:nth-child(4){border-color:rgba(167,139,250,.3);color:var(--c5);}
-.clink:nth-child(4):hover{background:rgba(167,139,250,.08);border-color:var(--c5);}
+.clink:hover{border-color:var(--gold);color:var(--gold);}
 
-footer{text-align:center;padding:1.4rem;color:rgba(61,84,104,.7);font-size:.7rem;border-top:1px solid var(--border);background:var(--bg);letter-spacing:.5px;}
-
-/* ── MOBILE ── */
-@media(max-width:768px){
-  .nav-links{display:none;}
-  .hamburger{display:flex;}
-  #hero{background-attachment:scroll;}
-  #contact{background-attachment:scroll;}
-  .hero-content{max-width:100%;}
-  h1{font-size:2.2rem;}
-  .hero-stats{gap:1.2rem;}
-  .hstat-num{font-size:1.4rem;}
-  .cg2,.cg21{grid-template-columns:1fr;}
-  .tl-row{grid-template-columns:1fr;}
-  .krow{grid-template-columns:repeat(2,1fr);}
-  .dash-tabs{gap:.25rem;}
-  .dash-tab{font-size:.7rem;padding:.35rem .6rem;}
-  .dbadges{display:none;}
-  section{padding:4rem 1rem;}
-  .hero-btns{gap:.6rem;}
-  .btn-p,.btn-g{padding:.6rem 1.2rem;font-size:.8rem;}
-  .contact-links{flex-direction:column;align-items:stretch;}
-  .clink{justify-content:center;}
-}
-@media(max-width:480px){
-  .krow{grid-template-columns:repeat(2,1fr);}
-  .sk-grid{grid-template-columns:1fr;}
-  .cert-grid{grid-template-columns:1fr;}
-  h1{font-size:1.9rem;}
-}
+footer{position:relative;z-index:1;text-align:center;padding:2rem;font-size:.68rem;color:var(--sub);border-top:1px solid rgba(255,255,255,.04);letter-spacing:.08em;}
+@media(max-width:768px){nav{padding:1rem 1.2rem;}.nav-links{display:none;}section{padding:5rem 1.2rem;}h1{font-size:3rem;}}
 </style>
 </head>
 <body>
 
+<!-- ANIMATED BACKGROUND LAYERS -->
+<div class="bkh-bg"></div>
+<div class="grad-orb orb1"></div>
+<div class="grad-orb orb2"></div>
+<div class="grad-orb orb3"></div>
+
+<!-- BURJ KHALIFA SVG SILHOUETTE -->
+<svg id="bk-svg" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+  <defs>
+    <linearGradient id="bkGrad" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#c9a84c" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- Main tower -->
+  <polygon points="700,10 712,300 720,400 726,500 730,600 732,700 730,900 670,900 668,700 672,600 674,500 680,400 688,300" fill="url(#bkGrad)"/>
+  <!-- Mid section -->
+  <polygon points="712,300 740,380 744,450 740,520 712,520 700,900 700,520 660,520 656,450 660,380 688,300" fill="url(#bkGrad)" opacity=".6"/>
+  <!-- Lower section -->
+  <polygon points="740,450 790,520 795,600 790,700 740,700 732,900 668,900 660,700 610,700 605,600 610,520 660,450" fill="url(#bkGrad)" opacity=".4"/>
+  <!-- Base -->
+  <polygon points="790,600 870,680 875,760 860,900 540,900 525,760 530,680 610,600" fill="url(#bkGrad)" opacity=".25"/>
+  <!-- Spire -->
+  <polygon points="700,10 703,0 706,0 709,10 712,300 688,300" fill="url(#bkGrad)" opacity=".9"/>
+  <!-- Windows glow lines -->
+  <g opacity=".3">
+    <line x1="695" y1="80" x2="705" y2="80" stroke="#00e5ff" stroke-width=".5"/>
+    <line x1="694" y1="120" x2="706" y2="120" stroke="#00e5ff" stroke-width=".5"/>
+    <line x1="693" y1="160" x2="707" y2="160" stroke="#00e5ff" stroke-width=".5"/>
+    <line x1="692" y1="200" x2="708" y2="200" stroke="#00e5ff" stroke-width=".5"/>
+    <line x1="691" y1="240" x2="709" y2="240" stroke="#c9a84c" stroke-width=".5"/>
+    <line x1="690" y1="280" x2="710" y2="280" stroke="#c9a84c" stroke-width=".5"/>
+  </g>
+</svg>
+
+<!-- THREE.JS CANVAS -->
+<canvas id="three-bg"></canvas>
+
 <!-- NAV -->
-<nav id="mainNav">
-  <div class="nav-inner">
-    <div class="logo">JIMMY MAINA</div>
-    <ul class="nav-links">
-      <li><a href="#dashboards">Dashboards</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div style="display:flex;align-items:center;gap:1rem;">
-      <a href="mailto:jimmymwas@gmail.com" class="nav-cta">Hire Me →</a>
-      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-  </div>
+<nav>
+  <div class="logo">Jimmy Maina</div>
+  <ul class="nav-links">
+    <li><a href="#dashboards">Dashboards</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certs">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="hire-btn" href="mailto:jimmymwas@gmail.com">Hire Me →</a>
 </nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#dashboards" onclick="closeMenu()">Dashboards</a>
-  <a href="#skills" onclick="closeMenu()">Skills</a>
-  <a href="#experience" onclick="closeMenu()">Experience</a>
-  <a href="#certs" onclick="closeMenu()">Certifications</a>
-  <a href="#contact" onclick="closeMenu()">Contact</a>
-</div>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-overlay"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
-  <div class="hero-inner">
-    <div class="hero-content">
-      <div class="avail-pill"><span class="avail-dot"></span>Available Now · Dubai / GCC / Remote</div>
-      <h1>Senior Data Analyst<br><em>Power BI & Fabric</em></h1>
-      <p class="tagline">7+ years turning raw data into executive-grade dashboards. Advanced DAX. Star schema modelling. Microsoft Fabric. Retail, healthcare, and finance.</p>
-      <div class="hero-stats">
-        <div class="hstat"><div class="hstat-num">7+</div><div class="hstat-label">Years</div></div>
-        <div class="hstat-div"></div>
-        <div class="hstat"><div class="hstat-num">15+</div><div class="hstat-label">Dashboards</div></div>
-        <div class="hstat-div"></div>
-        <div class="hstat"><div class="hstat-num">+12%</div><div class="hstat-label">Revenue Impact</div></div>
-        <div class="hstat-div"></div>
-        <div class="hstat"><div class="hstat-num">200+</div><div class="hstat-label">Daily Users</div></div>
-      </div>
-      <div class="hero-btns">
-        <a href="#dashboards" class="btn-p">View Live Dashboards</a>
-        <a href="https://github.com/jimal254" target="_blank" class="btn-g">GitHub</a>
-        <a href="https://linkedin.com/in/jimmymaina" target="_blank" class="btn-g">LinkedIn</a>
-      </div>
-    </div>
+  <p class="eyebrow">Senior Data Analyst · Power BI & Microsoft Fabric</p>
+  <h1>Jimmy Maina</h1>
+  <p class="subtitle">7+ years turning raw data into executive-grade intelligence. Specialist in Power BI, Python, machine learning, and end-to-end BI architecture.</p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="#dashboards">View Live Dashboards</a>
+    <a class="btn-ghost" href="mailto:jimmymwas@gmail.com">Get In Touch</a>
   </div>
-  <div class="scroll-hint"><div class="scroll-arrow"></div></div>
-</section>
 
-<div class="divider"></div>
+  <!-- FLOATING KPI CARDS -->
+  <div class="kpi-strip">
+    <div class="kpi-card"><div class="kpi-val" data-target="7" data-suffix="+">0</div><div class="kpi-label">Years Experience</div></div>
+    <div class="kpi-card"><div class="kpi-val" data-target="12" data-prefix="+" data-suffix="%">0</div><div class="kpi-label">Revenue Growth</div></div>
+    <div class="kpi-card"><div class="kpi-val" data-target="40" data-suffix="%">0</div><div class="kpi-label">Cost Reduction</div></div>
+    <div class="kpi-card"><div class="kpi-val" data-target="95" data-suffix="%">0</div><div class="kpi-label">Client Retention</div></div>
+    <div class="kpi-card"><div class="kpi-val" data-target="60" data-suffix="%">0</div><div class="kpi-label">Reporting Automated</div></div>
+  </div>
+</section>
 
 <!-- DASHBOARDS -->
 <section id="dashboards">
-  <div class="si">
-    <div class="sl reveal" style="color:var(--c1);">Interactive Portfolio</div>
-    <h2 class="st reveal reveal-delay-1">Live Dashboards</h2>
-    <p class="ss reveal reveal-delay-2">Filter with slicers. Every chart responds in real time.</p>
-    <div class="dash-tabs reveal reveal-delay-3">
-      <button class="dash-tab active" data-d="retail"     onclick="showDash('retail',this)">🛒 Retail</button>
-      <button class="dash-tab"        data-d="travel"     onclick="showDash('travel',this)">✈️ Travel</button>
-      <button class="dash-tab"        data-d="healthcare" onclick="showDash('healthcare',this)">🏥 Healthcare</button>
-      <button class="dash-tab"        data-d="finance"    onclick="showDash('finance',this)">📈 Finance</button>
-    </div>
+  <p class="s-label">Live Dashboards</p>
+  <h2 class="s-title">Interactive Analytics</h2>
+  <p class="s-sub">Fully animated, data-driven dashboards reflecting real project architecture and KPI frameworks.</p>
 
-    <!-- RETAIL -->
-    <div class="dash-panel active" id="dash-retail">
-      <div class="dash-topbar">
-        <div class="dash-name">Retail Revenue & Pricing Intelligence · 2024</div>
-        <div class="dbadges">
-          <div class="dbadge">Star Schema <b>4 tables</b></div>
-          <div class="dbadge">DAX Measures <b>6</b></div>
-          <div class="dbadge">Daily Users <b>200+</b></div>
-          <div class="dbadge">Impact <b>+12%</b></div>
+  <div class="dash-tabs">
+    <button class="tab active" onclick="switchTab('retail',this)">🛒 Retail Intelligence</button>
+    <button class="tab" onclick="switchTab('travel',this)">✈️ Travel Analytics</button>
+    <button class="tab" onclick="switchTab('healthcare',this)">🏥 Healthcare Ops</button>
+    <button class="tab" onclick="switchTab('finance',this)">📈 Financial Reporting</button>
+  </div>
+
+  <!-- RETAIL -->
+  <div class="dash-panel active" id="panel-retail">
+    <div class="pbi-wrapper">
+      <div class="pbi-header">
+        <div class="pbi-dots">
+          <div class="pbi-dot" style="background:#ff5f57"></div>
+          <div class="pbi-dot" style="background:#febc2e"></div>
+          <div class="pbi-dot" style="background:#28c840"></div>
+        </div>
+        <div class="pbi-title-bar">Retail Revenue & Pricing Intelligence · 2024</div>
+        <div class="pbi-live">LIVE</div>
+      </div>
+      <div style="padding:1.2rem;">
+        <div class="pbi-chart-grid">
+          <div class="cc"><p class="cc-title">Monthly Revenue Trend</p><canvas class="ch" id="c-rev"></canvas><div class="badge-row"><span class="badge">DAX</span><span class="badge">Time Intelligence</span></div></div>
+          <div class="cc"><p class="cc-title">Revenue by Category</p><canvas class="ch" id="c-cat"></canvas><div class="badge-row"><span class="badge">Star Schema</span></div></div>
+          <div class="cc"><p class="cc-title">Gross Margin % by Product</p><canvas class="ch" id="c-margin"></canvas><div class="badge-row"><span class="badge">Predictive Pricing</span></div></div>
+          <div class="cc"><p class="cc-title">Revenue by Price Band</p><canvas class="ch" id="c-band"></canvas><div class="badge-row"><span class="badge">Segmentation</span></div></div>
         </div>
       </div>
-      <div class="slicers">
-        <span class="slicer-lbl">Quarter</span>
-        <button class="sbtn on" onclick="rSlice('q','All',this)">All</button>
-        <button class="sbtn" onclick="rSlice('q','Q1',this)">Q1</button>
-        <button class="sbtn" onclick="rSlice('q','Q2',this)">Q2</button>
-        <button class="sbtn" onclick="rSlice('q','Q3',this)">Q3</button>
-        <button class="sbtn" onclick="rSlice('q','Q4',this)">Q4</button>
-        <div class="s-sep"></div>
-        <span class="slicer-lbl">Category</span>
-        <button class="sbtn on" onclick="rSlice('c','All',this)">All</button>
-        <button class="sbtn" onclick="rSlice('c','Apparel',this)">Apparel</button>
-        <button class="sbtn" onclick="rSlice('c','Footwear',this)">Footwear</button>
-        <button class="sbtn" onclick="rSlice('c','Accessories',this)">Accessories</button>
-      </div>
-      <div class="krow" id="rKPIs"></div>
-      <div class="cg21">
-        <div class="cbox"><div class="cbox-title">Monthly Revenue Trend</div><canvas id="rRevMonth" height="185"></canvas></div>
-        <div class="cbox"><div class="cbox-title">Revenue by Category</div><canvas id="rRevCat" height="185"></canvas></div>
-      </div>
-      <div class="cg2">
-        <div class="cbox"><div class="cbox-title">Gross Margin % by Product</div><canvas id="rMargin" height="170"></canvas></div>
-        <div class="cbox"><div class="cbox-title">Revenue by Store & Price Band</div><canvas id="rStore" height="170"></canvas></div>
-      </div>
     </div>
+  </div>
 
-    <!-- TRAVEL -->
-    <div class="dash-panel" id="dash-travel">
-      <div class="dash-topbar">
-        <div class="dash-name">Hemingways Travel · Revenue & Demand Analytics · 2024</div>
-        <div class="dbadges">
-          <div class="dbadge">Revenue Growth <b>+12%</b></div>
-          <div class="dbadge">Cancellations <b>-20%</b></div>
-          <div class="dbadge">Model <b>Predictive Analytics</b></div>
+  <!-- TRAVEL -->
+  <div class="dash-panel" id="panel-travel">
+    <div class="pbi-wrapper">
+      <div class="pbi-header">
+        <div class="pbi-dots"><div class="pbi-dot" style="background:#ff5f57"></div><div class="pbi-dot" style="background:#febc2e"></div><div class="pbi-dot" style="background:#28c840"></div></div>
+        <div class="pbi-title-bar">Hemingways Travel · Revenue & Demand Analytics · 2024</div>
+        <div class="pbi-live">LIVE</div>
+      </div>
+      <div style="padding:1.2rem;">
+        <div class="pbi-chart-grid">
+          <div class="cc"><p class="cc-title">YoY Booking Revenue</p><canvas class="ch" id="c-t1"></canvas></div>
+          <div class="cc"><p class="cc-title">Booking Mix by Segment</p><canvas class="ch" id="c-t2"></canvas></div>
+          <div class="cc"><p class="cc-title">Cancellation · Before vs After</p><canvas class="ch" id="c-t3"></canvas></div>
+          <div class="cc"><p class="cc-title">Demand Forecast vs Actual</p><canvas class="ch" id="c-t4"></canvas></div>
         </div>
       </div>
-      <div class="krow" id="tKPIs"></div>
-      <div class="cg21">
-        <div class="cbox"><div class="cbox-title">Monthly Booking Revenue · 2024 vs 2023</div><canvas id="tRevYoY" height="190"></canvas></div>
-        <div class="cbox"><div class="cbox-title">Booking Mix by Segment</div><canvas id="tMix" height="190"></canvas></div>
-      </div>
-      <div class="cg2">
-        <div class="cbox"><div class="cbox-title">Cancellation Rate · Before vs After</div><canvas id="tCancel" height="160"></canvas></div>
-        <div class="cbox"><div class="cbox-title">Demand Forecast vs Actual</div><canvas id="tForecast" height="160"></canvas></div>
-      </div>
     </div>
+  </div>
 
-    <!-- HEALTHCARE -->
-    <div class="dash-panel" id="dash-healthcare">
-      <div class="dash-topbar">
-        <div class="dash-name">Healthcare Operations KPI Dashboard · 2024</div>
-        <div class="dbadges">
-          <div class="dbadge">Departments <b>8</b></div>
-          <div class="dbadge">Security <b>Dynamic RLS</b></div>
-          <div class="dbadge">Source <b>SQL Server</b></div>
+  <!-- HEALTHCARE -->
+  <div class="dash-panel" id="panel-healthcare">
+    <div class="pbi-wrapper">
+      <div class="pbi-header">
+        <div class="pbi-dots"><div class="pbi-dot" style="background:#ff5f57"></div><div class="pbi-dot" style="background:#febc2e"></div><div class="pbi-dot" style="background:#28c840"></div></div>
+        <div class="pbi-title-bar">Healthcare Operations KPI Dashboard · 2024</div>
+        <div class="pbi-live">LIVE</div>
+      </div>
+      <div style="padding:1.2rem;">
+        <div class="pbi-chart-grid">
+          <div class="cc"><p class="cc-title">Patient Throughput by Dept</p><canvas class="ch" id="c-h1"></canvas></div>
+          <div class="cc"><p class="cc-title">Bed Occupancy Rate</p><canvas class="ch" id="c-h2"></canvas></div>
+          <div class="cc"><p class="cc-title">Monthly Patient Volume</p><canvas class="ch" id="c-h3"></canvas></div>
+          <div class="cc"><p class="cc-title">KPI Radar</p><canvas class="ch" id="c-h4"></canvas></div>
         </div>
       </div>
-      <div class="krow" id="hKPIs"></div>
-      <div class="cg2">
-        <div class="cbox"><div class="cbox-title">Patient Throughput by Department</div><canvas id="hThru" height="200"></canvas></div>
-        <div class="cbox"><div class="cbox-title">Bed Occupancy Rate</div><canvas id="hBed" height="200"></canvas></div>
-      </div>
-      <div class="cbox"><div class="cbox-title">Monthly Patient Volume Trend</div><canvas id="hTrend" height="128"></canvas></div>
     </div>
+  </div>
 
-    <!-- FINANCE -->
-    <div class="dash-panel" id="dash-finance">
-      <div class="dash-topbar">
-        <div class="dash-name">Executive Financial Reporting · YoY Intelligence · 2024</div>
-        <div class="dbadges">
-          <div class="dbadge">Backend <b>Azure Synapse</b></div>
-          <div class="dbadge">Time Intelligence <b>YoY / QoQ</b></div>
-          <div class="dbadge">Audience <b>C-Suite</b></div>
+  <!-- FINANCE -->
+  <div class="dash-panel" id="panel-finance">
+    <div class="pbi-wrapper">
+      <div class="pbi-header">
+        <div class="pbi-dots"><div class="pbi-dot" style="background:#ff5f57"></div><div class="pbi-dot" style="background:#febc2e"></div><div class="pbi-dot" style="background:#28c840"></div></div>
+        <div class="pbi-title-bar">Executive Financial Reporting · YoY Intelligence · 2024</div>
+        <div class="pbi-live">LIVE</div>
+      </div>
+      <div style="padding:1.2rem;">
+        <div class="pbi-chart-grid">
+          <div class="cc"><p class="cc-title">Revenue vs Budget</p><canvas class="ch" id="c-f1"></canvas></div>
+          <div class="cc"><p class="cc-title">Expense Breakdown</p><canvas class="ch" id="c-f2"></canvas></div>
+          <div class="cc"><p class="cc-title">YoY Growth %</p><canvas class="ch" id="c-f3"></canvas></div>
+          <div class="cc"><p class="cc-title">Cumulative Revenue</p><canvas class="ch" id="c-f4"></canvas></div>
         </div>
       </div>
-      <div class="krow" id="fKPIs"></div>
-      <div class="cg21">
-        <div class="cbox"><div class="cbox-title">Revenue vs Budget · Monthly</div><canvas id="fRevBudget" height="190"></canvas></div>
-        <div class="cbox"><div class="cbox-title">Expense Breakdown</div><canvas id="fExpense" height="190"></canvas></div>
-      </div>
-      <div class="cbox"><div class="cbox-title">YoY Revenue Growth % by Month</div><canvas id="fYoY" height="118"></canvas></div>
     </div>
   </div>
 </section>
-
-<div class="divider"></div>
 
 <!-- SKILLS -->
 <section id="skills">
-  <div class="si">
-    <div class="sl reveal" style="color:var(--c4);">Core Stack</div>
-    <h2 class="st reveal reveal-delay-1">Technical Skills</h2>
-    <p class="ss reveal reveal-delay-2">Enterprise-grade expertise across the Microsoft modern data platform.</p>
-    <div class="sk-grid">
-      <div class="sk-card reveal reveal-delay-1"><div class="sk-top"><span class="sk-icon">📊</span><span class="sk-name">Power BI</span></div><div class="sk-bar-bg"><div class="sk-bar-fill" data-w="97"></div></div><div class="sk-tags"><span class="sktag">DAX</span><span class="sktag">Semantic Models</span><span class="sktag">Bookmarks</span><span class="sktag">Drill-through</span></div></div>
-      <div class="sk-card reveal reveal-delay-1"><div class="sk-top"><span class="sk-icon">🧮</span><span class="sk-name">Advanced DAX</span></div><div class="sk-bar-bg"><div class="sk-bar-fill" data-w="95"></div></div><div class="sk-tags"><span class="sktag">CALCULATE</span><span class="sktag">SUMX</span><span class="sktag">Time Intelligence</span><span class="sktag">Context Transition</span></div></div>
-      <div class="sk-card reveal reveal-delay-2"><div class="sk-top"><span class="sk-icon">🏗️</span><span class="sk-name">Data Modelling</span></div><div class="sk-bar-bg"><div class="sk-bar-fill" data-w="93"></div></div><div class="sk-tags"><span class="sktag">Star Schema</span><span class="sktag">Fact / Dim</span><span class="sktag">SCD</span><span class="sktag">RLS</span></div></div>
-      <div class="sk-card reveal reveal-delay-2"><div class="sk-top"><span class="sk-icon">⚡</span><span class="sk-name">Microsoft Fabric</span></div><div class="sk-bar-bg"><div class="sk-bar-fill" data-w="88"></div></div><div class="sk-tags"><span class="sktag">Lakehouse</span><span class="sktag">OneLake</span><span class="sktag">Direct Lake</span><span class="sktag">Pipelines</span></div></div>
-      <div class="sk-card reveal reveal-delay-3"><div class="sk-top"><span class="sk-icon">☁️</span><span class="sk-name">Azure Platform</span></div><div class="sk-bar-bg"><div class="sk-bar-fill" data-w="85"></div></div><div class="sk-tags"><span class="sktag">Synapse</span><span class="sktag">ADF</span><span class="sktag">Azure SQL</span></div></div>
-      <div class="sk-card reveal reveal-delay-3"><div class="sk-top"><span class="sk-icon">🗄️</span><span class="sk-name">SQL</span></div><div class="sk-bar-bg"><div class="sk-bar-fill" data-w="90"></div></div><div class="sk-tags"><span class="sktag">T-SQL</span><span class="sktag">Query Tuning</span><span class="sktag">Stored Procs</span></div></div>
-      <div class="sk-card reveal reveal-delay-3"><div class="sk-top"><span class="sk-icon">🔄</span><span class="sk-name">ETL & Power Query</span></div><div class="sk-bar-bg"><div class="sk-bar-fill" data-w="88"></div></div><div class="sk-tags"><span class="sktag">M Language</span><span class="sktag">Dataflows</span><span class="sktag">Python</span></div></div>
-      <div class="sk-card reveal reveal-delay-3"><div class="sk-top"><span class="sk-icon">📉</span><span class="sk-name">Analytics & Forecasting</span></div><div class="sk-bar-bg"><div class="sk-bar-fill" data-w="87"></div></div><div class="sk-tags"><span class="sktag">Predictive Models</span><span class="sktag">Segmentation</span><span class="sktag">KPI Frameworks</span></div></div>
-    </div>
+  <p class="s-label">Technical Stack</p>
+  <h2 class="s-title">Full-Spectrum Expertise</h2>
+  <p class="s-sub">End-to-end capability across data engineering, analytics, and machine learning.</p>
+  <div class="skills-grid">
+    <div class="sk"><div class="sk-icon">📊</div><div class="sk-name">Business Intelligence</div><div class="tag-wrap"><span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">DAX</span><span class="tag">Power Query</span><span class="tag">Excel</span></div></div>
+    <div class="sk"><div class="sk-icon">🐍</div><div class="sk-name">Programming</div><div class="tag-wrap"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span></div></div>
+    <div class="sk"><div class="sk-icon">🤖</div><div class="sk-name">Machine Learning</div><div class="tag-wrap"><span class="tag">Scikit-learn</span><span class="tag">Predictive Analytics</span><span class="tag">Statistical Modeling</span><span class="tag">SPSS</span></div></div>
+    <div class="sk"><div class="sk-icon">🔄</div><div class="sk-name">Data Management</div><div class="tag-wrap"><span class="tag">ETL Pipelines</span><span class="tag">Data Cleaning</span><span class="tag">KPI Tracking</span><span class="tag">Data Visualization</span></div></div>
+    <div class="sk"><div class="sk-icon">☁️</div><div class="sk-name">Platforms & Tools</div><div class="tag-wrap"><span class="tag">SAP</span><span class="tag">HubSpot</span><span class="tag">Google Analytics</span><span class="tag">Microsoft Fabric</span><span class="tag">Azure</span></div></div>
+    <div class="sk"><div class="sk-icon">🗂️</div><div class="sk-name">Project Management</div><div class="tag-wrap"><span class="tag">Agile</span><span class="tag">Budget Management</span><span class="tag">Stakeholder Management</span><span class="tag">Trello</span></div></div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="si">
-    <div class="sl reveal" style="color:var(--c3);">Career History</div>
-    <h2 class="st reveal reveal-delay-1">Experience</h2>
-    <p class="ss reveal reveal-delay-2">From analyst to senior BI consultant — 7+ years of delivery.</p>
-    <div class="tl">
-      <div class="tl-row reveal reveal-delay-1">
-        <div><div class="tl-date">Mar 2025 – Present</div><div class="tl-type">Freelance · Remote</div></div>
-        <div class="tl-card"><div class="tl-role">Freelance BI Consultant</div><div class="tl-co">Independent · Multiple Industries</div><ul class="tl-li"><li>Built and enhanced Power BI dashboards across multiple client industries.</li><li>Optimised DAX measures and redesigned semantic models for performance.</li><li>Implemented KPI frameworks and automated reporting workflows.</li></ul></div>
-      </div>
-      <div class="tl-row reveal reveal-delay-2">
-        <div><div class="tl-date">Mar 2024 – Feb 2025</div><div class="tl-type">Full-time · Nairobi</div></div>
-        <div class="tl-card"><div class="tl-role">Data Analyst</div><div class="tl-co">Hemingways Travel · Nairobi</div><ul class="tl-li"><li>Built star-schema Power BI models for pricing and revenue optimisation.</li><li>Increased annual revenue by 12% via predictive analytics and demand analysis.</li><li>Reduced cancellations by 20% through data-driven customer segmentation.</li><li>Maintained real-time executive dashboards with optimised refresh cycles.</li></ul></div>
-      </div>
-      <div class="tl-row reveal reveal-delay-3">
-        <div><div class="tl-date">May 2022 – Feb 2024</div><div class="tl-type">Consultant · Nairobi</div></div>
-        <div class="tl-card"><div class="tl-role">Power BI Consultant</div><div class="tl-co">Soft Consult · Nairobi</div><ul class="tl-li"><li>Designed 15+ Power BI dashboards serving 200+ daily users.</li><li>Developed complex DAX measures and applied dynamic RLS policies.</li><li>Reduced refresh failures through model tuning and incremental refresh.</li><li>Translated stakeholder requirements into scalable BI solutions.</li></ul></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- CERTS -->
+<!-- CERTIFICATIONS -->
 <section id="certs">
-  <div class="si">
-    <div class="sl reveal" style="color:var(--c5);">Credentials</div>
-    <h2 class="st reveal reveal-delay-1">Certifications & Education</h2>
-    <p class="ss reveal reveal-delay-2">Microsoft-aligned and industry-recognised.</p>
-    <div class="cert-grid">
-      <div class="cert-card reveal reveal-delay-1"><div class="cert-icon">🏆</div><div><div class="cert-name">Power BI Data Analyst Associate</div><div class="cert-by">Microsoft · PL-300</div></div></div>
-      <div class="cert-card reveal reveal-delay-1"><div class="cert-icon">📊</div><div><div class="cert-name">IBM Data Analyst Professional</div><div class="cert-by">IBM Certificate</div></div></div>
-      <div class="cert-card reveal reveal-delay-2"><div class="cert-icon">🤖</div><div><div class="cert-name">ICT Associate – Artificial Intelligence</div><div class="cert-by">Huawei Certified</div></div></div>
-      <div class="cert-card reveal reveal-delay-2"><div class="cert-icon">🎓</div><div><div class="cert-name">Bachelor of Economics</div><div class="cert-by">University of Nairobi</div></div></div>
-    </div>
+  <p class="s-label">Credentials</p>
+  <h2 class="s-title">Certifications & Education</h2>
+  <div class="certs-grid">
+    <div class="cert"><div class="cert-ico">🏆</div><div><div class="cert-name">Power BI Data Analyst Associate</div><div class="cert-issuer">Microsoft · PL-300</div></div></div>
+    <div class="cert"><div class="cert-ico">📊</div><div><div class="cert-name">IBM Data Analyst Professional Certificate</div><div class="cert-issuer">IBM</div></div></div>
+    <div class="cert"><div class="cert-ico">🤖</div><div><div class="cert-name">HCIA – Artificial Intelligence</div><div class="cert-issuer">Huawei Certified ICT Associate</div></div></div>
+    <div class="cert"><div class="cert-ico">🔒</div><div><div class="cert-name">Data Protection</div><div class="cert-issuer">Centre for IP & Information Technology Law</div></div></div>
+    <div class="cert"><div class="cert-ico">🧠</div><div><div class="cert-name">AI Starter Kit – Machine Learning</div><div class="cert-issuer">Certification Programme</div></div></div>
+    <div class="cert"><div class="cert-ico">🌍</div><div><div class="cert-name">Fundamentals of GIS</div><div class="cert-issuer">Geographic Information Systems</div></div></div>
+    <div class="cert"><div class="cert-ico">🎓</div><div><div class="cert-name">Bachelor of Economics</div><div class="cert-issuer">University of Nairobi</div></div></div>
   </div>
 </section>
-
-<div class="divider"></div>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="contact-overlay"></div>
-  <div class="contact-bloom"></div>
-  <div class="contact-inner reveal">
-    <div class="sl" style="color:var(--c1);">Get In Touch</div>
-    <h2 class="st">Available for Dubai Contract</h2>
-    <p class="ss">Visa sponsorship required. Open to immediate engagement across the GCC.</p>
-    <div class="contact-links">
-      <a href="https://linkedin.com/in/jimmymaina" target="_blank" class="clink">💼 LinkedIn</a>
-      <a href="https://github.com/jimal254" target="_blank" class="clink">💻 GitHub</a>
-      <a href="mailto:jimmymwas@gmail.com" class="clink">📧 jimmymwas@gmail.com</a>
-      <a href="https://public.tableau.com/app/profile/jimmy4920" target="_blank" class="clink">📊 Tableau Public</a>
-    </div>
+  <p class="s-label">Get In Touch</p>
+  <h2 class="s-title">Let's Build Something Together</h2>
+  <div class="avail"><span class="avail-dot"></span>Available for International Clients</div>
+  <p class="s-sub" style="margin:0 auto;text-align:center;">Open to contract, freelance, and full-time engagements globally.<br>Dubai / GCC roles require visa sponsorship.</p>
+  <div class="contact-links">
+    <a class="clink" href="mailto:jimmymwas@gmail.com">📧 jimmymwas@gmail.com</a>
+    <a class="clink" href="https://linkedin.com/in/jimmymaina" target="_blank">💼 LinkedIn</a>
+    <a class="clink" href="https://github.com/jimal254" target="_blank">💻 GitHub</a>
+    <a class="clink" href="https://public.tableau.com/app/profile/jimmy4920" target="_blank">📊 Tableau Public</a>
   </div>
 </section>
 
-<footer>© 2025 · Jimmy Maina · Senior Data Analyst · Power BI & Microsoft Fabric · Dubai / GCC</footer>
+<footer>© 2025 · Jimmy Maina · Senior Data Analyst · Power BI & Microsoft Fabric</footer>
+
+<!-- THREE.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- CHART.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 
 <script>
-// ── NAV SCROLL ──
-window.addEventListener('scroll',()=>{
-  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>50);
-});
+// ════════════════════════════════════════
+// THREE.JS 3D PARTICLE FIELD
+// ════════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('three-bg');
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(window.innerWidth,window.innerHeight);
 
-// ── MOBILE MENU ──
-function toggleMenu(){
-  document.getElementById('hamburger').classList.toggle('open');
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-function closeMenu(){
-  document.getElementById('hamburger').classList.remove('open');
-  document.getElementById('mobileMenu').classList.remove('open');
-}
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,.1,1000);
+  camera.position.z=5;
 
-// ── SCROLL REVEAL ──
-const revealObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('visible');
-      // animate skill bars when visible
-      e.target.querySelectorAll&&e.target.querySelectorAll('.sk-bar-fill').forEach(b=>{
-        b.style.width=b.dataset.w+'%';
-      });
-    }
-  });
-},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
-
-// animate skill bars that are already in view
-document.querySelectorAll('.sk-bar-fill').forEach(b=>{
-  const card=b.closest('.sk-card');
-  const obs=new IntersectionObserver(entries=>{
-    if(entries[0].isIntersecting){b.style.width=b.dataset.w+'%';obs.disconnect();}
-  },{threshold:.3});
-  obs.observe(card);
-});
-
-// ── CHART SETUP ──
-Chart.defaults.color='#3d5468';
-Chart.defaults.borderColor='#0f1825';
-Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
-Chart.defaults.font.size=11;
-
-const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const PAL={
-  retail: ['#f59e0b','#fb923c','#fcd34d','#f97316','#fbbf24','#fed7aa'],
-  travel: ['#00e5a0','#00c288','#06b6d4','#00d4ff','#34d399','#67e8f9'],
-  health: ['#00d4ff','#38bdf8','#06b6d4','#7dd3fc','#0ea5e9','#00e5a0'],
-  finance:['#a78bfa','#c4b5fd','#f43f5e','#ec4899','#818cf8','#7c3aed']
-};
-const charts={};
-
-function grd(ctx,col,a=.22){
-  const g=ctx.createLinearGradient(0,0,0,240);
-  g.addColorStop(0,col+Math.round(a*255).toString(16).padStart(2,'0'));
-  g.addColorStop(1,col+'03');
-  return g;
-}
-const sum=a=>a.reduce((s,v)=>s+v,0);
-const avg=a=>sum(a)/a.length;
-const fK=v=>v>=1000?'$'+(v/1000).toFixed(1)+'K':'$'+v;
-const pF=v=>(v*100).toFixed(1)+'%';
-
-function kpiRow(id,items){
-  document.getElementById(id).innerHTML=items.map(it=>`
-    <div class="kcard">
-      <div class="kval">${it.v}</div>
-      <div class="klbl">${it.l}</div>
-      ${it.d?`<div class="kdelta ${it.up===false?'dn':'up'}">${it.d}</div>`:''}
-    </div>`).join('');
-}
-
-// ── RETAIL ──
-const RD={
-  All:{rev:[18420,20140,22800,26340,29180,31560,30120,33780,35460,38620,41940,48300],mg:[.41,.42,.43,.44,.43,.45,.44,.46,.45,.44,.46,.48],u:[282,314,354,414,463,514,492,554,583,634,683,782]},
-  Q1:{rev:[18420,20140,22800],mg:[.41,.42,.43],u:[282,314,354]},
-  Q2:{rev:[26340,29180,31560],mg:[.44,.43,.45],u:[414,463,514]},
-  Q3:{rev:[30120,33780,35460],mg:[.44,.46,.45],u:[492,554,583]},
-  Q4:{rev:[38620,41940,48300],mg:[.44,.46,.48],u:[634,683,782]}
-};
-let rQ='All';
-
-function renderRKPIs(){
-  const d=RD[rQ],rev=sum(d.rev),mg=avg(d.mg),u=sum(d.u);
-  kpiRow('rKPIs',[
-    {v:fK(rev),l:'Total Revenue',d:'+12% vs prior',up:true},
-    {v:pF(mg),l:'Gross Margin %',d:'+2.1pp YoY',up:true},
-    {v:u.toLocaleString(),l:'Units Sold',d:'+18% YoY',up:true},
-    {v:'$'+(rev/u).toFixed(2),l:'Avg Selling Price'},
-    {v:'3.2%',l:'Discount Rate',d:'-0.8pp',up:true},
-    {v:fK(Math.round(rev*mg)),l:'Gross Profit',d:'+14% YoY',up:true}
-  ]);
-}
-
-function initRetail(){
-  renderRKPIs();
-  const P=PAL.retail;
-  const lbl=rQ==='All'?M:['M1','M2','M3'];
-  const c1=document.getElementById('rRevMonth').getContext('2d');
-  charts.rRevMonth=new Chart(c1,{type:'line',data:{labels:lbl,datasets:[{label:'Revenue',data:RD[rQ].rev,borderColor:P[0],backgroundColor:grd(c1,P[0]),borderWidth:2.5,fill:true,tension:.42,pointBackgroundColor:P[0],pointRadius:3,pointHoverRadius:5}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>fK(v)}}}}});
-  const c2=document.getElementById('rRevCat').getContext('2d');
-  charts.rRevCat=new Chart(c2,{type:'doughnut',data:{labels:['Apparel','Footwear','Accessories'],datasets:[{data:[145200,88400,53700],backgroundColor:[P[0],P[1],P[2]],borderWidth:0,hoverOffset:10}]},options:{responsive:true,cutout:'68%',plugins:{legend:{position:'bottom',labels:{padding:14,boxWidth:10}}}}});
-  const c3=document.getElementById('rMargin').getContext('2d');
-  charts.rMargin=new Chart(c3,{type:'bar',data:{labels:['Cotton T-Shirt','Denim Jacket','Baseball Cap','Running Shoes','Canvas Bag','Leather Wallet'],datasets:[{data:[44,42,47,40,52,43],backgroundColor:P,borderRadius:5,borderSkipped:false}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{max:60,ticks:{callback:v=>v+'%'}}}}});
-  const c4=document.getElementById('rStore').getContext('2d');
-  charts.rStore=new Chart(c4,{type:'bar',data:{labels:['Mall · Dubai','Downtown · Abu Dhabi','Airport · Sharjah'],datasets:[{label:'Low',data:[49200,33100,21000],backgroundColor:P[2]+'cc',borderRadius:3},{label:'Mid',data:[63400,42100,28800],backgroundColor:P[0]+'cc',borderRadius:3},{label:'High',data:[35800,24600,17500],backgroundColor:P[1]+'cc',borderRadius:3}]},options:{responsive:true,scales:{x:{stacked:true},y:{stacked:true,ticks:{callback:v=>fK(v)}}},plugins:{legend:{labels:{boxWidth:10}}}}});
-}
-
-function rSlice(type,val,btn){
-  const row=btn.closest('.slicers');
-  const qB=['All','Q1','Q2','Q3','Q4'],cB=['All','Apparel','Footwear','Accessories'];
-  const isQ=qB.includes(btn.textContent);
-  row.querySelectorAll('.sbtn').forEach(b=>{
-    if(isQ&&qB.includes(b.textContent)) b.classList.remove('on');
-    if(!isQ&&cB.includes(b.textContent)) b.classList.remove('on');
-  });
-  btn.classList.add('on');
-  if(type==='q') rQ=val;
-  renderRKPIs();
-  const lbl=rQ==='All'?M:['M1','M2','M3'];
-  charts.rRevMonth.data.labels=lbl;
-  charts.rRevMonth.data.datasets[0].data=RD[rQ].rev;
-  charts.rRevMonth.update('active');
-}
-
-// ── TRAVEL ──
-function initTravel(){
-  const P=PAL.travel;
-  kpiRow('tKPIs',[
-    {v:'$4.2M',l:'Booking Revenue · YTD',d:'+12% YoY',up:true},
-    {v:'18.4%',l:'Cancellation Rate',d:'-20% vs prior year',up:true},
-    {v:'2,847',l:'Total Bookings',d:'+9.2% YoY',up:true},
-    {v:'$1,476',l:'Avg Booking Value',d:'+2.8% YoY',up:true},
-    {v:'82%',l:'Forecast Accuracy',d:'+6pp',up:true},
-    {v:'94.1%',l:'Customer Satisfaction',d:'+1.4pp',up:true}
-  ]);
-  const c1=document.getElementById('tRevYoY').getContext('2d');
-  new Chart(c1,{type:'bar',data:{labels:M,datasets:[{label:'2024',data:[280,310,380,420,480,510,490,540,570,620,680,790],backgroundColor:P[0]+'cc',borderRadius:4},{label:'2023',data:[250,278,340,374,428,455,438,480,505,552,604,712],type:'line',borderColor:P[2],borderWidth:2,pointRadius:3,pointBackgroundColor:P[2],fill:false}]},options:{responsive:true,scales:{y:{ticks:{callback:v=>'$'+(v/1000).toFixed(0)+'K'}}},plugins:{legend:{labels:{boxWidth:10}}}}});
-  const c2=document.getElementById('tMix').getContext('2d');
-  new Chart(c2,{type:'doughnut',data:{labels:['Leisure','Corporate','Group','Luxury'],datasets:[{data:[42,28,18,12],backgroundColor:P,borderWidth:0,hoverOffset:6}]},options:{responsive:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12}}}}});
-  const c3=document.getElementById('tCancel').getContext('2d');
-  new Chart(c3,{type:'line',data:{labels:M,datasets:[{label:'Before',data:[28,29,27,26,25,24,null,null,null,null,null,null],borderColor:'#f43f5e',borderWidth:2,tension:.4,pointRadius:3,borderDash:[5,4],pointBackgroundColor:'#f43f5e'},{label:'After Segmentation',data:[null,null,null,null,null,null,22,19,17,16,15,14],borderColor:P[0],borderWidth:2.5,tension:.4,pointRadius:3,pointBackgroundColor:P[0]}]},options:{responsive:true,plugins:{legend:{labels:{boxWidth:10}}},scales:{y:{min:10,max:32,ticks:{callback:v=>v+'%'}}}}});
-  const c4=document.getElementById('tForecast').getContext('2d');
-  new Chart(c4,{type:'line',data:{labels:M,datasets:[{label:'Forecast',data:[262,298,368,408,458,492,472,518,550,598,655,762],borderColor:P[3],borderWidth:1.5,borderDash:[4,3],tension:.4,pointRadius:0},{label:'Actual',data:[280,310,380,420,480,510,490,540,570,620,680,790],borderColor:P[0],backgroundColor:grd(c4,P[0],.22),borderWidth:2.5,fill:true,tension:.4,pointRadius:0}]},options:{responsive:true,plugins:{legend:{labels:{boxWidth:10}}},scales:{y:{ticks:{callback:v=>'$'+(v/1000).toFixed(0)+'K'}}}}});
-}
-
-// ── HEALTHCARE ──
-function initHealthcare(){
-  const P=PAL.health;
-  kpiRow('hKPIs',[
-    {v:'18,420',l:'Total Patients · YTD',d:'+8.2% YoY',up:true},
-    {v:'82.4%',l:'Bed Occupancy Rate',d:'+3.1pp',up:true},
-    {v:'4.2 hrs',l:'Avg Wait Time',d:'-0.8h YoY',up:true},
-    {v:'97.1%',l:'Patient Satisfaction',d:'+1.2pp',up:true},
-    {v:'8',l:'Depts · Dynamic RLS'},
-    {v:'99.8%',l:'Data Refresh Uptime'}
-  ]);
-  const c1=document.getElementById('hThru').getContext('2d');
-  new Chart(c1,{type:'bar',data:{labels:['Emergency','Cardiology','Orthopaedics','Oncology','Paediatrics','Neurology','Surgery','General'],datasets:[{data:[3820,2100,1850,1420,2200,980,1650,4400],backgroundColor:P,borderRadius:5}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>v.toLocaleString()}}}}});
-  const c2=document.getElementById('hBed').getContext('2d');
-  new Chart(c2,{type:'doughnut',data:{labels:['Occupied','Available'],datasets:[{data:[82.4,17.6],backgroundColor:[P[0],P[0]+'18'],borderWidth:0}]},options:{responsive:true,cutout:'72%',plugins:{legend:{position:'bottom',labels:{boxWidth:10}},tooltip:{callbacks:{label:c=>c.label+': '+c.raw+'%'}}}}});
-  const c3=document.getElementById('hTrend').getContext('2d');
-  new Chart(c3,{type:'line',data:{labels:M,datasets:[{data:[1204,1152,1318,1482,1558,1622,1584,1712,1694,1822,1894,2178],borderColor:P[0],backgroundColor:grd(c3,P[0],.28),borderWidth:2.5,fill:true,tension:.45,pointRadius:0}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:false}}}});
-}
-
-// ── FINANCE ──
-function initFinance(){
-  const P=PAL.finance;
-  kpiRow('fKPIs',[
-    {v:'$8.4M',l:'Total Revenue · YTD',d:'+14.2% YoY',up:true},
-    {v:'142%',l:'Budget Attainment',d:'vs $5.9M target',up:true},
-    {v:'38.6%',l:'EBITDA Margin',d:'+2.8pp YoY',up:true},
-    {v:'$1.24M',l:'Net Profit',d:'+19.4% YoY',up:true},
-    {v:'2.4x',l:'Revenue / Cost Ratio'},
-    {v:'Q4',l:'Best Quarter',d:'+22% vs Q1',up:true}
-  ]);
-  const c1=document.getElementById('fRevBudget').getContext('2d');
-  new Chart(c1,{type:'bar',data:{labels:M,datasets:[{label:'Actual',data:[582,624,714,782,854,922,882,982,1022,1122,1242,1472],backgroundColor:P[0]+'cc',borderRadius:4},{label:'Budget',data:[500,550,650,700,750,800,800,850,900,1000,1100,1300],type:'line',borderColor:P[2],borderWidth:2,pointRadius:3,pointBackgroundColor:P[2],fill:false}]},options:{responsive:true,scales:{y:{ticks:{callback:v=>'$'+(v/1000).toFixed(1)+'K'}}},plugins:{legend:{labels:{boxWidth:10}}}}});
-  const c2=document.getElementById('fExpense').getContext('2d');
-  new Chart(c2,{type:'doughnut',data:{labels:['COGS','Salaries','Marketing','Operations','Technology','Other'],datasets:[{data:[35,28,12,10,8,7],backgroundColor:P,borderWidth:0,hoverOffset:6}]}, options:{responsive:true,cutout:'62%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:10}}}}});
-  const c3=document.getElementById('fYoY').getContext('2d');
-  new Chart(c3,{type:'bar',data:{labels:M,datasets:[{data:[8.2,10.1,12.4,13.8,15.2,14.9,13.6,16.2,15.8,17.4,18.9,22.1],backgroundColor:ctx=>ctx.raw>=0?P[0]+'cc':'#f43f5ecc',borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>v+'%'}}}}});
-}
-
-// ── SWITCHER ──
-const inited={retail:true};
-initRetail();
-function showDash(id,btn){
-  document.querySelectorAll('.dash-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.dash-panel').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('dash-'+id).classList.add('active');
-  if(!inited[id]){
-    ({travel:initTravel,healthcare:initHealthcare,finance:initFinance}[id])();
-    inited[id]=true;
+  // Particle geometry
+  const N=2000;
+  const geo=new THREE.BufferGeometry();
+  const pos=new Float32Array(N*3);
+  const col=new Float32Array(N*3);
+  for(let i=0;i<N;i++){
+    pos[i*3]=  (Math.random()-.5)*20;
+    pos[i*3+1]=(Math.random()-.5)*20;
+    pos[i*3+2]=(Math.random()-.5)*20;
+    const t=Math.random();
+    if(t<.5){col[i*3]=.784;col[i*3+1]=.659;col[i*3+2]=.298;} // gold
+    else{col[i*3]=0;col[i*3+1]=.898;col[i*3+2]=1;} // cyan
   }
+  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+  const mat=new THREE.PointsMaterial({size:.04,vertexColors:true,transparent:true,opacity:.8});
+  const pts=new THREE.Points(geo,mat);
+  scene.add(pts);
+
+  // Floating rings
+  const rings=[];
+  [3,5,7].forEach((r,i)=>{
+    const g=new THREE.TorusGeometry(r,.008,8,80);
+    const m=new THREE.MeshBasicMaterial({color:i===0?0xc9a84c:i===1?0x00e5ff:0x7c3aed,transparent:true,opacity:.12});
+    const mesh=new THREE.Mesh(g,m);
+    mesh.rotation.x=Math.PI/3*(i+1);
+    mesh.rotation.y=Math.PI/4*i;
+    scene.add(mesh);rings.push(mesh);
+  });
+
+  window.addEventListener('resize',()=>{
+    camera.aspect=window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth,window.innerHeight);
+  });
+
+  let t=0;
+  (function anim(){
+    requestAnimationFrame(anim);
+    t+=.003;
+    pts.rotation.y=t*.2;
+    pts.rotation.x=t*.05;
+    rings.forEach((r,i)=>{r.rotation.z=t*(i%2===0?.15:.1);r.rotation.y=t*.08;});
+    renderer.render(scene,camera);
+  })();
+})();
+
+// ════════════════════════════════════════
+// KPI COUNTER ANIMATION
+// ════════════════════════════════════════
+function animCounters(){
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    const target=+el.dataset.target;
+    const suffix=el.dataset.suffix||'';
+    const prefix=el.dataset.prefix||'';
+    let cur=0,step=target/80;
+    const t=setInterval(()=>{
+      cur=Math.min(cur+step,target);
+      el.textContent=prefix+Math.round(cur)+suffix;
+      if(cur>=target)clearInterval(t);
+    },16);
+  });
 }
+const ob=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){animCounters();ob.disconnect();}});
+},{threshold:.3});
+ob.observe(document.querySelector('.kpi-strip'));
+
+// ════════════════════════════════════════
+// TABS
+// ════════════════════════════════════════
+function switchTab(id,btn){
+  document.querySelectorAll('.dash-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+  setTimeout(renderCharts,80);
+}
+
+// ════════════════════════════════════════
+// CHARTS
+// ════════════════════════════════════════
+const GOLD='#c9a84c',CYAN='#00e5ff',PUR='#7c3aed',GRN='#10b981';
+const MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const BASE_CFG={
+  responsive:true,maintainAspectRatio:false,
+  animation:{duration:900,easing:'easeOutQuart'},
+  plugins:{legend:{display:false},tooltip:{
+    backgroundColor:'rgba(7,17,34,.97)',borderColor:'rgba(201,168,76,.25)',borderWidth:1,
+    titleColor:'#f0d080',bodyColor:'#94a3b8',padding:10
+  }},
+  scales:{
+    x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#64748b',font:{size:9}}},
+    y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#64748b',font:{size:9}}}
+  }
+};
+const NO_SCALE={...BASE_CFG,scales:{}};
+const store={};
+
+function mk(id,cfg){
+  if(store[id]){store[id].destroy();delete store[id];}
+  const el=document.getElementById(id);if(!el)return;
+  store[id]=new Chart(el,cfg);
+}
+function grd(ctx,c1,c2){
+  const g=ctx.chart.ctx.createLinearGradient(0,0,0,160);
+  g.addColorStop(0,c1);g.addColorStop(1,c2);return g;
+}
+
+function renderCharts(){
+  // ── RETAIL ──
+  mk('c-rev',{type:'line',data:{labels:MO,datasets:[{
+    data:[420,455,440,510,490,570,560,610,590,650,680,720],
+    borderColor:GOLD,borderWidth:2,
+    backgroundColor:ctx=>grd(ctx,'rgba(201,168,76,.28)','rgba(201,168,76,0)'),
+    fill:true,tension:.4,pointRadius:3,pointBackgroundColor:GOLD
+  }]},options:BASE_CFG});
+
+  mk('c-cat',{type:'bar',data:{labels:['Apparel','Footwear','Accessories','Electronics'],datasets:[{
+    data:[38,27,21,14],backgroundColor:[GOLD,CYAN,PUR,GRN],borderRadius:5,borderSkipped:false
+  }]},options:BASE_CFG});
+
+  mk('c-margin',{type:'bar',data:{labels:['Prod A','B','C','D','E'],datasets:[{
+    data:[42,38,55,29,61],
+    backgroundColor:['#c9a84c','#c9a84c','#10b981','#c9a84c','#10b981'],
+    borderRadius:5
+  }]},options:BASE_CFG});
+
+  mk('c-band',{type:'doughnut',data:{labels:['Premium','Mid','Value'],datasets:[{
+    data:[35,45,20],backgroundColor:[GOLD,CYAN,PUR],borderWidth:0,hoverOffset:8
+  }]},options:NO_SCALE});
+
+  // ── TRAVEL ──
+  mk('c-t1',{type:'line',data:{labels:MO,datasets:[
+    {data:[280,310,295,340,360,420,450,480,390,330,300,270],borderColor:PUR,tension:.4,pointRadius:2,borderWidth:1.5,borderDash:[4,3]},
+    {data:[320,355,340,400,420,500,530,570,460,390,360,330],borderColor:GOLD,tension:.4,pointRadius:3,borderWidth:2}
+  ]},options:BASE_CFG});
+
+  mk('c-t2',{type:'doughnut',data:{labels:['Corporate','Leisure','Groups','FIT'],datasets:[{
+    data:[30,40,15,15],backgroundColor:[GOLD,CYAN,PUR,GRN],borderWidth:0,hoverOffset:8
+  }]},options:NO_SCALE});
+
+  mk('c-t3',{type:'bar',data:{labels:['Before','After'],datasets:[{
+    data:[18,9],backgroundColor:[PUR,GRN],borderRadius:8,borderSkipped:false
+  }]},options:BASE_CFG});
+
+  mk('c-t4',{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun'],datasets:[
+    {data:[400,420,410,450,470,530],borderColor:GOLD,tension:.4,pointRadius:3,borderWidth:2},
+    {data:[395,428,415,448,465,538],borderColor:CYAN,tension:.4,pointRadius:3,borderWidth:1.5,borderDash:[5,3]}
+  ]},options:BASE_CFG});
+
+  // ── HEALTHCARE ──
+  mk('c-h1',{type:'bar',data:{labels:['ER','Surgery','Cardio','Ortho','Neuro','Peds','ICU','Onco'],datasets:[{
+    data:[1200,850,620,540,480,390,310,290],backgroundColor:CYAN,borderRadius:4
+  }]},options:BASE_CFG});
+
+  mk('c-h2',{type:'line',data:{labels:MO,datasets:[{
+    data:[72,78,75,82,80,88,85,91,89,86,83,80],
+    borderColor:GRN,backgroundColor:ctx=>grd(ctx,'rgba(16,185,129,.2)','rgba(16,185,129,0)'),
+    fill:true,tension:.4,pointRadius:3
+  }]},options:BASE_CFG});
+
+  mk('c-h3',{type:'bar',data:{labels:MO,datasets:[{
+    data:[3200,3400,3100,3600,3500,3800,3700,4000,3900,3700,3600,3500],
+    backgroundColor:MO.map((_,i)=>i>=6?GOLD:PUR),borderRadius:3
+  }]},options:BASE_CFG});
+
+  mk('c-h4',{type:'radar',data:{labels:['Patient Sat','Bed Util','Staff Eff','Wait Time','Re-admit','Safety'],datasets:[{
+    data:[88,82,91,75,79,95],borderColor:GOLD,backgroundColor:'rgba(201,168,76,.1)',
+    pointBackgroundColor:GOLD,pointRadius:4,borderWidth:2
+  }]},options:{...NO_SCALE,scales:{r:{
+    grid:{color:'rgba(255,255,255,.05)'},
+    ticks:{color:'#475569',font:{size:8},backdropColor:'transparent'},
+    pointLabels:{color:'#94a3b8',font:{size:9}}
+  }}}});
+
+  // ── FINANCE ──
+  const bud=[500,520,510,560,550,600,590,640,620,580,570,610];
+  const act=[480,535,495,575,562,618,601,655,630,592,585,628];
+  mk('c-f1',{type:'bar',data:{labels:MO,datasets:[
+    {data:bud,backgroundColor:'rgba(124,58,237,.45)',borderRadius:3},
+    {data:act,backgroundColor:GOLD,borderRadius:3}
+  ]},options:BASE_CFG});
+
+  mk('c-f2',{type:'doughnut',data:{labels:['Payroll','Tech','Marketing','Ops','Other'],datasets:[{
+    data:[42,18,15,16,9],backgroundColor:[GOLD,CYAN,PUR,GRN,'#f43f5e'],borderWidth:0,hoverOffset:8
+  }]},options:NO_SCALE});
+
+  mk('c-f3',{type:'line',data:{labels:MO,datasets:[{
+    data:[3.2,4.1,3.8,5.2,4.8,6.1,5.9,7.2,6.8,6.4,6.1,6.9],
+    borderColor:GRN,backgroundColor:ctx=>grd(ctx,'rgba(16,185,129,.2)','rgba(16,185,129,0)'),
+    fill:true,tension:.4,pointRadius:3,borderWidth:2
+  }]},options:BASE_CFG});
+
+  let cum=0;
+  mk('c-f4',{type:'line',data:{labels:MO,datasets:[{
+    data:act.map(v=>(cum+=v,Math.round(cum))),
+    borderColor:CYAN,backgroundColor:ctx=>grd(ctx,'rgba(0,229,255,.15)','rgba(0,229,255,0)'),
+    fill:true,tension:.4,pointRadius:3,borderWidth:2
+  }]},options:BASE_CFG});
+}
+
+setTimeout(renderCharts,400);
 </script>
 </body>
 </html>
