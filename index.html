@@ -8,203 +8,178 @@
 <style>
 :root{
   --gold:#c9a84c;--gold2:#f0cc6e;--cyan:#00d4ff;--green:#00e87a;
-  --purple:#7c3aed;--red:#ff3d5a;--bg:#04060f;--surface:#080d1e;
-  --border:rgba(255,255,255,.06);--text:#f0f4ff;--muted:#4a5878;
+  --purple:#7c3aed;--red:#ff3d5a;--bg:#030508;--surface:#06090f;
+  --border:rgba(255,255,255,.07);--text:#eef2ff;--muted:#4a5878;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;}
 
-/* ─── NAV ─── */
+/* NAV */
 nav{
   position:fixed;top:0;width:100%;z-index:999;
   display:flex;align-items:center;justify-content:space-between;
-  padding:.9rem 3.5rem;
-  background:rgba(4,6,15,.8);
-  backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--border);
+  padding:.85rem 3.5rem;
+  background:rgba(3,5,8,.82);
+  backdrop-filter:blur(28px) saturate(160%);
+  border-bottom:1px solid rgba(201,168,76,.1);
 }
-.logo{font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;}
+.logo{font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;}
 .nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none;}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;transition:color .2s;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;transition:color .2s;}
 .nav-links a:hover{color:var(--text);}
-.hire-cta{
-  font-size:.72rem;letter-spacing:.1em;font-weight:700;text-transform:uppercase;
-  padding:.5rem 1.5rem;border-radius:4px;text-decoration:none;transition:.2s;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;
-}
-.hire-cta:hover{opacity:.9;transform:translateY(-1px);}
+.hire-cta{font-size:.7rem;letter-spacing:.1em;font-weight:700;text-transform:uppercase;padding:.5rem 1.4rem;border-radius:4px;text-decoration:none;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;transition:.2s;}
+.hire-cta:hover{opacity:.88;transform:translateY(-1px);}
 
-/* ─── TICKER ─── */
-.ticker-wrap{position:fixed;top:50px;width:100%;z-index:998;background:rgba(4,6,15,.95);border-bottom:1px solid rgba(255,255,255,.04);padding:.3rem 0;overflow:hidden;}
-.ticker-track{display:flex;gap:3rem;width:max-content;animation:marquee 35s linear infinite;}
+/* TICKER */
+.ticker-wrap{position:fixed;top:48px;width:100%;z-index:998;background:rgba(3,5,8,.96);border-bottom:1px solid rgba(255,255,255,.035);padding:.28rem 0;overflow:hidden;}
+.ticker-track{display:flex;gap:3rem;width:max-content;animation:marquee 38s linear infinite;}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.t-item{display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;white-space:nowrap;}
+.t-item{display:inline-flex;align-items:center;gap:.45rem;font-size:.62rem;white-space:nowrap;}
 .t-label{color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
-.t-up{color:var(--green);font-weight:600;font-family:'Space Grotesk',sans-serif;}
-.t-neutral{color:var(--gold);font-weight:600;font-family:'Space Grotesk',sans-serif;}
-.t-div{color:rgba(255,255,255,.08);}
+.t-up{color:var(--green);font-weight:700;font-family:'Space Grotesk',sans-serif;}
+.t-neutral{color:var(--gold);font-weight:700;font-family:'Space Grotesk',sans-serif;}
+.t-div{color:rgba(255,255,255,.07);margin:0 .5rem;}
 
-/* ─── HERO ─── */
+/* HERO — full bleed Burj Khalifa */
 #hero{
   position:relative;min-height:100vh;
-  display:flex;align-items:flex-end;justify-content:flex-start;
-  padding:0 4rem 7rem;overflow:hidden;
+  display:flex;align-items:flex-end;
+  padding:0 4.5rem 7.5rem;overflow:hidden;
 }
-.hero-bg{
+/* Primary image — Burj Khalifa night shot */
+.hero-img{
   position:absolute;inset:0;z-index:0;
-  background:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2560&q=95') center/cover no-repeat;
+  background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=3840&q=100&auto=format&fit=crop&crop=center');
+  background-size:cover;background-position:center top;
+  image-rendering:high-quality;
 }
-.hero-bg::after{
+/* Rich cinematic overlay — left side dark for text, right reveals tower */
+.hero-img::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(
-    to right,
-    rgba(4,6,15,.97) 0%,
-    rgba(4,6,15,.88) 30%,
-    rgba(4,6,15,.4) 65%,
-    rgba(4,6,15,.1) 100%
-  ),
-  linear-gradient(to top,rgba(4,6,15,1) 0%,rgba(4,6,15,.3) 40%,transparent 70%);
+  background:
+    linear-gradient(105deg,
+      rgba(3,5,8,.97) 0%,
+      rgba(3,5,8,.88) 28%,
+      rgba(3,5,8,.55) 52%,
+      rgba(3,5,8,.18) 72%,
+      rgba(3,5,8,.05) 88%,
+      transparent 100%
+    ),
+    linear-gradient(to top,
+      rgba(3,5,8,1) 0%,
+      rgba(3,5,8,.6) 18%,
+      rgba(3,5,8,.15) 35%,
+      transparent 55%
+    ),
+    linear-gradient(to bottom,
+      rgba(3,5,8,.7) 0%,
+      transparent 12%
+    );
 }
-.hero-content{position:relative;z-index:1;max-width:620px;}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:.6rem;
-  font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
-  margin-bottom:1.6rem;
+/* Gold atmospheric glow at base of tower */
+.hero-glow{
+  position:absolute;bottom:0;right:8%;width:45%;height:60%;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 80% at 55% 100%,rgba(201,168,76,.12) 0%,transparent 70%);
 }
-.live-pulse{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.4s ease infinite;}
-@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,232,122,.5);}70%{opacity:.6;box-shadow:0 0 0 6px rgba(0,232,122,0);}}
+.hero-content{position:relative;z-index:1;max-width:600px;}
+.hero-tag{display:inline-flex;align-items:center;gap:.6rem;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:glow-pulse 1.5s ease infinite;}
+@keyframes glow-pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,232,122,.6);}60%{opacity:.5;box-shadow:0 0 0 7px rgba(0,232,122,0);}}
 h1{
   font-family:'Space Grotesk',sans-serif;
-  font-size:clamp(2.8rem,5vw,5.2rem);
-  font-weight:700;line-height:1.05;letter-spacing:-.025em;
-  color:#fff;margin-bottom:.6rem;
+  font-size:clamp(3rem,5.5vw,5.8rem);
+  font-weight:700;line-height:1.02;letter-spacing:-.03em;
+  color:#fff;margin-bottom:.55rem;
 }
-.name-sub{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:clamp(.95rem,1.4vw,1.2rem);
-  font-weight:400;color:var(--muted);letter-spacing:.04em;
-  margin-bottom:1.8rem;
+.hero-role{
+  font-family:'Space Grotesk',sans-serif;font-size:clamp(.85rem,1.3vw,1.05rem);
+  font-weight:400;color:var(--muted);letter-spacing:.05em;margin-bottom:1.6rem;
 }
-.hero-desc{font-size:.9rem;color:var(--muted);line-height:1.75;max-width:480px;margin-bottom:2.5rem;}
-.hero-btns{display:flex;gap:.8rem;margin-bottom:4rem;}
-.btn-gold{
-  padding:.75rem 2rem;background:linear-gradient(135deg,var(--gold),var(--gold2));
-  color:#000;border:none;border-radius:5px;font-weight:700;font-size:.78rem;
-  letter-spacing:.08em;text-decoration:none;transition:.2s;cursor:pointer;text-transform:uppercase;
-}
-.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,168,76,.35);}
-.btn-outline{
-  padding:.75rem 2rem;border:1px solid rgba(255,255,255,.12);color:var(--muted);
-  background:transparent;border-radius:5px;font-size:.78rem;letter-spacing:.08em;
-  text-decoration:none;transition:.2s;text-transform:uppercase;
-}
-.btn-outline:hover{border-color:rgba(255,255,255,.3);color:var(--text);}
+.hero-desc{font-size:.88rem;color:#3a4a62;line-height:1.78;max-width:460px;margin-bottom:2.4rem;}
+.hero-btns{display:flex;gap:.8rem;margin-bottom:3.8rem;}
+.btn-gold{padding:.72rem 2rem;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border:none;border-radius:5px;font-weight:700;font-size:.75rem;letter-spacing:.08em;text-decoration:none;transition:.2s;text-transform:uppercase;}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,168,76,.38);}
+.btn-outline{padding:.72rem 2rem;border:1px solid rgba(255,255,255,.1);color:var(--muted);background:transparent;border-radius:5px;font-size:.75rem;letter-spacing:.08em;text-decoration:none;transition:.2s;text-transform:uppercase;}
+.btn-outline:hover{border-color:rgba(255,255,255,.25);color:var(--text);}
 
-/* ─── KPI CARDS ─── */
-.kpi-row{display:flex;gap:1px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
-.kpi{
-  flex:1;padding:1.2rem 1.5rem;background:rgba(4,6,15,.92);
-  backdrop-filter:blur(20px);transition:background .2s;
-}
-.kpi:hover{background:rgba(201,168,76,.06);}
-.kpi-v{
-  font-family:'Space Grotesk',sans-serif;font-size:1.9rem;font-weight:700;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  line-height:1;
-}
-.kpi-l{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:.4rem;}
-.kpi-t{font-size:.62rem;color:var(--green);margin-top:.3rem;font-weight:600;}
+/* KPI STRIP */
+.kpi-strip{display:flex;gap:1px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);border-radius:10px;overflow:hidden;width:fit-content;}
+.kpi{padding:1.1rem 1.6rem;background:rgba(3,5,8,.88);backdrop-filter:blur(20px);transition:background .2s;min-width:110px;}
+.kpi:hover{background:rgba(201,168,76,.07);}
+.kpi-v{font-family:'Space Grotesk',sans-serif;font-size:1.75rem;font-weight:700;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.kpi-l{font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:.35rem;}
+.kpi-t{font-size:.58rem;color:var(--green);margin-top:.25rem;font-weight:600;}
 
-/* ─── SECTIONS ─── */
+/* SECTIONS */
 section{position:relative;z-index:1;}
-.sec{padding:7rem 3.5rem;}
-.sec-alt{background:var(--surface);}
-.s-eye{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem;}
-.s-head{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;letter-spacing:-.02em;margin-bottom:.8rem;}
-.s-sub{color:var(--muted);font-size:.88rem;line-height:1.7;max-width:500px;margin-bottom:3rem;}
+.sec{padding:6.5rem 3.5rem;}
+.sec-dark{background:var(--surface);}
+.s-eye{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.65rem;}
+.s-head{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:700;letter-spacing:-.02em;margin-bottom:.75rem;}
+.s-sub{color:var(--muted);font-size:.84rem;line-height:1.75;max-width:480px;margin-bottom:2.8rem;}
 
-/* ─── DASHBOARD ─── */
-.tabs{display:flex;gap:0;margin-bottom:1.5rem;border:1px solid var(--border);border-radius:7px;overflow:hidden;width:fit-content;}
-.tab{
-  padding:.55rem 1.4rem;background:transparent;color:var(--muted);
-  border:none;border-right:1px solid var(--border);cursor:pointer;
-  font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;
-  font-family:'Inter',sans-serif;transition:.2s;
-}
+/* TABS */
+.tabs{display:flex;gap:0;margin-bottom:1.4rem;border:1px solid var(--border);border-radius:6px;overflow:hidden;width:fit-content;}
+.tab{padding:.52rem 1.4rem;background:transparent;color:var(--muted);border:none;border-right:1px solid var(--border);cursor:pointer;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;font-family:'Inter',sans-serif;transition:.2s;}
 .tab:last-child{border-right:none;}
-.tab.active,.tab:hover{background:rgba(201,168,76,.1);color:var(--gold);}
+.tab.active,.tab:hover{background:rgba(201,168,76,.09);color:var(--gold);}
 .dash-panel{display:none;}
 .dash-panel.active{display:block;}
 
-.dash-win{
-  border:1px solid var(--border);border-radius:12px;overflow:hidden;
-  background:var(--surface);
-  box-shadow:0 0 0 1px rgba(201,168,76,.04),0 30px 80px rgba(0,0,0,.6);
-}
-.dash-bar{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:.75rem 1.2rem;border-bottom:1px solid var(--border);
-  background:rgba(255,255,255,.015);
-}
-.d-dots{display:flex;gap:.4rem;}
-.dot{width:10px;height:10px;border-radius:50%;}
-.d-name{font-size:.65rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;font-weight:500;}
-.d-live{display:flex;align-items:center;gap:.4rem;font-size:.6rem;color:var(--green);font-weight:600;letter-spacing:.1em;text-transform:uppercase;}
-.d-live::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 1.4s infinite;}
-
+/* DASHBOARD WINDOW */
+.dash-win{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:0 0 0 1px rgba(201,168,76,.04),0 24px 70px rgba(0,0,0,.65);}
+.d-bar{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.2rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,.015);}
+.d-dots{display:flex;gap:.38rem;}
+.dd{width:10px;height:10px;border-radius:50%;}
+.d-name{font-size:.62rem;letter-spacing:.13em;color:var(--muted);text-transform:uppercase;font-weight:500;}
+.d-live{display:flex;align-items:center;gap:.4rem;font-size:.58rem;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:.1em;}
+.d-live::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);animation:glow-pulse 1.4s infinite;}
 .meta-bar{display:flex;border-bottom:1px solid var(--border);}
-.meta-item{flex:1;padding:.9rem 1.2rem;text-align:center;border-right:1px solid var(--border);}
-.meta-item:last-child{border-right:none;}
-.meta-v{font-family:'Space Grotesk',sans-serif;font-size:1.25rem;font-weight:700;color:var(--gold);}
-.meta-l{font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.2rem;}
+.mi{flex:1;padding:.85rem 1.2rem;text-align:center;border-right:1px solid var(--border);}
+.mi:last-child{border-right:none;}
+.mi-v{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:700;color:var(--gold);}
+.mi-l{font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.18rem;}
 
-.chart-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
-.chart-grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1px;background:var(--border);}
-.cc{background:var(--surface);padding:1.4rem;}
-.cc-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.1rem;}
-.cc-title{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;}
-.cc-live{font-family:'Space Grotesk',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);}
-canvas.ch{width:100%!important;height:170px!important;}
+/* CHART GRIDS */
+.cg2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.cc{background:var(--surface);padding:1.35rem;}
+.cc-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;}
+.cc-title{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;}
+.cc-val{font-family:'Space Grotesk',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);}
+canvas.ch{width:100%!important;height:168px!important;}
 
-/* Fancy tooltip & chart overrides via plugin */
+/* SKILLS */
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.sk{background:var(--surface);padding:1.7rem;transition:background .2s;}
+.sk:hover{background:rgba(0,212,255,.025);}
+.sk-top{display:flex;align-items:center;gap:.65rem;margin-bottom:.9rem;}
+.sk-ico{font-size:1.1rem;}
+.sk-nm{font-family:'Space Grotesk',sans-serif;font-size:.84rem;font-weight:600;}
+.tags{display:flex;flex-wrap:wrap;gap:.28rem;}
+.tag{font-size:.56rem;padding:.16rem .5rem;border-radius:3px;background:rgba(124,58,237,.08);color:#a78bfa;border:1px solid rgba(124,58,237,.15);letter-spacing:.04em;font-weight:500;}
 
-/* ─── SKILLS ─── */
-.skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
-.sk{background:var(--surface);padding:1.8rem;transition:background .2s;}
-.sk:hover{background:rgba(0,212,255,.03);}
-.sk-top{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;}
-.sk-ico{font-size:1.2rem;}
-.sk-name{font-family:'Space Grotesk',sans-serif;font-size:.88rem;font-weight:600;}
-.tags{display:flex;flex-wrap:wrap;gap:.3rem;}
-.tag{font-size:.58rem;padding:.18rem .55rem;border-radius:3px;background:rgba(124,58,237,.09);color:#a78bfa;border:1px solid rgba(124,58,237,.16);letter-spacing:.04em;font-weight:500;}
-
-/* ─── CERTS ─── */
-.cert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
-.cert{background:var(--surface);padding:1.4rem;display:flex;gap:.8rem;align-items:flex-start;transition:background .2s;}
+/* CERTS */
+.certg{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.cert{background:var(--surface);padding:1.3rem;display:flex;gap:.75rem;align-items:flex-start;transition:background .2s;}
 .cert:hover{background:rgba(201,168,76,.04);}
-.cert-ico{font-size:1.2rem;flex-shrink:0;}
-.cert-n{font-size:.8rem;font-weight:600;line-height:1.4;}
-.cert-i{font-size:.62rem;color:var(--muted);margin-top:.2rem;}
+.cico{font-size:1.1rem;flex-shrink:0;}
+.cn{font-size:.76rem;font-weight:600;line-height:1.4;}
+.ci{font-size:.6rem;color:var(--muted);margin-top:.18rem;}
 
-/* ─── CONTACT ─── */
-.contact-wrap{text-align:center;padding:7rem 3.5rem;}
-.c-links{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;margin-top:2rem;}
-.c-link{
-  padding:.65rem 1.6rem;border:1px solid var(--border);border-radius:5px;
-  text-decoration:none;color:var(--muted);font-size:.72rem;letter-spacing:.08em;
-  transition:.2s;background:rgba(255,255,255,.01);text-transform:uppercase;font-weight:500;
-}
-.c-link:hover{border-color:rgba(201,168,76,.4);color:var(--gold);}
+/* CONTACT */
+.contact-wrap{text-align:center;padding:6.5rem 3.5rem;}
+.cl{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;margin-top:2rem;}
+.clink{padding:.62rem 1.5rem;border:1px solid var(--border);border-radius:5px;text-decoration:none;color:var(--muted);font-size:.68rem;letter-spacing:.08em;transition:.2s;background:rgba(255,255,255,.01);text-transform:uppercase;font-weight:500;}
+.clink:hover{border-color:rgba(201,168,76,.4);color:var(--gold);}
 
 @media(max-width:900px){
   nav{padding:.8rem 1.2rem;}.nav-links{display:none;}
-  #hero{padding:0 1.5rem 5rem;}.hero-content{max-width:100%;}
-  .sec{padding:4.5rem 1.2rem;}
-  .kpi-row{flex-wrap:wrap;}.kpi{flex:calc(50% - 1px);}
-  .chart-grid-2,.chart-grid-4{grid-template-columns:1fr;}
-  .skill-grid,.cert-grid{grid-template-columns:1fr;}
+  #hero{padding:0 1.5rem 5rem;}
+  .sec{padding:4rem 1.2rem;}
+  .kpi-strip{flex-wrap:wrap;}
+  .cg2{grid-template-columns:1fr;}
+  .sg,.certg{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -223,23 +198,22 @@ canvas.ch{width:100%!important;height:170px!important;}
 </nav>
 
 <!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-track" id="ticker"></div>
-</div>
+<div class="ticker-wrap"><div class="ticker-track" id="ticker"></div></div>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-img"></div>
+  <div class="hero-glow"></div>
   <div class="hero-content">
-    <div class="hero-tag"><span class="live-pulse"></span>Senior Data Analyst · Power BI & Microsoft Fabric</div>
+    <div class="hero-tag"><span class="live-dot"></span>Senior Data Analyst · Power BI & Microsoft Fabric</div>
     <h1>Jimmy Maina</h1>
-    <p class="name-sub">Data Analyst · BI Architect · ML Specialist</p>
+    <p class="hero-role">BI Architect · Data Analyst · ML Specialist</p>
     <p class="hero-desc">7+ years turning raw data into executive-grade intelligence. Specialising in Power BI, Python, predictive analytics, and end-to-end BI architecture.</p>
     <div class="hero-btns">
       <a class="btn-gold" href="#dashboards">View Dashboards</a>
       <a class="btn-outline" href="mailto:jimmymwas@gmail.com">Get In Touch</a>
     </div>
-    <div class="kpi-row">
+    <div class="kpi-strip">
       <div class="kpi"><div class="kpi-v" data-target="7" data-suffix="+">0</div><div class="kpi-l">Years</div><div class="kpi-t">↑ Senior</div></div>
       <div class="kpi"><div class="kpi-v" data-target="12" data-prefix="+" data-suffix="%">0</div><div class="kpi-l">Revenue</div><div class="kpi-t">↑ Growth</div></div>
       <div class="kpi"><div class="kpi-v" data-target="40" data-suffix="%">0</div><div class="kpi-l">Cost Cut</div><div class="kpi-t">↑ Savings</div></div>
@@ -250,36 +224,51 @@ canvas.ch{width:100%!important;height:170px!important;}
 </section>
 
 <!-- DASHBOARDS -->
-<section id="dashboards" class="sec sec-alt">
+<section id="dashboards" class="sec sec-dark">
   <div class="s-eye">Live Dashboards</div>
   <h2 class="s-head">Interactive Analytics</h2>
   <p class="s-sub">Continuously updating dashboards built on real project architectures. Data refreshes every few seconds.</p>
 
   <div class="tabs">
-    <button class="tab active" onclick="switchTab('retail',this)">🛒 Retail</button>
+    <button class="tab active" onclick="switchTab('finance',this)">📈 Finance</button>
+    <button class="tab" onclick="switchTab('retail',this)">🛒 Retail</button>
     <button class="tab" onclick="switchTab('travel',this)">✈️ Travel</button>
     <button class="tab" onclick="switchTab('health',this)">🏥 Healthcare</button>
-    <button class="tab" onclick="switchTab('finance',this)">📈 Finance</button>
+  </div>
+
+  <!-- FINANCE (default) -->
+  <div class="dash-panel active" id="panel-finance">
+    <div class="dash-win">
+      <div class="d-bar"><div class="d-dots"><div class="dd" style="background:#ff5f57"></div><div class="dd" style="background:#febc2e"></div><div class="dd" style="background:#28c840"></div></div><div class="d-name">Executive Financial Reporting · YoY Intelligence · 2024</div><div class="d-live">Live</div></div>
+      <div class="meta-bar">
+        <div class="mi"><div class="mi-v">Azure</div><div class="mi-l">Synapse</div></div>
+        <div class="mi"><div class="mi-v">YoY/QoQ</div><div class="mi-l">Intelligence</div></div>
+        <div class="mi"><div class="mi-v" id="m-fcum">$7.1M</div><div class="mi-l">Cumulative</div></div>
+        <div class="mi"><div class="mi-v" id="m-fyoy">+6.9%</div><div class="mi-l">YoY Growth</div></div>
+      </div>
+      <div class="cg2">
+        <div class="cc"><div class="cc-head"><span class="cc-title">Revenue vs Budget</span><span class="cc-val" id="f1v">$628K</span></div><canvas class="ch" id="c-f1"></canvas></div>
+        <div class="cc"><div class="cc-head"><span class="cc-title">Expense Breakdown</span></div><canvas class="ch" id="c-f2"></canvas></div>
+        <div class="cc"><div class="cc-head"><span class="cc-title">YoY Growth %</span><span class="cc-val" id="f3v">+6.9%</span></div><canvas class="ch" id="c-f3"></canvas></div>
+        <div class="cc"><div class="cc-head"><span class="cc-title">Cumulative Revenue</span><span class="cc-val" id="f4v">$7.1M</span></div><canvas class="ch" id="c-f4"></canvas></div>
+      </div>
+    </div>
   </div>
 
   <!-- RETAIL -->
-  <div class="dash-panel active" id="panel-retail">
+  <div class="dash-panel" id="panel-retail">
     <div class="dash-win">
-      <div class="dash-bar">
-        <div class="d-dots"><div class="dot" style="background:#ff5f57"></div><div class="dot" style="background:#febc2e"></div><div class="dot" style="background:#28c840"></div></div>
-        <div class="d-name">Retail Revenue & Pricing Intelligence · 2024</div>
-        <div class="d-live">Live</div>
-      </div>
+      <div class="d-bar"><div class="d-dots"><div class="dd" style="background:#ff5f57"></div><div class="dd" style="background:#febc2e"></div><div class="dd" style="background:#28c840"></div></div><div class="d-name">Retail Revenue & Pricing Intelligence · 2024</div><div class="d-live">Live</div></div>
       <div class="meta-bar">
-        <div class="meta-item"><div class="meta-v">+12%</div><div class="meta-l">Revenue Growth</div></div>
-        <div class="meta-item"><div class="meta-v">4 Tables</div><div class="meta-l">Star Schema</div></div>
-        <div class="meta-item"><div class="meta-v" id="m-users">200</div><div class="meta-l">Daily Users</div></div>
-        <div class="meta-item"><div class="meta-v" id="m-rev">$724K</div><div class="meta-l">Live Revenue</div></div>
+        <div class="mi"><div class="mi-v">+12%</div><div class="mi-l">Revenue Growth</div></div>
+        <div class="mi"><div class="mi-v">4 Tables</div><div class="mi-l">Star Schema</div></div>
+        <div class="mi"><div class="mi-v" id="m-rusers">200</div><div class="mi-l">Daily Users</div></div>
+        <div class="mi"><div class="mi-v" id="m-rrev">$724K</div><div class="mi-l">Live Revenue</div></div>
       </div>
-      <div class="chart-grid-2">
-        <div class="cc"><div class="cc-head"><span class="cc-title">Monthly Revenue Trend</span><span class="cc-live" id="rv-v">$724K</span></div><canvas class="ch" id="c-rev"></canvas></div>
+      <div class="cg2">
+        <div class="cc"><div class="cc-head"><span class="cc-title">Monthly Revenue Trend</span><span class="cc-val" id="rvv">$724K</span></div><canvas class="ch" id="c-rev"></canvas></div>
         <div class="cc"><div class="cc-head"><span class="cc-title">Revenue by Category</span></div><canvas class="ch" id="c-cat"></canvas></div>
-        <div class="cc"><div class="cc-head"><span class="cc-title">Gross Margin %</span><span class="cc-live" id="gm-v">45%</span></div><canvas class="ch" id="c-gm"></canvas></div>
+        <div class="cc"><div class="cc-head"><span class="cc-title">Gross Margin %</span><span class="cc-val" id="gmv">45%</span></div><canvas class="ch" id="c-gm"></canvas></div>
         <div class="cc"><div class="cc-head"><span class="cc-title">Price Band Split</span></div><canvas class="ch" id="c-pb"></canvas></div>
       </div>
     </div>
@@ -288,22 +277,18 @@ canvas.ch{width:100%!important;height:170px!important;}
   <!-- TRAVEL -->
   <div class="dash-panel" id="panel-travel">
     <div class="dash-win">
-      <div class="dash-bar">
-        <div class="d-dots"><div class="dot" style="background:#ff5f57"></div><div class="dot" style="background:#febc2e"></div><div class="dot" style="background:#28c840"></div></div>
-        <div class="d-name">Hemingways Travel · Revenue & Demand Analytics · 2024</div>
-        <div class="d-live">Live</div>
-      </div>
+      <div class="d-bar"><div class="d-dots"><div class="dd" style="background:#ff5f57"></div><div class="dd" style="background:#febc2e"></div><div class="dd" style="background:#28c840"></div></div><div class="d-name">Hemingways Travel · Revenue & Demand Analytics · 2024</div><div class="d-live">Live</div></div>
       <div class="meta-bar">
-        <div class="meta-item"><div class="meta-v">+12%</div><div class="meta-l">Revenue</div></div>
-        <div class="meta-item"><div class="meta-v">-20%</div><div class="meta-l">Cancellations</div></div>
-        <div class="meta-item"><div class="meta-v" id="m-book">1,247</div><div class="meta-l">Bookings</div></div>
-        <div class="meta-item"><div class="meta-v">ML</div><div class="meta-l">Forecasting</div></div>
+        <div class="mi"><div class="mi-v">+12%</div><div class="mi-l">Revenue</div></div>
+        <div class="mi"><div class="mi-v">-20%</div><div class="mi-l">Cancellations</div></div>
+        <div class="mi"><div class="mi-v" id="m-book">1,247</div><div class="mi-l">Bookings</div></div>
+        <div class="mi"><div class="mi-v">ML</div><div class="mi-l">Forecasting</div></div>
       </div>
-      <div class="chart-grid-2">
-        <div class="cc"><div class="cc-head"><span class="cc-title">YoY Booking Revenue</span><span class="cc-live">+12% YoY</span></div><canvas class="ch" id="c-t1"></canvas></div>
+      <div class="cg2">
+        <div class="cc"><div class="cc-head"><span class="cc-title">YoY Booking Revenue</span><span class="cc-val">+12% YoY</span></div><canvas class="ch" id="c-t1"></canvas></div>
         <div class="cc"><div class="cc-head"><span class="cc-title">Booking Mix by Segment</span></div><canvas class="ch" id="c-t2"></canvas></div>
         <div class="cc"><div class="cc-head"><span class="cc-title">Cancellation Rate · Before vs After</span></div><canvas class="ch" id="c-t3"></canvas></div>
-        <div class="cc"><div class="cc-head"><span class="cc-title">Forecast vs Actual</span><span class="cc-live" id="fc-v">98%</span></div><canvas class="ch" id="c-t4"></canvas></div>
+        <div class="cc"><div class="cc-head"><span class="cc-title">Forecast vs Actual</span><span class="cc-val" id="fcv">98%</span></div><canvas class="ch" id="c-t4"></canvas></div>
       </div>
     </div>
   </div>
@@ -311,45 +296,18 @@ canvas.ch{width:100%!important;height:170px!important;}
   <!-- HEALTH -->
   <div class="dash-panel" id="panel-health">
     <div class="dash-win">
-      <div class="dash-bar">
-        <div class="d-dots"><div class="dot" style="background:#ff5f57"></div><div class="dot" style="background:#febc2e"></div><div class="dot" style="background:#28c840"></div></div>
-        <div class="d-name">Healthcare Operations KPI · 2024</div>
-        <div class="d-live">Live</div>
-      </div>
+      <div class="d-bar"><div class="d-dots"><div class="dd" style="background:#ff5f57"></div><div class="dd" style="background:#febc2e"></div><div class="dd" style="background:#28c840"></div></div><div class="d-name">Healthcare Operations KPI · 2024</div><div class="d-live">Live</div></div>
       <div class="meta-bar">
-        <div class="meta-item"><div class="meta-v">8</div><div class="meta-l">Departments</div></div>
-        <div class="meta-item"><div class="meta-v">RLS</div><div class="meta-l">Security</div></div>
-        <div class="meta-item"><div class="meta-v" id="m-pat">312</div><div class="meta-l">Patients Today</div></div>
-        <div class="meta-item"><div class="meta-v" id="m-occ">82%</div><div class="meta-l">Bed Occupancy</div></div>
+        <div class="mi"><div class="mi-v">8</div><div class="mi-l">Departments</div></div>
+        <div class="mi"><div class="mi-v">RLS</div><div class="mi-l">Security</div></div>
+        <div class="mi"><div class="mi-v" id="m-pat">312</div><div class="mi-l">Patients Today</div></div>
+        <div class="mi"><div class="mi-v" id="m-occ">82%</div><div class="mi-l">Bed Occupancy</div></div>
       </div>
-      <div class="chart-grid-2">
+      <div class="cg2">
         <div class="cc"><div class="cc-head"><span class="cc-title">Patient Throughput by Dept</span></div><canvas class="ch" id="c-h1"></canvas></div>
-        <div class="cc"><div class="cc-head"><span class="cc-title">Bed Occupancy Rate</span><span class="cc-live" id="occ-v">82%</span></div><canvas class="ch" id="c-h2"></canvas></div>
+        <div class="cc"><div class="cc-head"><span class="cc-title">Bed Occupancy Rate</span><span class="cc-val" id="occv">82%</span></div><canvas class="ch" id="c-h2"></canvas></div>
         <div class="cc"><div class="cc-head"><span class="cc-title">Monthly Patient Volume</span></div><canvas class="ch" id="c-h3"></canvas></div>
         <div class="cc"><div class="cc-head"><span class="cc-title">KPI Performance Radar</span></div><canvas class="ch" id="c-h4"></canvas></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FINANCE -->
-  <div class="dash-panel" id="panel-finance">
-    <div class="dash-win">
-      <div class="dash-bar">
-        <div class="d-dots"><div class="dot" style="background:#ff5f57"></div><div class="dot" style="background:#febc2e"></div><div class="dot" style="background:#28c840"></div></div>
-        <div class="d-name">Executive Financial Reporting · YoY Intelligence · 2024</div>
-        <div class="d-live">Live</div>
-      </div>
-      <div class="meta-bar">
-        <div class="meta-item"><div class="meta-v">Azure</div><div class="meta-l">Synapse</div></div>
-        <div class="meta-item"><div class="meta-v">YoY/QoQ</div><div class="meta-l">Intelligence</div></div>
-        <div class="meta-item"><div class="meta-v" id="m-fin">$7.1M</div><div class="meta-l">Cumulative</div></div>
-        <div class="meta-item"><div class="meta-v">C-Suite</div><div class="meta-l">Audience</div></div>
-      </div>
-      <div class="chart-grid-2">
-        <div class="cc"><div class="cc-head"><span class="cc-title">Revenue vs Budget</span><span class="cc-live" id="f1-v">$628K</span></div><canvas class="ch" id="c-f1"></canvas></div>
-        <div class="cc"><div class="cc-head"><span class="cc-title">Expense Breakdown</span></div><canvas class="ch" id="c-f2"></canvas></div>
-        <div class="cc"><div class="cc-head"><span class="cc-title">YoY Growth %</span><span class="cc-live" id="f3-v">+6.9%</span></div><canvas class="ch" id="c-f3"></canvas></div>
-        <div class="cc"><div class="cc-head"><span class="cc-title">Cumulative Revenue</span></div><canvas class="ch" id="c-f4"></canvas></div>
       </div>
     </div>
   </div>
@@ -360,132 +318,88 @@ canvas.ch{width:100%!important;height:170px!important;}
   <div class="s-eye">Technical Stack</div>
   <h2 class="s-head">Full-Spectrum Expertise</h2>
   <p class="s-sub">End-to-end capability across data engineering, analytics, and machine learning.</p>
-  <div class="skill-grid">
-    <div class="sk"><div class="sk-top"><span class="sk-ico">📊</span><span class="sk-name">Business Intelligence</span></div><div class="tags"><span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">DAX</span><span class="tag">Power Query</span><span class="tag">Excel</span><span class="tag">Microsoft Fabric</span></div></div>
-    <div class="sk"><div class="sk-top"><span class="sk-ico">🐍</span><span class="sk-name">Programming</span></div><div class="tags"><span class="tag">Python</span><span class="tag">SQL · T-SQL</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span><span class="tag">Scikit-learn</span></div></div>
-    <div class="sk"><div class="sk-top"><span class="sk-ico">🤖</span><span class="sk-name">Machine Learning & AI</span></div><div class="tags"><span class="tag">Predictive Analytics</span><span class="tag">Statistical Modeling</span><span class="tag">SPSS</span><span class="tag">Forecasting</span></div></div>
-    <div class="sk"><div class="sk-top"><span class="sk-ico">🔄</span><span class="sk-name">Data Engineering</span></div><div class="tags"><span class="tag">ETL Pipelines</span><span class="tag">Data Cleaning</span><span class="tag">KPI Frameworks</span><span class="tag">Azure Synapse</span><span class="tag">SAP</span></div></div>
-    <div class="sk"><div class="sk-top"><span class="sk-ico">☁️</span><span class="sk-name">Platforms & Tools</span></div><div class="tags"><span class="tag">HubSpot</span><span class="tag">Google Analytics</span><span class="tag">Microsoft Teams</span><span class="tag">Trello</span><span class="tag">Canvas LMS</span></div></div>
-    <div class="sk"><div class="sk-top"><span class="sk-ico">📐</span><span class="sk-name">Project Management</span></div><div class="tags"><span class="tag">Agile</span><span class="tag">Budget Management</span><span class="tag">Stakeholder Management</span><span class="tag">GIS</span></div></div>
+  <div class="sg">
+    <div class="sk"><div class="sk-top"><span class="sk-ico">📊</span><span class="sk-nm">Business Intelligence</span></div><div class="tags"><span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">DAX</span><span class="tag">Power Query</span><span class="tag">Excel</span><span class="tag">Microsoft Fabric</span></div></div>
+    <div class="sk"><div class="sk-top"><span class="sk-ico">🐍</span><span class="sk-nm">Programming</span></div><div class="tags"><span class="tag">Python</span><span class="tag">SQL · T-SQL</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span><span class="tag">Scikit-learn</span></div></div>
+    <div class="sk"><div class="sk-top"><span class="sk-ico">🤖</span><span class="sk-nm">Machine Learning & AI</span></div><div class="tags"><span class="tag">Predictive Analytics</span><span class="tag">Statistical Modeling</span><span class="tag">SPSS</span><span class="tag">Forecasting</span></div></div>
+    <div class="sk"><div class="sk-top"><span class="sk-ico">🔄</span><span class="sk-nm">Data Engineering</span></div><div class="tags"><span class="tag">ETL Pipelines</span><span class="tag">Data Cleaning</span><span class="tag">KPI Frameworks</span><span class="tag">Azure Synapse</span><span class="tag">SAP</span></div></div>
+    <div class="sk"><div class="sk-top"><span class="sk-ico">☁️</span><span class="sk-nm">Platforms & Tools</span></div><div class="tags"><span class="tag">HubSpot</span><span class="tag">Google Analytics</span><span class="tag">Microsoft Teams</span><span class="tag">Trello</span><span class="tag">Canvas LMS</span></div></div>
+    <div class="sk"><div class="sk-top"><span class="sk-ico">📐</span><span class="sk-nm">Project Management</span></div><div class="tags"><span class="tag">Agile</span><span class="tag">Budget Management</span><span class="tag">Stakeholder Management</span><span class="tag">GIS</span></div></div>
   </div>
 </section>
 
 <!-- CERTS -->
-<section id="certs" class="sec sec-alt">
+<section id="certs" class="sec sec-dark">
   <div class="s-eye">Credentials</div>
   <h2 class="s-head">Certifications & Education</h2>
-  <div class="cert-grid">
-    <div class="cert"><div class="cert-ico">🏆</div><div><div class="cert-n">Power BI Data Analyst Associate</div><div class="cert-i">Microsoft · PL-300</div></div></div>
-    <div class="cert"><div class="cert-ico">📊</div><div><div class="cert-n">IBM Data Analyst Professional</div><div class="cert-i">IBM Certificate</div></div></div>
-    <div class="cert"><div class="cert-ico">🤖</div><div><div class="cert-n">HCIA – Artificial Intelligence</div><div class="cert-i">Huawei Certified ICT Associate</div></div></div>
-    <div class="cert"><div class="cert-ico">🔒</div><div><div class="cert-n">Data Protection</div><div class="cert-i">Centre for IP & IT Law</div></div></div>
-    <div class="cert"><div class="cert-ico">🧠</div><div><div class="cert-n">AI Starter Kit – Machine Learning</div><div class="cert-i">Certification Programme</div></div></div>
-    <div class="cert"><div class="cert-ico">🌍</div><div><div class="cert-n">Fundamentals of GIS</div><div class="cert-i">Geographic Information Systems</div></div></div>
-    <div class="cert"><div class="cert-ico">🎓</div><div><div class="cert-n">Bachelor of Economics</div><div class="cert-i">University of Nairobi</div></div></div>
+  <div class="certg">
+    <div class="cert"><div class="cico">🏆</div><div><div class="cn">Power BI Data Analyst Associate</div><div class="ci">Microsoft · PL-300</div></div></div>
+    <div class="cert"><div class="cico">📊</div><div><div class="cn">IBM Data Analyst Professional</div><div class="ci">IBM Certificate</div></div></div>
+    <div class="cert"><div class="cico">🤖</div><div><div class="cn">HCIA – Artificial Intelligence</div><div class="ci">Huawei Certified ICT Associate</div></div></div>
+    <div class="cert"><div class="cico">🔒</div><div><div class="cn">Data Protection</div><div class="ci">Centre for IP & IT Law</div></div></div>
+    <div class="cert"><div class="cico">🧠</div><div><div class="cn">AI Starter Kit – Machine Learning</div><div class="ci">Certification Programme</div></div></div>
+    <div class="cert"><div class="cico">🌍</div><div><div class="cn">Fundamentals of GIS</div><div class="ci">Geographic Information Systems</div></div></div>
+    <div class="cert"><div class="cico">🎓</div><div><div class="cn">Bachelor of Economics</div><div class="ci">University of Nairobi</div></div></div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact" class="contact-wrap">
-  <div class="s-eye" style="justify-content:center;display:flex;">Contact</div>
+  <div class="s-eye" style="display:flex;justify-content:center;">Contact</div>
   <h2 class="s-head">Let's Work Together</h2>
-  <div class="c-links">
-    <a class="c-link" href="mailto:jimmymwas@gmail.com">📧 jimmymwas@gmail.com</a>
-    <a class="c-link" href="https://linkedin.com/in/jimmymaina" target="_blank">💼 LinkedIn</a>
-    <a class="c-link" href="https://github.com/jimal254" target="_blank">💻 GitHub</a>
-    <a class="c-link" href="https://public.tableau.com/app/profile/jimmy4920" target="_blank">📊 Tableau Public</a>
+  <div class="cl">
+    <a class="clink" href="mailto:jimmymwas@gmail.com">📧 jimmymwas@gmail.com</a>
+    <a class="clink" href="https://linkedin.com/in/jimmymaina" target="_blank">💼 LinkedIn</a>
+    <a class="clink" href="https://github.com/jimal254" target="_blank">💻 GitHub</a>
+    <a class="clink" href="https://public.tableau.com/app/profile/jimmy4920" target="_blank">📊 Tableau Public</a>
   </div>
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
-// ── SHARED CHART DEFAULTS ──
+// ── GLOBALS ──
 Chart.defaults.color='#4a5878';
 Chart.defaults.borderColor='rgba(255,255,255,.04)';
 Chart.defaults.font.family='Inter';
 
-const GOLD='#c9a84c',GOLD2='#f0cc6e',CYAN='#00d4ff',GREEN='#00e87a',
-      PURPLE='#7c3aed',RED='#ff3d5a',SURFACE='rgba(8,13,30,.98)';
-
+const G='#c9a84c',G2='#f0cc6e',CY='#00d4ff',GR='#00e87a',PU='#7c3aed',RE='#ff3d5a';
 const MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const store={};
 
-function grd(ctx,c1,c2,h=180){
-  const g=ctx.createLinearGradient(0,0,0,h);
-  g.addColorStop(0,c1);g.addColorStop(1,c2);return g;
-}
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1)+a);}
+function grd(chart,c1,c2){const g=chart.ctx.createLinearGradient(0,0,0,168);g.addColorStop(0,c1);g.addColorStop(1,c2);return g;}
 
-const BASE={
-  responsive:true,maintainAspectRatio:false,
-  animation:{duration:700,easing:'easeOutQuart'},
-  plugins:{
-    legend:{display:false},
-    tooltip:{
-      enabled:true,
-      backgroundColor:'rgba(4,6,15,.97)',
-      borderColor:'rgba(201,168,76,.2)',borderWidth:1,
-      titleColor:GOLD2,bodyColor:'#7a8aa8',
-      padding:12,cornerRadius:8,
-      titleFont:{family:'Space Grotesk',weight:'700',size:11},
-      bodyFont:{size:11},
-    }
-  },
-  scales:{
-    x:{grid:{color:'rgba(255,255,255,.03)',drawBorder:false},ticks:{color:'#2a3a55',font:{size:9},maxRotation:0}},
-    y:{grid:{color:'rgba(255,255,255,.03)',drawBorder:false},ticks:{color:'#2a3a55',font:{size:9}}}
-  }
-};
+const TT={backgroundColor:'rgba(3,5,8,.97)',borderColor:'rgba(201,168,76,.18)',borderWidth:1,titleColor:G2,bodyColor:'#7a8aa8',padding:12,cornerRadius:8,titleFont:{family:'Space Grotesk',weight:'700',size:11},bodyFont:{size:11}};
+const BASE={responsive:true,maintainAspectRatio:false,animation:{duration:650,easing:'easeOutQuart'},plugins:{legend:{display:false},tooltip:TT},
+  scales:{x:{grid:{color:'rgba(255,255,255,.025)',drawBorder:false},ticks:{color:'#253040',font:{size:8.5},maxRotation:0}},y:{grid:{color:'rgba(255,255,255,.025)',drawBorder:false},ticks:{color:'#253040',font:{size:8.5}}}}};
 const NS={...BASE,scales:{}};
 
-const store={};
-function mk(id,cfg){
-  if(store[id])store[id].destroy();
-  const el=document.getElementById(id);if(!el)return null;
-  store[id]=new Chart(el,cfg);return store[id];
-}
-function rnd(a,b){return Math.floor(Math.random()*(b-a+1)+a);}
+function mk(id,cfg){if(store[id])store[id].destroy();const el=document.getElementById(id);if(!el)return null;store[id]=new Chart(el,cfg);return store[id];}
 
 // ── TICKER ──
-const tickItems=[
-  {l:'Power BI',v:()=>'+'+rnd(92,99)+'%',c:'t-up'},
-  {l:'Python',v:()=>'+'+rnd(88,97)+'%',c:'t-up'},
-  {l:'Revenue Impact',v:()=>'+12%',c:'t-up'},
-  {l:'Cost Reduction',v:()=>'40%',c:'t-up'},
-  {l:'Client Retention',v:()=>'95%',c:'t-neutral'},
-  {l:'Automation',v:()=>'60%',c:'t-up'},
-  {l:'Daily Users',v:()=>'200+',c:'t-neutral'},
-  {l:'ML Models Active',v:()=>rnd(5,9)+'',c:'t-up'},
-  {l:'KPIs Tracked',v:()=>rnd(85,130)+'+',c:'t-neutral'},
-  {l:'DAX Measures',v:()=>rnd(42,58)+'+',c:'t-up'},
-  {l:'Dashboards Built',v:()=>'15+',c:'t-neutral'},
-  {l:'Accuracy',v:()=>rnd(95,99)+'%',c:'t-up'},
+const TD=[
+  {l:'Power BI',v:()=>rnd(92,99)+'%',c:'t-up'},{l:'Python',v:()=>rnd(88,97)+'%',c:'t-up'},
+  {l:'Revenue Impact',v:()=>'+12%',c:'t-up'},{l:'Cost Reduction',v:()=>'40%',c:'t-up'},
+  {l:'Client Retention',v:()=>'95%',c:'t-neutral'},{l:'Automation',v:()=>'60%',c:'t-up'},
+  {l:'Daily Users',v:()=>'200+',c:'t-neutral'},{l:'ML Models',v:()=>rnd(5,9)+' Active',c:'t-up'},
+  {l:'KPIs Tracked',v:()=>rnd(85,130)+'+',c:'t-neutral'},{l:'DAX Measures',v:()=>rnd(42,58)+'+',c:'t-up'},
+  {l:'Dashboards',v:()=>'15+',c:'t-neutral'},{l:'Accuracy',v:()=>rnd(95,99)+'%',c:'t-up'},
 ];
-(function buildTicker(){
-  const el=document.getElementById('ticker');
-  let h='';
-  for(let r=0;r<2;r++){
-    tickItems.forEach((d,i)=>{
-      h+=`<span class="t-item"><span class="t-label">${d.l}</span><span class="${d.c}" id="ti-${r}-${i}">${d.v()}</span></span>`;
-      if(i<tickItems.length-1)h+=`<span class="t-div">·</span>`;
-    });
-    if(r===0)h+=`<span style="width:3rem;display:inline-block"></span>`;
-  }
-  el.innerHTML=h;
-})();
-setInterval(()=>{tickItems.forEach((d,i)=>{const v=d.v();['0','1'].forEach(r=>{const e=document.getElementById(`ti-${r}-${i}`);if(e)e.textContent=v;});});},2800);
+(()=>{let h='';for(let r=0;r<2;r++){TD.forEach((d,i)=>{h+=`<span class="t-item"><span class="t-label">${d.l}</span><span class="${d.c}" id="ti-${r}-${i}">${d.v()}</span></span>`;if(i<TD.length-1)h+=`<span class="t-div">·</span>`;});if(r===0)h+=`<span style="width:3rem;display:inline-block"></span>`;}document.getElementById('ticker').innerHTML=h;})();
+setInterval(()=>{TD.forEach((d,i)=>{const v=d.v();[0,1].forEach(r=>{const e=document.getElementById(`ti-${r}-${i}`);if(e)e.textContent=v;});});},2600);
 
 // ── KPI COUNTER ──
-function animateKPI(){
+let counted=false;
+function animKPI(){if(counted)return;counted=true;
   document.querySelectorAll('[data-target]').forEach(el=>{
-    const target=+el.dataset.target,sfx=el.dataset.suffix||'',pfx=el.dataset.prefix||'';
-    let cur=0;const step=target/70;
-    const t=setInterval(()=>{cur=Math.min(cur+step,target);el.textContent=pfx+Math.round(cur)+sfx;if(cur>=target)clearInterval(t);},18);
+    const t=+el.dataset.target,sfx=el.dataset.suffix||'',pfx=el.dataset.prefix||'';
+    let c=0;const step=t/75;
+    const ti=setInterval(()=>{c=Math.min(c+step,t);el.textContent=pfx+Math.round(c)+sfx;if(c>=t)clearInterval(ti);},16);
   });
 }
-new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){animateKPI();ob.disconnect();}});},{threshold:.15}).observe(document.querySelector('.kpi-row'));
-const ob=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){animateKPI();ob.disconnect();}});},{threshold:.15});
-ob.observe(document.querySelector('.kpi-row'));
+new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting)animKPI();});},{threshold:.1}).observe(document.querySelector('.kpi-strip'));
 
-// ── TAB SWITCH ──
+// ── TABS ──
 function switchTab(id,btn){
   document.querySelectorAll('.dash-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -495,155 +409,87 @@ function switchTab(id,btn){
 }
 
 // ── LIVE COUNTERS ──
+// Finance
+let finCum=7100000,finYoy=6.9;
+setInterval(()=>{
+  finCum+=rnd(400,1800);finYoy=+(6.5+Math.random()*1.2).toFixed(1);
+  const v='$'+(finCum/1e6).toFixed(1)+'M';
+  ['m-fcum','f4v'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=v;});
+  ['m-fyoy','f3v'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='+'+finYoy+'%';});
+  if(store['c-f3']){const d=store['c-f3'].data.datasets[0].data;d.push(finYoy);d.shift();store['c-f3'].update('none');}
+  if(store['c-f4']){const d=store['c-f4'].data.datasets[0].data;d[11]=Math.round(finCum/1000);store['c-f4'].update('none');}
+},1500);
+
+// Retail
 let liveRev=724000;
 setInterval(()=>{
-  liveRev+=rnd(80,420);
-  const f=v=>`$${(v/1000).toFixed(1)}K`;
-  const e1=document.getElementById('m-rev'),e2=document.getElementById('rv-v');
-  if(e1)e1.textContent=f(liveRev);if(e2)e2.textContent=f(liveRev);
+  liveRev+=rnd(60,380);
+  const v='$'+(liveRev/1000).toFixed(1)+'K';
+  ['m-rrev','rvv'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=v;});
   if(store['c-rev']){const d=store['c-rev'].data.datasets[0].data;d[11]=+(liveRev/1000).toFixed(1);store['c-rev'].update('none');}
-},1000);
+},1200);
 
+// Travel
 let books=1247;
-setInterval(()=>{books+=rnd(0,2);const e=document.getElementById('m-book');if(e)e.textContent=books.toLocaleString();},1600);
+setInterval(()=>{books+=rnd(0,2);const e=document.getElementById('m-book');if(e)e.textContent=books.toLocaleString();},1800);
+setInterval(()=>{if(!store['c-t4'])return;const d=store['c-t4'].data.datasets[1].data;d.forEach((v,i)=>d[i]=v+rnd(-3,3));store['c-t4'].update('none');},2400);
 
+// Healthcare
 let pats=312,occ=82;
 setInterval(()=>{
   pats+=rnd(-1,2);occ=Math.max(72,Math.min(95,occ+rnd(-1,1)));
-  const p=document.getElementById('m-pat'),o=document.getElementById('m-occ'),o2=document.getElementById('occ-v');
+  const p=document.getElementById('m-pat'),o=document.getElementById('m-occ'),o2=document.getElementById('occv');
   if(p)p.textContent=pats;if(o)o.textContent=occ+'%';if(o2)o2.textContent=occ+'%';
   if(store['c-h2']){const d=store['c-h2'].data.datasets[0].data;d.push(occ);d.shift();store['c-h2'].update('none');}
 },1400);
 
-let finCum=7100000;
-setInterval(()=>{finCum+=rnd(500,2000);const e=document.getElementById('m-fin');if(e)e.textContent='$'+(finCum/1e6).toFixed(1)+'M';},1200);
-
-// ── RENDER CHARTS ──
+// ── RENDER ALL CHARTS ──
 function renderAll(){
 
-  // ── RETAIL ──
-  const revData=[420,455,440,510,490,570,560,610,590,650,680,724];
-  mk('c-rev',{type:'line',data:{labels:MO,datasets:[{
-    data:[...revData],borderColor:GOLD,borderWidth:2.5,
-    backgroundColor:ctx=>grd(ctx.chart.ctx,'rgba(201,168,76,.22)','rgba(201,168,76,0)'),
-    fill:true,tension:.42,pointRadius:0,pointHoverRadius:5,
-    pointBackgroundColor:GOLD,pointHoverBorderColor:'#fff',pointHoverBorderWidth:2
-  }]},options:BASE});
-
-  mk('c-cat',{type:'bar',data:{
-    labels:['Apparel','Footwear','Accessories','Electronics'],
-    datasets:[{data:[38,27,21,14],
-      backgroundColor:[GOLD,CYAN,PURPLE,GREEN],
-      borderRadius:6,borderSkipped:false,hoverBorderWidth:0,
-      borderWidth:0
-    }]
-  },options:{...BASE,plugins:{...BASE.plugins,tooltip:{...BASE.plugins.tooltip,callbacks:{label:ctx=>`${ctx.parsed.y}%`}}}}});
-
-  mk('c-gm',{type:'line',data:{labels:['A','B','C','D','E','F'],datasets:[{
-    data:[42,38,55,29,61,50],
-    borderColor:CYAN,borderWidth:2.5,
-    backgroundColor:ctx=>grd(ctx.chart.ctx,'rgba(0,212,255,.18)','rgba(0,212,255,0)'),
-    fill:true,tension:.42,pointRadius:4,pointBackgroundColor:CYAN,
-    pointHoverRadius:6,pointHoverBorderColor:'#fff',pointHoverBorderWidth:2
-  }]},options:BASE});
-
-  mk('c-pb',{type:'doughnut',data:{
-    labels:['Premium','Mid','Value'],
-    datasets:[{data:[35,45,20],backgroundColor:[GOLD,CYAN,PURPLE],borderWidth:0,hoverOffset:10,spacing:4}]
-  },options:{...NS,cutout:'68%',plugins:{...NS.plugins,tooltip:{...NS.plugins.tooltip,callbacks:{label:ctx=>`${ctx.label}: ${ctx.raw}%`}}}}});
-
-  // ── TRAVEL ──
-  mk('c-t1',{type:'line',data:{labels:MO,datasets:[
-    {data:[280,310,295,340,360,420,450,480,390,330,300,270],borderColor:'rgba(124,58,237,.5)',borderWidth:1.5,borderDash:[5,4],tension:.4,pointRadius:0,fill:false},
-    {data:[320,355,340,400,420,500,530,570,460,390,360,330],borderColor:GOLD,borderWidth:2.5,backgroundColor:ctx=>grd(ctx.chart.ctx,'rgba(201,168,76,.2)','rgba(201,168,76,0)'),fill:true,tension:.4,pointRadius:0}
-  ]},options:BASE});
-
-  mk('c-t2',{type:'doughnut',data:{
-    labels:['Corporate','Leisure','Groups','FIT'],
-    datasets:[{data:[30,40,15,15],backgroundColor:[GOLD,CYAN,PURPLE,GREEN],borderWidth:0,hoverOffset:10,spacing:4}]
-  },options:{...NS,cutout:'65%'}});
-
-  mk('c-t3',{type:'bar',data:{
-    labels:['Before','After'],
-    datasets:[{data:[18,9],backgroundColor:[RED,GREEN],borderRadius:10,borderSkipped:false,borderWidth:0}]
-  },options:{...BASE,plugins:{...BASE.plugins,tooltip:{...BASE.plugins.tooltip,callbacks:{label:ctx=>`${ctx.parsed.y}% Cancellations`}}}}});
-
-  mk('c-t4',{type:'line',data:{labels:MO.slice(0,6),datasets:[
-    {data:[400,420,410,450,470,530],borderColor:GOLD,borderWidth:2.5,tension:.4,pointRadius:3,pointBackgroundColor:GOLD,label:'Actual'},
-    {data:[395,428,415,448,465,538],borderColor:CYAN,borderWidth:1.5,borderDash:[6,4],tension:.4,pointRadius:0,label:'Forecast'}
-  ]},options:{...BASE,plugins:{...BASE.plugins,legend:{display:true,labels:{color:'#4a5878',font:{size:9},boxWidth:12,usePointStyle:true}}}}});
-  setInterval(()=>{if(!store['c-t4'])return;const d=store['c-t4'].data.datasets[1].data;d.forEach((v,i)=>d[i]=v+rnd(-4,4));store['c-t4'].update('none');},2200);
-
-  // ── HEALTHCARE ──
-  mk('c-h1',{type:'bar',data:{
-    labels:['ER','Surgery','Cardio','Ortho','Neuro','Peds','ICU','Oncology'],
-    datasets:[{data:[1200,850,620,540,480,390,310,290],
-      backgroundColor:['rgba(0,212,255,.8)','rgba(201,168,76,.8)','rgba(0,212,255,.7)','rgba(201,168,76,.7)','rgba(0,212,255,.6)','rgba(201,168,76,.6)','rgba(0,212,255,.5)','rgba(201,168,76,.5)'],
-      borderRadius:5,borderSkipped:false,borderWidth:0
-    }]
-  },options:BASE});
-
-  const occData=[72,78,75,82,80,88,85,91,89,86,83,82];
-  mk('c-h2',{type:'line',data:{labels:MO,datasets:[{
-    data:[...occData],borderColor:GREEN,borderWidth:2.5,
-    backgroundColor:ctx=>grd(ctx.chart.ctx,'rgba(0,232,122,.18)','rgba(0,232,122,0)'),
-    fill:true,tension:.42,pointRadius:0
-  }]},options:BASE});
-
-  mk('c-h3',{type:'bar',data:{
-    labels:MO,
-    datasets:[{data:[3200,3400,3100,3600,3500,3800,3700,4000,3900,3700,3600,3500],
-      backgroundColor:MO.map((_,i)=>i>=6?'rgba(201,168,76,.75)':'rgba(124,58,237,.5)'),
-      borderRadius:4,borderSkipped:false,borderWidth:0
-    }]
-  },options:BASE});
-
-  mk('c-h4',{type:'radar',data:{
-    labels:['Patient Sat','Bed Util','Staff Eff','Wait Time','Re-Admit','Safety'],
-    datasets:[{data:[88,82,91,75,79,95],borderColor:GOLD,backgroundColor:'rgba(201,168,76,.08)',pointBackgroundColor:GOLD,pointRadius:4,borderWidth:2,pointHoverRadius:6}]
-  },options:{...NS,scales:{r:{
-    grid:{color:'rgba(255,255,255,.05)'},
-    ticks:{color:'#1e2a3a',backdropColor:'transparent',font:{size:8},stepSize:20},
-    pointLabels:{color:'#4a5878',font:{size:9}}
-  }}}});
-
-  // ── FINANCE ──
+  // FINANCE
   const bud=[500,520,510,560,550,600,590,640,620,580,570,610];
   const act=[480,535,495,575,562,618,601,655,630,592,585,628];
   mk('c-f1',{type:'bar',data:{labels:MO,datasets:[
-    {data:bud,backgroundColor:'rgba(124,58,237,.35)',borderRadius:4,borderSkipped:false,borderWidth:0,label:'Budget'},
-    {data:act,backgroundColor:'rgba(201,168,76,.85)',borderRadius:4,borderSkipped:false,borderWidth:0,label:'Actual'}
-  ]},options:{...BASE,plugins:{...BASE.plugins,legend:{display:true,labels:{color:'#4a5878',font:{size:9},boxWidth:12,usePointStyle:true}}}}});
+    {data:bud,backgroundColor:'rgba(124,58,237,.32)',borderRadius:5,borderSkipped:false,borderWidth:0,label:'Budget'},
+    {data:act,backgroundColor:'rgba(201,168,76,.82)',borderRadius:5,borderSkipped:false,borderWidth:0,label:'Actual'}
+  ]},options:{...BASE,plugins:{...BASE.plugins,legend:{display:true,labels:{color:'#4a5878',font:{size:9},boxWidth:10,usePointStyle:true}}}}});
+  const f1e=document.getElementById('f1v');if(f1e)f1e.textContent='$628K';
 
-  mk('c-f2',{type:'doughnut',data:{
-    labels:['Payroll','Tech','Marketing','Operations','Other'],
-    datasets:[{data:[42,18,15,16,9],backgroundColor:[GOLD,CYAN,PURPLE,GREEN,RED],borderWidth:0,hoverOffset:10,spacing:4}]
-  },options:{...NS,cutout:'65%'}});
+  mk('c-f2',{type:'doughnut',data:{labels:['Payroll','Tech','Marketing','Ops','Other'],datasets:[{data:[42,18,15,16,9],backgroundColor:[G,CY,PU,GR,RE],borderWidth:0,hoverOffset:10,spacing:4}]},options:{...NS,cutout:'65%'}});
 
   const yoy=[3.2,4.1,3.8,5.2,4.8,6.1,5.9,7.2,6.8,6.4,6.1,6.9];
-  mk('c-f3',{type:'line',data:{labels:MO,datasets:[{
-    data:[...yoy],borderColor:GREEN,borderWidth:2.5,
-    backgroundColor:ctx=>grd(ctx.chart.ctx,'rgba(0,232,122,.18)','rgba(0,232,122,0)'),
-    fill:true,tension:.42,pointRadius:0
-  }]},options:BASE});
-  setInterval(()=>{
-    if(!store['c-f3'])return;
-    const d=store['c-f3'].data.datasets[0].data;
-    const nv=+(6+Math.random()*1.5).toFixed(1);d.push(nv);d.shift();
-    store['c-f3'].update('none');
-    const e=document.getElementById('f3-v');if(e)e.textContent='+'+nv+'%';
-  },2800);
+  mk('c-f3',{type:'line',data:{labels:MO,datasets:[{data:[...yoy],borderColor:GR,borderWidth:2.5,backgroundColor:c=>grd(c.chart,'rgba(0,232,122,.18)','rgba(0,232,122,0)'),fill:true,tension:.42,pointRadius:0,pointHoverRadius:5,pointHoverBackgroundColor:GR}]},options:BASE});
 
   let cum=0;
-  mk('c-f4',{type:'line',data:{labels:MO,datasets:[{
-    data:act.map(v=>(cum+=v,Math.round(cum))),
-    borderColor:CYAN,borderWidth:2.5,
-    backgroundColor:ctx=>grd(ctx.chart.ctx,'rgba(0,212,255,.15)','rgba(0,212,255,0)'),
-    fill:true,tension:.42,pointRadius:0
-  }]},options:BASE});
+  mk('c-f4',{type:'line',data:{labels:MO,datasets:[{data:act.map(v=>(cum+=v,cum)),borderColor:CY,borderWidth:2.5,backgroundColor:c=>grd(c.chart,'rgba(0,212,255,.16)','rgba(0,212,255,0)'),fill:true,tension:.42,pointRadius:0}]},options:BASE});
+
+  // RETAIL
+  mk('c-rev',{type:'line',data:{labels:MO,datasets:[{data:[420,455,440,510,490,570,560,610,590,650,680,724],borderColor:G,borderWidth:2.5,backgroundColor:c=>grd(c.chart,'rgba(201,168,76,.22)','rgba(201,168,76,0)'),fill:true,tension:.42,pointRadius:0,pointHoverRadius:5,pointHoverBackgroundColor:G}]},options:BASE});
+  mk('c-cat',{type:'bar',data:{labels:['Apparel','Footwear','Accessories','Electronics'],datasets:[{data:[38,27,21,14],backgroundColor:[G,CY,PU,GR],borderRadius:6,borderSkipped:false,borderWidth:0}]},options:BASE});
+  mk('c-gm',{type:'line',data:{labels:['A','B','C','D','E','F'],datasets:[{data:[42,38,55,29,61,50],borderColor:CY,borderWidth:2.5,backgroundColor:c=>grd(c.chart,'rgba(0,212,255,.18)','rgba(0,212,255,0)'),fill:true,tension:.42,pointRadius:4,pointBackgroundColor:CY,pointHoverRadius:6}]},options:BASE});
+  mk('c-pb',{type:'doughnut',data:{labels:['Premium','Mid','Value'],datasets:[{data:[35,45,20],backgroundColor:[G,CY,PU],borderWidth:0,hoverOffset:10,spacing:4}]},options:{...NS,cutout:'68%'}});
+
+  // TRAVEL
+  mk('c-t1',{type:'line',data:{labels:MO,datasets:[
+    {data:[280,310,295,340,360,420,450,480,390,330,300,270],borderColor:'rgba(124,58,237,.45)',borderWidth:1.5,borderDash:[5,4],tension:.4,pointRadius:0,fill:false},
+    {data:[320,355,340,400,420,500,530,570,460,390,360,330],borderColor:G,borderWidth:2.5,backgroundColor:c=>grd(c.chart,'rgba(201,168,76,.2)','rgba(201,168,76,0)'),fill:true,tension:.4,pointRadius:0}
+  ]},options:BASE});
+  mk('c-t2',{type:'doughnut',data:{labels:['Corporate','Leisure','Groups','FIT'],datasets:[{data:[30,40,15,15],backgroundColor:[G,CY,PU,GR],borderWidth:0,hoverOffset:10,spacing:4}]},options:{...NS,cutout:'65%'}});
+  mk('c-t3',{type:'bar',data:{labels:['Before','After'],datasets:[{data:[18,9],backgroundColor:[RE,GR],borderRadius:10,borderSkipped:false,borderWidth:0}]},options:BASE});
+  mk('c-t4',{type:'line',data:{labels:MO.slice(0,6),datasets:[
+    {data:[400,420,410,450,470,530],borderColor:G,borderWidth:2.5,tension:.4,pointRadius:3,pointBackgroundColor:G,label:'Actual'},
+    {data:[395,428,415,448,465,538],borderColor:CY,borderWidth:1.5,borderDash:[6,4],tension:.4,pointRadius:0,label:'Forecast'}
+  ]},options:{...BASE,plugins:{...BASE.plugins,legend:{display:true,labels:{color:'#4a5878',font:{size:9},boxWidth:10,usePointStyle:true}}}}});
+
+  // HEALTHCARE
+  mk('c-h1',{type:'bar',data:{labels:['ER','Surgery','Cardio','Ortho','Neuro','Peds','ICU','Oncology'],datasets:[{data:[1200,850,620,540,480,390,310,290],backgroundColor:['rgba(0,212,255,.8)','rgba(201,168,76,.8)','rgba(0,212,255,.7)','rgba(201,168,76,.7)','rgba(0,212,255,.6)','rgba(201,168,76,.6)','rgba(0,212,255,.5)','rgba(201,168,76,.5)'],borderRadius:5,borderSkipped:false,borderWidth:0}]},options:BASE});
+  mk('c-h2',{type:'line',data:{labels:MO,datasets:[{data:[72,78,75,82,80,88,85,91,89,86,83,82],borderColor:GR,borderWidth:2.5,backgroundColor:c=>grd(c.chart,'rgba(0,232,122,.18)','rgba(0,232,122,0)'),fill:true,tension:.42,pointRadius:0}]},options:BASE});
+  mk('c-h3',{type:'bar',data:{labels:MO,datasets:[{data:[3200,3400,3100,3600,3500,3800,3700,4000,3900,3700,3600,3500],backgroundColor:MO.map((_,i)=>i>=6?'rgba(201,168,76,.75)':'rgba(124,58,237,.45)'),borderRadius:4,borderSkipped:false,borderWidth:0}]},options:BASE});
+  mk('c-h4',{type:'radar',data:{labels:['Patient Sat','Bed Util','Staff Eff','Wait Time','Re-Admit','Safety'],datasets:[{data:[88,82,91,75,79,95],borderColor:G,backgroundColor:'rgba(201,168,76,.07)',pointBackgroundColor:G,pointRadius:4,borderWidth:2,pointHoverRadius:6}]},
+  options:{...NS,scales:{r:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#1e2a3a',backdropColor:'transparent',font:{size:8},stepSize:20},pointLabels:{color:'#4a5878',font:{size:9}}}}}});
 }
 
-setTimeout(renderAll,300);
+setTimeout(renderAll,350);
 </script>
 </body>
 </html>
