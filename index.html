@@ -15,37 +15,13 @@
 html,body{width:100%;min-height:100%;scroll-behavior:smooth;}
 body{color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;background:#000;}
 
-/* ══════════════════════════════════════════
-   THE LIVING BURJ KHALIFA — TRUE FULL PAGE
-   Fixed behind everything, always visible
-   ══════════════════════════════════════════ */
+/* Burj canvas sits fixed behind everything */
 #burj{
   position:fixed;
-  top:50%;left:50%;
-  /* Oversized so rotation never clips */
-  width:130vw;height:130vh;
-  transform:translate(-50%,-50%);
+  inset:0;
+  width:100vw;height:100vh;
   z-index:0;
-  background:
-    url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=3840&q=100&auto=format&fit=crop')
-    center center / cover no-repeat;
-  /* Slow Ken Burns + gentle rotation — both running forever */
-  animation: burjRotate 80s ease-in-out infinite alternate,
-             burjZoom   40s ease-in-out infinite alternate;
-  will-change:transform;
-  transform-origin:center center;
-}
-@keyframes burjRotate{
-  0%   { transform: translate(-50%,-50%) rotate(-2deg) scale(1.15); }
-  25%  { transform: translate(-50%,-50%) rotate(0deg)  scale(1.18); }
-  50%  { transform: translate(-50%,-50%) rotate(2deg)  scale(1.15); }
-  75%  { transform: translate(-50%,-50%) rotate(0.5deg) scale(1.20);}
-  100% { transform: translate(-50%,-50%) rotate(-1.5deg) scale(1.16);}
-}
-@keyframes burjZoom{
-  0%  { filter: brightness(.85) saturate(1.1); }
-  50% { filter: brightness(1.05) saturate(1.3);}
-  100%{ filter: brightness(.9)  saturate(1.15);}
+  display:block;
 }
 
 /* Global dark overlay so content stays readable */
@@ -210,8 +186,8 @@ canvas.ch{width:100%!important;height:168px!important;}
 </head>
 <body>
 
-<!-- ══ BURJ KHALIFA — TRUE FULL PAGE ROTATING BACKGROUND ══ -->
-<div id="burj"></div>
+<!-- ══ BURJ KHALIFA — CANVAS ROTATING BACKGROUND ══ -->
+<canvas id="burj"></canvas>
 <div id="burj-overlay"></div>
 <div id="burj-shimmer"></div>
 
@@ -323,6 +299,36 @@ canvas.ch{width:100%!important;height:168px!important;}
       </div>
     </div>
 
+    <!-- NETFLIX -->
+    <div class="dash-panel" id="panel-netflix">
+      <div class="dash-win">
+        <div class="d-bar"><div class="d-dots"><div class="dd" style="background:#ff5f57"></div><div class="dd" style="background:#febc2e"></div><div class="dd" style="background:#28c840"></div></div><div class="d-name">Netflix Titles — Exploratory Data Analysis · Python & Pandas</div><div class="d-live">EDA</div></div>
+        <div class="meta-bar">
+          <div class="mi"><div class="mi-v">8,807</div><div class="mi-l">Total Titles</div></div>
+          <div class="mi"><div class="mi-v">68.4%</div><div class="mi-l">Movies</div></div>
+          <div class="mi"><div class="mi-v">TV-MA</div><div class="mi-l">Top Rating</div></div>
+          <div class="mi"><div class="mi-v">2018–19</div><div class="mi-l">Content Boom</div></div>
+        </div>
+        <div class="cg2">
+          <div class="cc"><div class="cc-head"><span class="cc-title">Content Added by Year</span><span class="cc-val">2018–19 Peak</span></div><canvas class="ch" id="c-nf1"></canvas></div>
+          <div class="cc"><div class="cc-head"><span class="cc-title">Top Ratings Distribution</span><span class="cc-val">TV-MA Dominant</span></div><canvas class="ch" id="c-nf2"></canvas></div>
+          <div class="cc"><div class="cc-head"><span class="cc-title">Movies vs TV Shows</span><span class="cc-val">68.4% Movies</span></div><canvas class="ch" id="c-nf3"></canvas></div>
+          <div class="cc"><div class="cc-head"><span class="cc-title">Top 8 Genres</span><span class="cc-val">Documentaries #1</span></div><canvas class="ch" id="c-nf4"></canvas></div>
+        </div>
+        <!-- Tools row -->
+        <div style="display:flex;align-items:center;gap:.8rem;padding:1rem 1.35rem;border-top:1px solid rgba(255,255,255,.05);flex-wrap:wrap;">
+          <span style="font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Tools Used</span>
+          <span style="font-size:.6rem;padding:.18rem .6rem;border-radius:3px;background:rgba(201,168,76,.08);color:var(--gold);border:1px solid rgba(201,168,76,.15);">Python</span>
+          <span style="font-size:.6rem;padding:.18rem .6rem;border-radius:3px;background:rgba(201,168,76,.08);color:var(--gold);border:1px solid rgba(201,168,76,.15);">Pandas</span>
+          <span style="font-size:.6rem;padding:.18rem .6rem;border-radius:3px;background:rgba(201,168,76,.08);color:var(--gold);border:1px solid rgba(201,168,76,.15);">Matplotlib</span>
+          <span style="font-size:.6rem;padding:.18rem .6rem;border-radius:3px;background:rgba(0,212,255,.07);color:var(--cyan);border:1px solid rgba(0,212,255,.15);">EDA</span>
+          <span style="font-size:.6rem;padding:.18rem .6rem;border-radius:3px;background:rgba(0,212,255,.07);color:var(--cyan);border:1px solid rgba(0,212,255,.15);">Data Cleaning</span>
+          <span style="font-size:.6rem;padding:.18rem .6rem;border-radius:3px;background:rgba(0,212,255,.07);color:var(--cyan);border:1px solid rgba(0,212,255,.15);">Datetime Parsing</span>
+          <span style="margin-left:auto;font-size:.62rem;color:var(--muted);max-width:420px;line-height:1.5;text-align:right;">End-to-end EDA on the Netflix Titles dataset exploring content strategy, rating trends, and global distribution patterns.</span>
+        </div>
+      </div>
+    </div>
+
     <!-- HEALTH -->
     <div class="dash-panel" id="panel-health">
       <div class="dash-win">
@@ -389,6 +395,94 @@ canvas.ch{width:100%!important;height:168px!important;}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
+// ══════════════════════════════════════════════
+// LIVE ROTATING BURJ KHALIFA — CANVAS ENGINE
+// Loads the image, then spins + Ken Burns it
+// at 60fps using requestAnimationFrame
+// ══════════════════════════════════════════════
+(function(){
+  const canvas = document.getElementById('burj');
+  const ctx    = canvas.getContext('2d');
+
+  function resize(){
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.src = 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=2560&q=90&auto=format&fit=crop';
+
+  let angle    = 0;   // current rotation radians
+  let scale    = 1.18;// current zoom
+  let bright   = 0.88;// brightness 0–1 multiplier via globalAlpha trick
+
+  // direction toggles for alternate
+  let angleDir = 1, scaleDir = 1, brightDir = 1;
+
+  const MAX_ANGLE  =  3 * Math.PI/180; // ±3 degrees
+  const MIN_SCALE  = 1.12;
+  const MAX_SCALE  = 1.22;
+  const ANGLE_SPD  = 0.006 * Math.PI/180; // per frame
+  const SCALE_SPD  = 0.00008;
+  const BRIGHT_SPD = 0.001;
+
+  function draw(){
+    const W = canvas.width;
+    const H = canvas.height;
+
+    ctx.clearRect(0,0,W,H);
+
+    // ── dark base ──
+    ctx.fillStyle = '#000308';
+    ctx.fillRect(0,0,W,H);
+
+    if(img.complete && img.naturalWidth){
+      ctx.save();
+      ctx.translate(W/2, H/2);
+      ctx.rotate(angle);
+      ctx.scale(scale, scale);
+
+      // Cover the viewport
+      const iW = img.naturalWidth  || 2560;
+      const iH = img.naturalHeight || 1440;
+      const ratio = Math.max(W/iW, H/iH);
+      const dW = iW * ratio;
+      const dH = iH * ratio;
+
+      ctx.globalAlpha = 0.72 + bright * 0.18; // 0.72–0.90 range
+      ctx.drawImage(img, -dW/2, -dH/2, dW, dH);
+      ctx.globalAlpha = 1;
+      ctx.restore();
+    }
+
+    // ── advance angle ──
+    angle += ANGLE_SPD * angleDir;
+    if(angle >  MAX_ANGLE){ angle =  MAX_ANGLE; angleDir = -1; }
+    if(angle < -MAX_ANGLE){ angle = -MAX_ANGLE; angleDir =  1; }
+
+    // ── advance scale ──
+    scale += SCALE_SPD * scaleDir;
+    if(scale > MAX_SCALE){ scale = MAX_SCALE; scaleDir = -1; }
+    if(scale < MIN_SCALE){ scale = MIN_SCALE; scaleDir =  1; }
+
+    // ── advance brightness ──
+    bright += BRIGHT_SPD * brightDir;
+    if(bright > 1){ bright = 1; brightDir = -1; }
+    if(bright < 0){ bright = 0; brightDir =  1; }
+
+    requestAnimationFrame(draw);
+  }
+
+  // Start immediately; if image not loaded yet the dark
+  // base still renders and image appears as soon as ready
+  img.onload = () => requestAnimationFrame(draw);
+  // Also start loop even before load so dark bg shows
+  requestAnimationFrame(draw);
+})();
+
 Chart.defaults.color='#4a5878';
 Chart.defaults.borderColor='rgba(255,255,255,.04)';
 Chart.defaults.font.family='Inter';
@@ -426,7 +520,8 @@ function switchTab(id,btn){
   document.querySelectorAll('.dash-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('panel-'+id).classList.add('active');btn.classList.add('active');
-  setTimeout(renderAll,60);
+  if(id==='netflix') setTimeout(renderNetflix,60);
+  else setTimeout(renderAll,60);
 }
 
 /* LIVE COUNTERS */
@@ -468,6 +563,51 @@ function renderAll(){
   mk('c-h3',{type:'bar',data:{labels:MO,datasets:[{data:[3200,3400,3100,3600,3500,3800,3700,4000,3900,3700,3600,3500],backgroundColor:MO.map((_,i)=>i>=6?'rgba(201,168,76,.75)':'rgba(124,58,237,.45)'),borderRadius:4,borderSkipped:false,borderWidth:0}]},options:BASE});
   mk('c-h4',{type:'radar',data:{labels:['Patient Sat','Bed Util','Staff Eff','Wait Time','Re-Admit','Safety'],datasets:[{data:[88,82,91,75,79,95],borderColor:G,backgroundColor:'rgba(201,168,76,.07)',pointBackgroundColor:G,pointRadius:4,borderWidth:2,pointHoverRadius:6}]},options:{...NS,scales:{r:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#1e2a3a',backdropColor:'transparent',font:{size:8},stepSize:20},pointLabels:{color:'#4a5878',font:{size:9}}}}}});
 }
+function renderNetflix(){
+  const NR='#e50914', NRP='rgba(229,9,20,', NRFILL='rgba(229,9,20,.15)';
+
+  // Content added by year — area chart
+  mk('c-nf1',{type:'line',data:{
+    labels:['2008','2010','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021'],
+    datasets:[
+      {data:[2,8,18,28,55,120,302,558,1145,1536,1128,907],borderColor:NR,borderWidth:2.5,
+       backgroundColor:c=>grd(c.chart,NRFILL,'rgba(229,9,20,0)'),
+       fill:true,tension:.42,pointRadius:0,pointHoverRadius:5,pointHoverBackgroundColor:NR,label:'All Titles'},
+      {data:[2,6,14,22,40,90,230,420,840,1100,810,640],borderColor:'rgba(255,100,100,.5)',borderWidth:1.5,
+       borderDash:[4,3],tension:.42,pointRadius:0,fill:false,label:'Movies'},
+    ]
+  },options:{...BASE,plugins:{...BASE.plugins,legend:{display:true,labels:{color:'#4a5878',font:{size:9},boxWidth:10,usePointStyle:true}}}}});
+
+  // Ratings bar
+  mk('c-nf2',{type:'bar',data:{
+    labels:['TV-MA','TV-14','TV-PG','R','PG-13','TV-Y7','TV-Y','PG','NR'],
+    datasets:[{
+      data:[2027,1698,701,508,286,334,169,143,80],
+      backgroundColor:['rgba(229,9,20,.9)','rgba(229,9,20,.75)','rgba(229,9,20,.62)','rgba(229,9,20,.52)','rgba(229,9,20,.44)','rgba(200,100,100,.4)','rgba(200,100,100,.35)','rgba(200,100,100,.3)','rgba(200,100,100,.25)'],
+      borderRadius:5,borderSkipped:false,borderWidth:0
+    }]
+  },options:BASE});
+
+  // Movies vs TV Shows doughnut
+  mk('c-nf3',{type:'doughnut',data:{
+    labels:['Movies','TV Shows'],
+    datasets:[{data:[4265,1969],backgroundColor:[NR,'rgba(180,180,180,.25)'],borderWidth:0,hoverOffset:10,spacing:4}]
+  },options:{...NS,cutout:'64%',plugins:{...NS.plugins,legend:{display:true,labels:{color:'#4a5878',font:{size:10},boxWidth:12,usePointStyle:true}}}}});
+
+  // Top genres horizontal bar
+  mk('c-nf4',{type:'bar',data:{
+    labels:['Documentaries','Stand-Up Comedy','Int. Dramas','Ind. Movies','Kids TV','Family Movies','Crime TV','Thrillers'],
+    datasets:[{
+      data:[299,273,248,186,159,129,120,108],
+      backgroundColor:['rgba(229,9,20,.85)','rgba(229,9,20,.75)','rgba(229,9,20,.65)','rgba(229,9,20,.56)','rgba(229,9,20,.47)','rgba(229,9,20,.4)','rgba(229,9,20,.33)','rgba(229,9,20,.27)'],
+      borderRadius:4,borderSkipped:false,borderWidth:0
+    }]
+  },options:{...BASE,indexAxis:'y',scales:{
+    x:{grid:{color:'rgba(255,255,255,.025)',drawBorder:false},ticks:{color:'#253040',font:{size:8.5}}},
+    y:{grid:{display:false},ticks:{color:'#7a8aa8',font:{size:8.5}}}
+  }}});
+}
+
 setTimeout(renderAll,350);
 </script>
 </body>
