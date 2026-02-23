@@ -12,16 +12,17 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{width:100%;min-height:100%;scroll-behavior:smooth;}
+html,body{width:100%;min-height:100%;scroll-behavior:smooth;position:relative;}
 body{color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;background:#000;}
 
-/* Burj canvas sits fixed behind everything */
+/* ══ BURJ CANVAS — TRUE FULL PAGE FIXED SPIN ══ */
 #burj{
   position:fixed;
-  inset:0;
+  top:0;left:0;
   width:100vw;height:100vh;
   z-index:0;
   display:block;
+  pointer-events:none;
 }
 
 /* Global dark overlay so content stays readable */
@@ -240,6 +241,7 @@ canvas.ch{width:100%!important;height:168px!important;}
       <button class="tab" onclick="switchTab('retail',this)">🛒 Retail</button>
       <button class="tab" onclick="switchTab('travel',this)">✈️ Travel</button>
       <button class="tab" onclick="switchTab('health',this)">🏥 Healthcare</button>
+      <button class="tab" onclick="switchTab('netflix',this)">🎬 Netflix EDA</button>
     </div>
 
     <!-- FINANCE -->
@@ -425,9 +427,9 @@ canvas.ch{width:100%!important;height:168px!important;}
   const MAX_ANGLE  =  3 * Math.PI/180; // ±3 degrees
   const MIN_SCALE  = 1.12;
   const MAX_SCALE  = 1.22;
-  const ANGLE_SPD  = 0.006 * Math.PI/180; // per frame
-  const SCALE_SPD  = 0.00008;
-  const BRIGHT_SPD = 0.001;
+  const ANGLE_SPD  = 0.04 * Math.PI/180; // per frame — full continuous spin
+  const SCALE_SPD  = 0.00006;
+  const BRIGHT_SPD = 0.0008;
 
   function draw(){
     const W = canvas.width;
