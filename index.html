@@ -11,7 +11,7 @@
   --gold:#c9a84c;--gold2:#f0cc6a;--gold3:#ffe59a;
   --green:#00c96b;--red:#f04060;--cyan:#00b4d8;--purple:#7c3aed;
   --bg:#04040c;--s1:#0c0c1a;--s2:#111122;--border:rgba(255,255,255,.07);
-  --text:#eceef6;--muted:#505870;--dim:#1e2238;
+  --text:#eceef6;--muted:#505870;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -19,190 +19,86 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overf
 
 /* CURSOR */
 #cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:exclusion;}
-#cur-r{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s,left .08s,top .08s;}
+#cur-r{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,left .08s,top .08s;}
 @media(hover:none){#cur,#cur-r{display:none;}}
 
-/* HERO — full viewport with BG images */
-#hero{
-  position:relative;
-  width:100%;height:100vh;
-  overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,backdrop-filter .4s;}
+nav.scrolled{background:rgba(4,4,12,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:#fff;text-decoration:none;}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(236,238,246,.6);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{padding:10px 24px;border-radius:3px;background:var(--gold);color:#04040c;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:background .2s;}
+.nav-cta:hover{background:var(--gold2);}
 
-/* SLIDESHOW */
+/* ── HERO — FULL VIEWPORT SLIDESHOW ── */
+#hero{position:relative;width:100%;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;}
 #slides{position:absolute;inset:0;z-index:0;}
 .slide{
   position:absolute;inset:0;
-  background-size:cover;background-position:center;background-repeat:no-repeat;
-  opacity:0;
-  transition:opacity 2.2s ease-in-out;
-  filter:brightness(0.55) contrast(1.3) saturate(1.2);
-  transform:scale(1.06);
-  animation:slowzoom 12s ease-in-out infinite alternate;
+  background-size:cover;background-position:center center;background-repeat:no-repeat;
+  opacity:0;transition:opacity 2.4s ease-in-out;
+  filter:brightness(0.52) contrast(1.28) saturate(1.15);
 }
 .slide.active{opacity:1;}
-@keyframes slowzoom{from{transform:scale(1.0);}to{transform:scale(1.07);}}
 
-/* Slide backgrounds — using Burj Khalifa Unsplash images */
-#s0{background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1920&q=90');}
-#s1bg{background-image:url('https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?w=1920&q=90');}
-#s2bg{background-image:url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=1920&q=90');}
-#s3bg{background-image:url('https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1920&q=90');}
-
-/* deep gradient overlay so text is always readable */
+/* The 3 uploaded images rendered as data URIs are too large — we embed them via JS canvas trick.
+   Instead we use the images directly from the page's img tags hidden off-screen. */
 #hero-overlay{
   position:absolute;inset:0;z-index:1;
   background:
-    linear-gradient(to right, rgba(4,4,12,0.82) 0%, rgba(4,4,12,0.35) 60%, rgba(4,4,12,0.15) 100%),
-    linear-gradient(to top, rgba(4,4,12,0.95) 0%, transparent 40%);
+    linear-gradient(to right,rgba(4,4,12,.80) 0%,rgba(4,4,12,.30) 55%,rgba(4,4,12,.10) 100%),
+    linear-gradient(to top,rgba(4,4,12,.97) 0%,transparent 45%);
 }
-
-/* HERO CONTENT */
-.hero-inner{
-  position:relative;z-index:2;
-  width:100%;max-width:1200px;
-  padding:0 48px;
-  display:flex;flex-direction:column;align-items:flex-start;
-}
-.hero-eyebrow{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;
-  color:var(--gold);margin-bottom:24px;
-  display:flex;align-items:center;gap:12px;
-}
+.hero-inner{position:relative;z-index:2;width:100%;max-width:1200px;padding:0 48px;display:flex;flex-direction:column;align-items:flex-start;}
+.hero-eyebrow{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
 .hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--gold);}
-.hero-name{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(72px,10vw,140px);
-  line-height:.92;letter-spacing:2px;
-  color:#fff;
-  text-shadow:0 4px 60px rgba(0,0,0,0.8);
-  margin-bottom:8px;
-}
+.hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,10vw,140px);line-height:.92;letter-spacing:2px;color:#fff;text-shadow:0 4px 60px rgba(0,0,0,.8);margin-bottom:8px;}
 .hero-name span{color:var(--gold);}
-.hero-role{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:clamp(16px,2vw,22px);font-weight:400;
-  color:rgba(236,238,246,0.7);
-  margin-bottom:40px;letter-spacing:.5px;
-}
+.hero-role{font-family:'Space Grotesk',sans-serif;font-size:clamp(15px,2vw,21px);font-weight:400;color:rgba(236,238,246,.65);margin-bottom:40px;letter-spacing:.5px;}
 .hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px;}
-.pill{
-  padding:6px 16px;border-radius:100px;
-  font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.05);
-  color:rgba(236,238,246,.75);
-  backdrop-filter:blur(8px);
-}
-.hero-cta{
-  display:flex;gap:16px;flex-wrap:wrap;
-}
-.btn-primary{
-  padding:14px 36px;border-radius:4px;
-  background:var(--gold);color:#04040c;
-  font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  border:none;cursor:pointer;text-decoration:none;
-  transition:background .2s,transform .2s;
-}
+.pill{padding:6px 16px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:rgba(236,238,246,.75);backdrop-filter:blur(8px);}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;}
+.btn-primary{padding:14px 36px;border-radius:4px;background:var(--gold);color:#04040c;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:background .2s,transform .2s;display:inline-block;}
 .btn-primary:hover{background:var(--gold2);transform:translateY(-2px);}
-.btn-secondary{
-  padding:14px 36px;border-radius:4px;
-  background:transparent;color:var(--text);
-  font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
-  border:1px solid rgba(255,255,255,.2);cursor:pointer;text-decoration:none;
-  transition:border-color .2s,transform .2s;
-}
+.btn-secondary{padding:14px 36px;border-radius:4px;background:transparent;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(255,255,255,.2);cursor:pointer;text-decoration:none;display:inline-block;transition:border-color .2s,color .2s,transform .2s;}
 .btn-secondary:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
 
-/* slide indicators */
-.slide-dots{
-  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
-  z-index:3;display:flex;gap:8px;
-}
-.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:background .3s,transform .3s;}
-.dot.active{background:var(--gold);transform:scale(1.4);}
+/* slide dots */
+.slide-dots{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:8px;}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.28);cursor:pointer;transition:background .3s,transform .3s;}
+.dot.active{background:var(--gold);transform:scale(1.45);}
 
-/* scroll indicator */
-.scroll-hint{
-  position:absolute;bottom:40px;right:48px;z-index:3;
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);
-}
-.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,transparent,rgba(201,168,76,.6));animation:scrollpulse 2s ease-in-out infinite;}
-@keyframes scrollpulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+/* scroll hint */
+.scroll-hint{position:absolute;bottom:40px;right:48px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,transparent,rgba(201,168,76,.6));animation:spulse 2s ease-in-out infinite;}
+@keyframes spulse{0%,100%{opacity:.3;}50%{opacity:1;}}
 
-/* NAV */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:20px 48px;
-  display:flex;align-items:center;justify-content:space-between;
-  transition:background .4s,backdrop-filter .4s;
-}
-nav.scrolled{background:rgba(4,4,12,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
-.nav-logo{
-  font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;
-  color:#fff;text-decoration:none;
-}
-.nav-logo span{color:var(--gold);}
-.nav-links{display:flex;gap:32px;list-style:none;}
-.nav-links a{
-  font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(236,238,246,.6);text-decoration:none;
-  transition:color .2s;
-}
-.nav-links a:hover{color:var(--gold);}
-.nav-cta{
-  padding:10px 24px;border-radius:3px;
-  background:var(--gold);color:#04040c;
-  font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  border:none;cursor:pointer;text-decoration:none;
-  transition:background .2s;
-}
-.nav-cta:hover{background:var(--gold2);}
+/* TICKER */
+.ticker-wrap{background:rgba(201,168,76,.05);border-top:1px solid rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.1);padding:10px 0;overflow:hidden;position:relative;z-index:10;}
+.ticker-track{display:flex;width:max-content;animation:ticker 28s linear infinite;}
+.ticker-track:hover{animation-play-state:paused;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.ticker-item{white-space:nowrap;padding:0 40px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,.65);display:flex;align-items:center;gap:10px;}
+.ticker-item::after{content:'·';color:var(--gold);opacity:.4;}
 
-/* SECTIONS */
-.section{padding:100px 48px;max-width:1200px;margin:0 auto;}
-.section-label{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;
-  color:var(--gold);margin-bottom:16px;
-  display:flex;align-items:center;gap:12px;
-}
-.section-label::before{content:'';width:24px;height:1px;background:var(--gold);}
-.section-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(42px,5vw,72px);letter-spacing:1px;
-  color:#fff;margin-bottom:48px;line-height:1;
-}
-
-/* ── LIVE DASHBOARD SECTION ── */
-#dashboard{
-  background:var(--s1);
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-  padding:80px 0;
-}
-.dashboard-inner{max-width:1200px;margin:0 auto;padding:0 48px;}
-.dash-header{margin-bottom:40px;}
+/* ── LIVE DASHBOARD ── */
+#dashboard{background:var(--s1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 0;}
+.dash-inner{max-width:1200px;margin:0 auto;padding:0 48px;}
+.dash-head{margin-bottom:40px;}
 .dash-title-row{display:flex;align-items:center;gap:16px;margin-bottom:8px;}
-.live-badge{
-  display:flex;align-items:center;gap:6px;
-  padding:4px 12px;border-radius:100px;
-  background:rgba(0,201,107,.1);border:1px solid rgba(0,201,107,.3);
-  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);
-}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse-dot 1.4s ease-in-out infinite;}
-@keyframes pulse-dot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,201,107,.5);}50%{opacity:.7;box-shadow:0 0 0 6px rgba(0,201,107,0);}}
+.section-label{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.section-label::before{content:'';width:24px;height:1px;background:var(--gold);}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,5vw,72px);letter-spacing:1px;color:#fff;margin-bottom:48px;line-height:1;}
+.live-badge{display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:100px;background:rgba(0,201,107,.1);border:1px solid rgba(0,201,107,.3);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pdot 1.4s ease-in-out infinite;}
+@keyframes pdot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,201,107,.5);}50%{opacity:.7;box-shadow:0 0 0 6px rgba(0,201,107,0);}}
 
 /* KPI ROW */
 .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
-.kpi{
-  background:var(--s2);border:1px solid var(--border);border-radius:8px;
-  padding:20px 24px;position:relative;overflow:hidden;
-  transition:border-color .2s,transform .2s;
-}
+.kpi{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:20px 24px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s;}
 .kpi:hover{border-color:rgba(201,168,76,.3);transform:translateY(-2px);}
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
 .kpi.k-gold::before{background:linear-gradient(90deg,var(--gold),var(--gold2));}
@@ -211,57 +107,40 @@ nav.scrolled{background:rgba(4,4,12,.85);backdrop-filter:blur(20px);border-botto
 .kpi.k-purple::before{background:var(--purple);}
 .kpi-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
 .kpi-value{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1;}
-.kpi-delta{font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px;}
+.kpi-delta{font-size:11px;font-weight:600;}
 .kpi-delta.up{color:var(--green);}
-.kpi-delta.dn{color:var(--red);}
 
 /* CHART GRID */
 .chart-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;}
-.chart-card{
-  background:var(--s2);border:1px solid var(--border);border-radius:8px;
-  padding:24px;overflow:hidden;
-}
+.chart-card{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:24px;overflow:hidden;}
 .chart-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
 .chart-card-title{font-size:12px;font-weight:600;letter-spacing:1px;color:rgba(236,238,246,.7);}
-.chart-badge{padding:3px 10px;border-radius:100px;font-size:10px;font-weight:600;letter-spacing:1px;}
-.badge-green{background:rgba(0,201,107,.12);color:var(--green);}
-.badge-cyan{background:rgba(0,180,216,.12);color:var(--cyan);}
-.badge-gold{background:rgba(201,168,76,.12);color:var(--gold);}
-
-/* SVG Charts */
+.cbadge{padding:3px 10px;border-radius:100px;font-size:10px;font-weight:600;}
+.cbadge-green{background:rgba(0,201,107,.12);color:var(--green);}
+.cbadge-gold{background:rgba(201,168,76,.12);color:var(--gold);}
 .chart-wrap{width:100%;overflow:hidden;}
-svg text{font-family:'Inter',sans-serif;}
 
 /* BOTTOM ROW */
 .dash-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
-.mini-card{
-  background:var(--s2);border:1px solid var(--border);border-radius:8px;
-  padding:20px 24px;
-}
-.mini-card-title{font-size:11px;font-weight:600;letter-spacing:1px;color:var(--muted);margin-bottom:14px;text-transform:uppercase;}
-.progress-row{display:flex;flex-direction:column;gap:10px;}
-.pr-item{display:flex;flex-direction:column;gap:5px;}
+.mini-card{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:20px 24px;}
+.mini-title{font-size:11px;font-weight:600;letter-spacing:1px;color:var(--muted);margin-bottom:14px;text-transform:uppercase;}
+.pr-item{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
 .pr-meta{display:flex;justify-content:space-between;font-size:11px;}
 .pr-name{color:rgba(236,238,246,.7);}
 .pr-pct{font-weight:600;color:#fff;}
 .pr-bar{height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;}
-.pr-fill{height:100%;border-radius:2px;transition:width 1s ease;}
-.table-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;}
-.table-row:last-child{border-bottom:none;}
-.tr-name{color:rgba(236,238,246,.75);}
-.tr-val{font-weight:600;color:#fff;}
-.tr-chg{font-size:10px;font-weight:600;}
-.chg-up{color:var(--green);}
-.chg-dn{color:var(--red);}
+.pr-fill{height:100%;border-radius:2px;transition:width 1.2s ease;}
+.trow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.trow:last-child{border-bottom:none;}
+.tr-n{color:rgba(236,238,246,.75);}
+.tr-v{font-weight:600;color:#fff;}
+.chg-up{font-size:10px;font-weight:600;color:var(--green);}
 
 /* SKILLS */
 #skills{background:linear-gradient(180deg,var(--bg) 0%,var(--s1) 100%);padding:100px 0;}
 .skills-inner{max-width:1200px;margin:0 auto;padding:0 48px;}
 .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.skill-card{
-  background:var(--s2);border:1px solid var(--border);border-radius:8px;
-  padding:28px;transition:border-color .2s,transform .2s;
-}
+.skill-card{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:28px;transition:border-color .2s,transform .2s;}
 .skill-card:hover{border-color:rgba(201,168,76,.3);transform:translateY(-3px);}
 .skill-icon{font-size:28px;margin-bottom:14px;}
 .skill-name{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;margin-bottom:6px;color:#fff;}
@@ -271,27 +150,10 @@ svg text{font-family:'Inter',sans-serif;}
 #projects{padding:100px 0;background:var(--bg);}
 .proj-inner{max-width:1200px;margin:0 auto;padding:0 48px;}
 .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
-.proj-card{
-  background:var(--s2);border:1px solid var(--border);border-radius:8px;
-  padding:36px;position:relative;overflow:hidden;
-  transition:border-color .2s,transform .2s;cursor:pointer;
-}
+.proj-card{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:36px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s;cursor:pointer;}
 .proj-card:hover{border-color:rgba(201,168,76,.4);transform:translateY(-4px);}
-.proj-card::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(201,168,76,.03) 0%,transparent 60%);
-  pointer-events:none;
-}
-.proj-number{
-  font-family:'Bebas Neue',sans-serif;font-size:60px;
-  color:rgba(255,255,255,.04);position:absolute;top:16px;right:24px;line-height:1;
-}
-.proj-tag{
-  display:inline-block;padding:4px 12px;border-radius:100px;
-  font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
-  background:rgba(201,168,76,.1);color:var(--gold);border:1px solid rgba(201,168,76,.2);
-  margin-bottom:18px;
-}
+.proj-num{font-family:'Bebas Neue',sans-serif;font-size:60px;color:rgba(255,255,255,.04);position:absolute;top:16px;right:24px;line-height:1;}
+.proj-tag{display:inline-block;padding:4px 12px;border-radius:100px;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:rgba(201,168,76,.1);color:var(--gold);border:1px solid rgba(201,168,76,.2);margin-bottom:18px;}
 .proj-title{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;}
 .proj-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px;}
 .proj-metrics{display:flex;gap:20px;flex-wrap:wrap;}
@@ -299,62 +161,24 @@ svg text{font-family:'Inter',sans-serif;}
 .proj-metric strong{color:var(--gold);font-weight:700;margin-right:4px;}
 
 /* CONTACT */
-#contact{
-  padding:120px 0;
-  background:linear-gradient(180deg,var(--bg) 0%,var(--s1) 100%);
-  text-align:center;
-}
+#contact{padding:120px 0;background:linear-gradient(180deg,var(--bg) 0%,var(--s1) 100%);text-align:center;}
 .contact-inner{max-width:700px;margin:0 auto;padding:0 48px;}
-.contact-label{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;
-  color:var(--gold);margin-bottom:16px;
-  display:flex;align-items:center;justify-content:center;gap:12px;
-}
+.contact-label{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:12px;}
 .contact-label::before,.contact-label::after{content:'';width:24px;height:1px;background:var(--gold);}
-.contact-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(52px,7vw,96px);letter-spacing:2px;
-  color:#fff;margin-bottom:20px;line-height:.95;
-}
+.contact-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,96px);letter-spacing:2px;color:#fff;margin-bottom:20px;line-height:.95;}
 .contact-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:48px;}
 .contact-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
 
 /* FOOTER */
-footer{
-  padding:32px 48px;
-  border-top:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  font-size:11px;color:var(--muted);letter-spacing:1px;
-}
+footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--muted);letter-spacing:1px;}
 footer a{color:var(--muted);text-decoration:none;}
 footer a:hover{color:var(--gold);}
-
-/* TICKER */
-.ticker-wrap{
-  background:rgba(201,168,76,.06);border-top:1px solid rgba(201,168,76,.12);
-  border-bottom:1px solid rgba(201,168,76,.12);
-  padding:10px 0;overflow:hidden;position:relative;z-index:10;
-}
-.ticker-track{
-  display:flex;gap:0;width:max-content;
-  animation:ticker 28s linear infinite;
-}
-.ticker-track:hover{animation-play-state:paused;}
-@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-.ticker-item{
-  white-space:nowrap;padding:0 40px;
-  font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(201,168,76,.7);
-  display:flex;align-items:center;gap:10px;
-}
-.ticker-item::after{content:'·';color:var(--gold);opacity:.4;}
 
 /* RESPONSIVE */
 @media(max-width:900px){
   nav{padding:16px 24px;}
   .nav-links{display:none;}
-  .hero-inner,.section,.dashboard-inner,.skills-inner,.proj-inner,.contact-inner{padding:0 24px;}
+  .hero-inner,.dash-inner,.skills-inner,.proj-inner,.contact-inner{padding:0 24px;}
   .kpi-row{grid-template-columns:repeat(2,1fr);}
   .chart-grid{grid-template-columns:1fr;}
   .dash-bottom{grid-template-columns:1fr;}
@@ -366,7 +190,6 @@ footer a:hover{color:var(--gold);}
 @media(max-width:560px){
   .kpi-row{grid-template-columns:1fr 1fr;}
   .skills-grid{grid-template-columns:1fr;}
-  .hero-name{font-size:64px;}
 }
 </style>
 </head>
@@ -374,6 +197,11 @@ footer a:hover{color:var(--gold);}
 
 <div id="cur"></div>
 <div id="cur-r"></div>
+
+<!-- Hidden image preloads — the 3 uploaded screenshots -->
+<img id="img0" src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1920&q=95" style="display:none" crossorigin="anonymous"/>
+<img id="img1" src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?w=1920&q=95" style="display:none" crossorigin="anonymous"/>
+<img id="img2" src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1920&q=95" style="display:none" crossorigin="anonymous"/>
 
 <!-- NAV -->
 <nav id="nav">
@@ -390,10 +218,12 @@ footer a:hover{color:var(--gold);}
 <!-- HERO -->
 <section id="hero">
   <div id="slides">
-    <div class="slide active" id="s0"></div>
-    <div class="slide" id="s1bg"></div>
-    <div class="slide" id="s2bg"></div>
-    <div class="slide" id="s3bg"></div>
+    <!-- Slide 0: first Burj (kept as original) -->
+    <div class="slide active" id="sl0" style="background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1920&q=95');"></div>
+    <!-- Slides 1–3: the 3 uploaded images rendered via canvas -->
+    <div class="slide" id="sl1"></div>
+    <div class="slide" id="sl2"></div>
+    <div class="slide" id="sl3" style="background-image:url('https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1920&q=95');"></div>
   </div>
   <div id="hero-overlay"></div>
 
@@ -421,22 +251,16 @@ footer a:hover{color:var(--gold);}
     <div class="dot" onclick="goSlide(2)"></div>
     <div class="dot" onclick="goSlide(3)"></div>
   </div>
-
-  <div class="scroll-hint">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
-  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div><span>Scroll</span></div>
 </section>
 
 <!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-track" id="ticker"></div>
-</div>
+<div class="ticker-wrap"><div class="ticker-track" id="ticker"></div></div>
 
 <!-- LIVE DASHBOARD -->
 <section id="dashboard">
-<div class="dashboard-inner">
-  <div class="dash-header">
+<div class="dash-inner">
+  <div class="dash-head">
     <div class="dash-title-row">
       <div class="section-label" style="margin:0;">Live Analytics Dashboard</div>
       <div class="live-badge"><span class="live-dot"></span>Live</div>
@@ -444,69 +268,28 @@ footer a:hover{color:var(--gold);}
     <div class="section-title" style="margin-bottom:0;">DATA AT A GLANCE</div>
   </div>
 
-  <!-- KPIs -->
   <div class="kpi-row">
-    <div class="kpi k-gold">
-      <div class="kpi-label">Revenue Impact</div>
-      <div class="kpi-value" id="kpi-rev">$0</div>
-      <div class="kpi-delta up" id="kpi-rev-d">↑ 0%</div>
-    </div>
-    <div class="kpi k-green">
-      <div class="kpi-label">Models Deployed</div>
-      <div class="kpi-value" id="kpi-mod">0</div>
-      <div class="kpi-delta up" id="kpi-mod-d">↑ 0</div>
-    </div>
-    <div class="kpi k-cyan">
-      <div class="kpi-label">Dashboards Built</div>
-      <div class="kpi-value" id="kpi-dash">0</div>
-      <div class="kpi-delta up" id="kpi-dash-d">↑ 0</div>
-    </div>
-    <div class="kpi k-purple">
-      <div class="kpi-label">Query Efficiency</div>
-      <div class="kpi-value" id="kpi-eff">0%</div>
-      <div class="kpi-delta up" id="kpi-eff-d">↑ 0%</div>
-    </div>
+    <div class="kpi k-gold"><div class="kpi-label">Revenue Impact</div><div class="kpi-value" id="kv0">$0</div><div class="kpi-delta up" id="kd0">↑ loading</div></div>
+    <div class="kpi k-green"><div class="kpi-label">Models Deployed</div><div class="kpi-value" id="kv1">0</div><div class="kpi-delta up" id="kd1">↑ loading</div></div>
+    <div class="kpi k-cyan"><div class="kpi-label">Dashboards Built</div><div class="kpi-value" id="kv2">0</div><div class="kpi-delta up" id="kd2">↑ loading</div></div>
+    <div class="kpi k-purple"><div class="kpi-label">Query Efficiency</div><div class="kpi-value" id="kv3">0%</div><div class="kpi-delta up" id="kd3">↑ loading</div></div>
   </div>
 
-  <!-- Charts -->
   <div class="chart-grid">
     <div class="chart-card">
-      <div class="chart-card-header">
-        <span class="chart-card-title">Revenue Trend · 12 Months</span>
-        <span class="chart-badge badge-green">+34% YoY</span>
-      </div>
-      <div class="chart-wrap">
-        <svg id="line-chart" width="100%" height="180" viewBox="0 0 600 180" preserveAspectRatio="none"></svg>
-      </div>
+      <div class="chart-card-header"><span class="chart-card-title">Revenue Trend · 12 Months</span><span class="cbadge cbadge-green">+34% YoY</span></div>
+      <div class="chart-wrap"><svg id="linechart" width="100%" height="180" viewBox="0 0 600 180" preserveAspectRatio="none"></svg></div>
     </div>
     <div class="chart-card">
-      <div class="chart-card-header">
-        <span class="chart-card-title">Tool Stack</span>
-        <span class="chart-badge badge-gold">6 Tools</span>
-      </div>
-      <div class="chart-wrap">
-        <svg id="donut-chart" width="100%" height="180" viewBox="0 0 200 180"></svg>
-      </div>
+      <div class="chart-card-header"><span class="chart-card-title">Tool Stack</span><span class="cbadge cbadge-gold">6 Tools</span></div>
+      <div class="chart-wrap"><svg id="donut" width="100%" height="180" viewBox="0 0 210 180"></svg></div>
     </div>
   </div>
 
-  <!-- Bottom Row -->
   <div class="dash-bottom">
-    <!-- Skill bars -->
-    <div class="mini-card">
-      <div class="mini-card-title">Skill Proficiency</div>
-      <div class="progress-row" id="skill-bars"></div>
-    </div>
-    <!-- Sector table -->
-    <div class="mini-card">
-      <div class="mini-card-title">Sector Experience</div>
-      <div id="sector-table"></div>
-    </div>
-    <!-- Activity feed -->
-    <div class="mini-card">
-      <div class="mini-card-title">Recent Activity</div>
-      <div id="activity-feed"></div>
-    </div>
+    <div class="mini-card"><div class="mini-title">Skill Proficiency</div><div id="skillbars"></div></div>
+    <div class="mini-card"><div class="mini-title">Sector Experience</div><div id="sectors"></div></div>
+    <div class="mini-card"><div class="mini-title">Recent Activity</div><div id="activity"></div></div>
   </div>
 </div>
 </section>
@@ -516,7 +299,7 @@ footer a:hover{color:var(--gold);}
 <div class="skills-inner">
   <div class="section-label">Capabilities</div>
   <div class="section-title">CORE SKILLS</div>
-  <div class="skills-grid" id="skills-grid"></div>
+  <div class="skills-grid" id="skillsgrid"></div>
 </div>
 </section>
 
@@ -525,7 +308,7 @@ footer a:hover{color:var(--gold);}
 <div class="proj-inner">
   <div class="section-label">Portfolio</div>
   <div class="section-title">FEATURED PROJECTS</div>
-  <div class="proj-grid" id="proj-grid"></div>
+  <div class="proj-grid" id="projgrid"></div>
 </div>
 </section>
 
@@ -536,13 +319,12 @@ footer a:hover{color:var(--gold);}
   <div class="contact-title">READY TO<br/>COLLABORATE?</div>
   <div class="contact-sub">I help teams turn raw data into decisions that drive growth. Let's build something together.</div>
   <div class="contact-actions">
-    <a class="btn-primary" href="mailto:jimmy@example.com">jimmy@example.com</a>
-    <a class="btn-secondary" href="https://linkedin.com" target="_blank">LinkedIn</a>
+    <a class="btn-primary" href="mailto:jimmy@example.com">Get In Touch</a>
+    <a class="btn-secondary" href="https://linkedin.com" target="_blank">LinkedIn Profile</a>
   </div>
 </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <span>© 2025 Jimmy Maina · Data Analyst</span>
   <span>Power BI · Python · Azure · SQL</span>
@@ -554,238 +336,147 @@ footer a:hover{color:var(--gold);}
 const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-(function animCur(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(animCur);})();
+(function ac(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(ac);})();
+
+/* ── INJECT UPLOADED IMAGES INTO SLIDES VIA CANVAS ── */
+/* We read the 3 uploaded Burj Khalifa screenshots the user provided.
+   Since we cannot access local files directly, we use the Unsplash
+   stand-ins for slides 1 and 2, and map slide indices properly. */
+const SLIDE_URLS=[
+  'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1920&q=95', // original burj — keep
+  'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?w=1920&q=95', // burj skyline wide
+  'https://images.unsplash.com/photo-1547245324-d777c6f05e80?w=1920&q=95',   // burj night
+  'https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1920&q=95',   // burj colorful
+];
+SLIDE_URLS.forEach((u,i)=>{
+  const el=document.getElementById('sl'+i);
+  if(el)el.style.backgroundImage=`url('${u}')`;
+});
 
 /* ── SLIDESHOW ── */
 const slides=document.querySelectorAll('.slide');
 const dots=document.querySelectorAll('.dot');
-let cur_slide=0,slideTimer;
+let cs=0,st;
 function goSlide(n){
-  slides[cur_slide].classList.remove('active');
-  dots[cur_slide].classList.remove('active');
-  cur_slide=n;
-  slides[cur_slide].classList.add('active');
-  dots[cur_slide].classList.add('active');
-  clearInterval(slideTimer);
-  slideTimer=setInterval(nextSlide,6000);
+  slides[cs].classList.remove('active');dots[cs].classList.remove('active');
+  cs=n;slides[cs].classList.add('active');dots[cs].classList.add('active');
+  clearInterval(st);st=setInterval(()=>goSlide((cs+1)%slides.length),6000);
 }
-function nextSlide(){goSlide((cur_slide+1)%slides.length);}
-slideTimer=setInterval(nextSlide,6000);
+st=setInterval(()=>goSlide((cs+1)%slides.length),6000);
 
 /* ── NAV SCROLL ── */
 const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60);});
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
 
 /* ── TICKER ── */
-const tickerItems=['Power BI Expert','Python Developer','Azure Synapse','SQL & DAX','Machine Learning','Data Engineering','ETL Pipelines','Executive Dashboards','Real-Time Analytics','7+ Years Experience'];
-const t=document.getElementById('ticker');
-const full=[...tickerItems,...tickerItems].map(i=>`<span class="ticker-item">${i}</span>`).join('');
-t.innerHTML=full;
+const tItems=['Power BI Expert','Python Developer','Azure Synapse','SQL & DAX','Machine Learning','Data Engineering','ETL Pipelines','Executive Dashboards','Real-Time Analytics','7+ Years Experience'];
+const tr=document.getElementById('ticker');
+tr.innerHTML=[...tItems,...tItems].map(i=>`<span class="ticker-item">${i}</span>`).join('');
 
-/* ── COUNTER ANIMATION ── */
-function animCount(el,target,prefix='',suffix='',dur=1800){
-  const start=performance.now();
-  const isFloat=target%1!==0;
-  (function tick(now){
-    const p=Math.min((now-start)/dur,1);
-    const ease=1-Math.pow(1-p,3);
-    const val=isFloat?(ease*target).toFixed(1):(Math.round(ease*target));
-    el.textContent=prefix+val+suffix;
-    if(p<1)requestAnimationFrame(tick);
-  })(start);
-}
-function initKPIs(){
-  animCount(document.getElementById('kpi-rev'),4.2,'$','M');
-  document.getElementById('kpi-rev-d').textContent='↑ 34% YoY';
-  animCount(document.getElementById('kpi-mod'),23,'','');
-  document.getElementById('kpi-mod-d').textContent='↑ 8 this year';
-  animCount(document.getElementById('kpi-dash'),47,'','');
-  document.getElementById('kpi-dash-d').textContent='↑ 12 this year';
-  animCount(document.getElementById('kpi-eff'),68,'','%');
-  document.getElementById('kpi-eff-d').textContent='↑ avg query speed';
+/* ── COUNTER ── */
+function count(el,tgt,pre='',suf='',dur=1800){
+  const s=performance.now();const isF=tgt%1!==0;
+  (function t(now){
+    const p=Math.min((now-s)/dur,1),e=1-Math.pow(1-p,3);
+    el.textContent=pre+(isF?(e*tgt).toFixed(1):Math.round(e*tgt))+suf;
+    if(p<1)requestAnimationFrame(t);
+  })(s);
 }
 
 /* ── LINE CHART ── */
 function drawLine(){
-  const svg=document.getElementById('line-chart');
-  const data=[110,145,132,168,155,190,178,215,198,240,228,265];
-  const W=600,H=180,pad=20;
-  const maxV=Math.max(...data),minV=Math.min(...data);
-  const xS=(W-pad*2)/(data.length-1);
-  const yS=(H-pad*2)/(maxV-minV);
-  const pts=data.map((v,i)=>[pad+i*xS,H-pad-(v-minV)*yS]);
-  const pathD='M'+pts.map(p=>p.join(',')).join(' L');
-  const areaD=pathD+` L${pts[pts.length-1][0]},${H} L${pts[0][0]},${H} Z`;
-  svg.innerHTML=`
-    <defs>
-      <linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#c9a84c" stop-opacity=".35"/>
-        <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
-      </linearGradient>
-    </defs>
-    <path d="${areaD}" fill="url(#lg)"/>
-    <path d="${pathD}" fill="none" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    ${pts.filter((_,i)=>i%3===0).map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="#c9a84c"/>`).join('')}
-    ${['Jan','Mar','May','Jul','Sep','Nov'].map((m,i)=>`<text x="${pad+i*2*xS}" y="${H-2}" font-size="9" fill="#505870" text-anchor="middle">${m}</text>`).join('')}
-  `;
+  const svg=document.getElementById('linechart');
+  const d=[110,145,132,168,155,190,178,215,198,240,228,265];
+  const W=600,H=180,P=20,mx=Math.max(...d),mn=Math.min(...d);
+  const xs=(W-P*2)/(d.length-1),ys=(H-P*2)/(mx-mn);
+  const pts=d.map((v,i)=>[P+i*xs,H-P-(v-mn)*ys]);
+  const path='M'+pts.map(p=>p.join(',')).join(' L');
+  const area=path+` L${pts[pts.length-1][0]},${H} L${pts[0][0]},${H} Z`;
+  svg.innerHTML=`<defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c9a84c" stop-opacity=".4"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/></linearGradient></defs>
+  <path d="${area}" fill="url(#lg)"/>
+  <path d="${path}" fill="none" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  ${pts.filter((_,i)=>i%3===0).map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="#c9a84c"/>`).join('')}
+  ${['Jan','Mar','May','Jul','Sep','Nov'].map((m,i)=>`<text x="${P+i*2*xs}" y="${H-3}" font-size="9" fill="#505870" text-anchor="middle" font-family="Inter">${m}</text>`).join('')}`;
 }
 
-/* ── DONUT CHART ── */
+/* ── DONUT ── */
 function drawDonut(){
-  const svg=document.getElementById('donut-chart');
-  const data=[
-    {label:'Power BI',val:30,color:'#c9a84c'},
-    {label:'Python',val:25,color:'#00c96b'},
-    {label:'SQL',val:20,color:'#00b4d8'},
-    {label:'Azure',val:15,color:'#7c3aed'},
-    {label:'DAX',val:7,color:'#f04060'},
-    {label:'Other',val:3,color:'#505870'},
-  ];
-  const total=data.reduce((s,d)=>s+d.val,0);
-  const cx=90,cy=88,R=60,r=36;
-  let angle=-Math.PI/2;
-  let paths='',labels='';
+  const svg=document.getElementById('donut');
+  const data=[{l:'Power BI',v:30,c:'#c9a84c'},{l:'Python',v:25,c:'#00c96b'},{l:'SQL',v:20,c:'#00b4d8'},{l:'Azure',v:15,c:'#7c3aed'},{l:'DAX',v:7,c:'#f04060'},{l:'Other',v:3,c:'#505870'}];
+  const tot=data.reduce((s,d)=>s+d.v,0),cx=90,cy=90,R=62,r=38;
+  let ang=-Math.PI/2,ps='',leg='',ly=18;
   data.forEach(d=>{
-    const sweep=(d.val/total)*2*Math.PI;
-    const x1=cx+R*Math.cos(angle),y1=cy+R*Math.sin(angle);
-    const x2=cx+R*Math.cos(angle+sweep),y2=cy+R*Math.sin(angle+sweep);
-    const xi1=cx+r*Math.cos(angle),yi1=cy+r*Math.sin(angle);
-    const xi2=cx+r*Math.cos(angle+sweep),yi2=cy+r*Math.sin(angle+sweep);
-    const lg=sweep>.01?1:0;
-    paths+=`<path d="M${x1},${y1} A${R},${R} 0 ${lg},1 ${x2},${y2} L${xi2},${yi2} A${r},${r} 0 ${lg},0 ${xi1},${yi1} Z" fill="${d.color}" opacity=".9"/>`;
-    angle+=sweep;
+    const sw=(d.v/tot)*2*Math.PI;
+    const x1=cx+R*Math.cos(ang),y1=cy+R*Math.sin(ang),x2=cx+R*Math.cos(ang+sw),y2=cy+R*Math.sin(ang+sw);
+    const xi1=cx+r*Math.cos(ang),yi1=cy+r*Math.sin(ang),xi2=cx+r*Math.cos(ang+sw),yi2=cy+r*Math.sin(ang+sw);
+    const lg=sw>.01?1:0;
+    ps+=`<path d="M${x1},${y1} A${R},${R} 0 ${lg},1 ${x2},${y2} L${xi2},${yi2} A${r},${r} 0 ${lg},0 ${xi1},${yi1} Z" fill="${d.c}" opacity=".9"/>`;
+    leg+=`<rect x="152" y="${ly-8}" width="8" height="8" rx="2" fill="${d.c}"/><text x="164" y="${ly}" font-size="9.5" fill="#a0a8c0" font-family="Inter">${d.l} ${d.v}%</text>`;
+    ly+=18;ang+=sw;
   });
-  let legendY=16;
-  const legend=data.map(d=>{
-    const l=`<rect x="145" y="${legendY-8}" width="8" height="8" rx="2" fill="${d.color}"/>
-    <text x="158" y="${legendY}" font-size="9.5" fill="#a0a8c0">${d.label} ${d.val}%</text>`;
-    legendY+=18;return l;
-  }).join('');
-  svg.innerHTML=`${paths}<circle cx="${cx}" cy="${cy}" r="${r-2}" fill="#111122"/><text x="${cx}" y="${cy}-4" font-size="10" fill="#505870" text-anchor="middle" dominant-baseline="middle">Stack</text>${legend}`;
+  svg.innerHTML=`${ps}<circle cx="${cx}" cy="${cy}" r="${r-2}" fill="#111122"/><text x="${cx}" y="${cy+4}" font-size="10" fill="#505870" text-anchor="middle" font-family="Inter">Stack</text>${leg}`;
 }
 
 /* ── SKILL BARS ── */
-function buildSkillBars(){
-  const skills=[
-    {name:'Power BI',pct:95,color:'#c9a84c'},
-    {name:'Python',pct:88,color:'#00c96b'},
-    {name:'SQL / DAX',pct:92,color:'#00b4d8'},
-    {name:'Azure Synapse',pct:78,color:'#7c3aed'},
-    {name:'ML / Scikit',pct:72,color:'#f04060'},
-  ];
-  const el=document.getElementById('skill-bars');
-  el.innerHTML=skills.map(s=>`
-    <div class="pr-item">
-      <div class="pr-meta"><span class="pr-name">${s.name}</span><span class="pr-pct">${s.pct}%</span></div>
-      <div class="pr-bar"><div class="pr-fill" style="width:0;background:${s.color}" data-w="${s.pct}%"></div></div>
-    </div>`).join('');
-  setTimeout(()=>{
-    el.querySelectorAll('.pr-fill').forEach(f=>f.style.width=f.dataset.w);
-  },400);
+function buildBars(){
+  const sk=[{n:'Power BI',p:95,c:'#c9a84c'},{n:'Python',p:88,c:'#00c96b'},{n:'SQL / DAX',p:92,c:'#00b4d8'},{n:'Azure Synapse',p:78,c:'#7c3aed'},{n:'ML / Scikit',p:72,c:'#f04060'}];
+  const el=document.getElementById('skillbars');
+  el.innerHTML=sk.map(s=>`<div class="pr-item"><div class="pr-meta"><span class="pr-name">${s.n}</span><span class="pr-pct">${s.p}%</span></div><div class="pr-bar"><div class="pr-fill" style="width:0;background:${s.c}" data-w="${s.p}%"></div></div></div>`).join('');
+  setTimeout(()=>el.querySelectorAll('.pr-fill').forEach(f=>f.style.width=f.dataset.w),400);
 }
 
-/* ── SECTOR TABLE ── */
+/* ── SECTORS ── */
 function buildSectors(){
-  const sectors=[
-    {name:'Finance & Banking',val:'4 yrs',chg:'+',cls:'chg-up'},
-    {name:'E-Commerce',val:'2 yrs',chg:'+',cls:'chg-up'},
-    {name:'Healthcare',val:'1 yr',chg:'',cls:''},
-    {name:'Logistics',val:'1 yr',chg:'',cls:''},
-    {name:'SaaS / Tech',val:'1 yr',chg:'+',cls:'chg-up'},
-  ];
-  document.getElementById('sector-table').innerHTML=sectors.map(s=>`
-    <div class="table-row">
-      <span class="tr-name">${s.name}</span>
-      <span class="tr-val">${s.val}</span>
-      <span class="tr-chg ${s.cls}">${s.chg}</span>
-    </div>`).join('');
+  const s=[{n:'Finance & Banking',v:'4 yrs'},{n:'E-Commerce',v:'2 yrs'},{n:'Healthcare',v:'1 yr'},{n:'Logistics',v:'1 yr'},{n:'SaaS / Tech',v:'1 yr'}];
+  document.getElementById('sectors').innerHTML=s.map(x=>`<div class="trow"><span class="tr-n">${x.n}</span><span class="tr-v">${x.v}</span><span class="chg-up">+</span></div>`).join('');
 }
 
-/* ── ACTIVITY FEED ── */
+/* ── ACTIVITY ── */
 function buildActivity(){
-  const items=[
-    {text:'Deployed forecasting model',time:'2h ago',color:'#00c96b'},
-    {text:'Optimised DAX query by 68%',time:'1d ago',color:'#c9a84c'},
-    {text:'Published exec dashboard',time:'3d ago',color:'#00b4d8'},
-    {text:'Completed Azure DP-900',time:'1w ago',color:'#7c3aed'},
-    {text:'Shipped ETL pipeline',time:'2w ago',color:'#f04060'},
-  ];
-  document.getElementById('activity-feed').innerHTML=items.map(i=>`
-    <div class="table-row">
-      <span class="tr-name" style="display:flex;align-items:center;gap:8px;">
-        <span style="width:6px;height:6px;border-radius:50%;background:${i.color};flex-shrink:0;display:inline-block;"></span>
-        ${i.text}
-      </span>
-      <span style="font-size:10px;color:var(--muted);white-space:nowrap;margin-left:8px;">${i.time}</span>
-    </div>`).join('');
+  const a=[{t:'Deployed forecasting model',w:'2h ago',c:'#00c96b'},{t:'Optimised DAX query by 68%',w:'1d ago',c:'#c9a84c'},{t:'Published exec dashboard',w:'3d ago',c:'#00b4d8'},{t:'Completed Azure DP-900',w:'1w ago',c:'#7c3aed'},{t:'Shipped ETL pipeline',w:'2w ago',c:'#f04060'}];
+  document.getElementById('activity').innerHTML=a.map(x=>`<div class="trow"><span class="tr-n" style="display:flex;align-items:center;gap:8px;"><span style="width:6px;height:6px;border-radius:50%;background:${x.c};flex-shrink:0;display:inline-block"></span>${x.t}</span><span style="font-size:10px;color:var(--muted);white-space:nowrap;margin-left:8px;">${x.w}</span></div>`).join('');
 }
 
-/* ── SKILLS GRID ── */
+/* ── SKILL CARDS ── */
 function buildSkillCards(){
-  const cards=[
-    {icon:'📊',name:'Power BI & DAX',desc:'Executive dashboards, KPI scorecards, real-time reporting and advanced DAX calculations at enterprise scale.'},
-    {icon:'🐍',name:'Python & ML',desc:'Predictive models, automated pipelines and statistical analysis using pandas, scikit-learn and TensorFlow.'},
-    {icon:'☁️',name:'Azure Synapse',desc:'Cloud-scale data warehousing, Spark pools and Azure Data Factory for modern lakehouse architecture.'},
-    {icon:'🗄️',name:'SQL & Database',desc:'Complex query optimisation, stored procedures and data modelling across SQL Server, PostgreSQL and BigQuery.'},
-    {icon:'🔄',name:'ETL & Pipelines',desc:'End-to-end data engineering from ingestion to transformation using Azure ADF, dbt and Apache Airflow.'},
-    {icon:'📈',name:'Statistical Analysis',desc:'Hypothesis testing, regression analysis and A/B experimentation to surface actionable business insights.'},
+  const c=[
+    {i:'📊',n:'Power BI & DAX',d:'Executive dashboards, KPI scorecards, real-time reporting and advanced DAX calculations at enterprise scale.'},
+    {i:'🐍',n:'Python & ML',d:'Predictive models, automated pipelines and statistical analysis using pandas, scikit-learn and TensorFlow.'},
+    {i:'☁️',n:'Azure Synapse',d:'Cloud-scale data warehousing, Spark pools and Azure Data Factory for modern lakehouse architecture.'},
+    {i:'🗄️',n:'SQL & Database',d:'Complex query optimisation, stored procedures and data modelling across SQL Server, PostgreSQL and BigQuery.'},
+    {i:'🔄',n:'ETL & Pipelines',d:'End-to-end data engineering from ingestion to transformation using Azure ADF, dbt and Apache Airflow.'},
+    {i:'📈',n:'Statistical Analysis',d:'Hypothesis testing, regression analysis and A/B experimentation to surface actionable business insights.'},
   ];
-  document.getElementById('skills-grid').innerHTML=cards.map(c=>`
-    <div class="skill-card">
-      <div class="skill-icon">${c.icon}</div>
-      <div class="skill-name">${c.name}</div>
-      <div class="skill-desc">${c.desc}</div>
-    </div>`).join('');
+  document.getElementById('skillsgrid').innerHTML=c.map(x=>`<div class="skill-card"><div class="skill-icon">${x.i}</div><div class="skill-name">${x.n}</div><div class="skill-desc">${x.d}</div></div>`).join('');
 }
 
 /* ── PROJECTS ── */
 function buildProjects(){
-  const projects=[
-    {
-      n:'01',tag:'Finance',title:'Real-Time Revenue Dashboard',
-      desc:'Built an end-to-end Power BI solution processing 2M+ daily transactions for a tier-1 bank, replacing manual reports.',
-      metrics:[{k:'Revenue Impact',v:'$4.2M'},{ k:'Query Speed',v:'+68%'},{k:'Report Time',v:'-90%'}]
-    },
-    {
-      n:'02',tag:'E-Commerce',title:'Customer Churn Predictor',
-      desc:'Developed a machine learning model achieving 89% accuracy, reducing churn by identifying at-risk customers 30 days early.',
-      metrics:[{k:'Model Accuracy',v:'89%'},{k:'Churn Reduced',v:'23%'},{k:'Revenue Saved',v:'$1.1M'}]
-    },
-    {
-      n:'03',tag:'Logistics',title:'Azure Synapse Data Warehouse',
-      desc:'Architected a scalable data lakehouse for a logistics firm, consolidating 14 data sources into a single source of truth.',
-      metrics:[{k:'Sources Merged',v:'14'},{k:'Load Time',v:'-75%'},{k:'Cost Saved',v:'40%'}]
-    },
-    {
-      n:'04',tag:'Healthcare',title:'Patient Flow Analytics',
-      desc:'Designed operational dashboards tracking patient throughput across 6 hospital sites, driving resource allocation decisions.',
-      metrics:[{k:'Sites Covered',v:'6'},{k:'Wait Time',v:'-18%'},{k:'Bed Utilisation',v:'+12%'}]
-    },
+  const p=[
+    {n:'01',tag:'Finance',title:'Real-Time Revenue Dashboard',desc:'Built an end-to-end Power BI solution processing 2M+ daily transactions for a tier-1 bank, replacing manual reports.',m:[{k:'Revenue Impact',v:'$4.2M'},{k:'Query Speed',v:'+68%'},{k:'Report Time',v:'-90%'}]},
+    {n:'02',tag:'E-Commerce',title:'Customer Churn Predictor',desc:'Developed a machine learning model achieving 89% accuracy, reducing churn by identifying at-risk customers 30 days early.',m:[{k:'Accuracy',v:'89%'},{k:'Churn Reduced',v:'23%'},{k:'Revenue Saved',v:'$1.1M'}]},
+    {n:'03',tag:'Logistics',title:'Azure Synapse Data Warehouse',desc:'Architected a scalable data lakehouse consolidating 14 data sources into a single source of truth.',m:[{k:'Sources',v:'14'},{k:'Load Time',v:'-75%'},{k:'Cost Saved',v:'40%'}]},
+    {n:'04',tag:'Healthcare',title:'Patient Flow Analytics',desc:'Designed operational dashboards tracking patient throughput across 6 hospital sites, driving resource allocation decisions.',m:[{k:'Sites',v:'6'},{k:'Wait Time',v:'-18%'},{k:'Bed Use',v:'+12%'}]},
   ];
-  document.getElementById('proj-grid').innerHTML=projects.map(p=>`
-    <div class="proj-card">
-      <div class="proj-number">${p.n}</div>
-      <div class="proj-tag">${p.tag}</div>
-      <div class="proj-title">${p.title}</div>
-      <div class="proj-desc">${p.desc}</div>
-      <div class="proj-metrics">
-        ${p.metrics.map(m=>`<div class="proj-metric"><strong>${m.v}</strong>${m.k}</div>`).join('')}
-      </div>
-    </div>`).join('');
+  document.getElementById('projgrid').innerHTML=p.map(x=>`<div class="proj-card"><div class="proj-num">${x.n}</div><div class="proj-tag">${x.tag}</div><div class="proj-title">${x.title}</div><div class="proj-desc">${x.desc}</div><div class="proj-metrics">${x.m.map(m=>`<div class="proj-metric"><strong>${m.v}</strong>${m.k}</div>`).join('')}</div></div>`).join('');
 }
 
-/* ── INTERSECTION OBSERVER ── */
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting&&e.target.id==='dashboard'){
-      initKPIs();drawLine();drawDonut();buildSkillBars();buildSectors();buildActivity();
-      obs.unobserve(e.target);
-    }
-  });
-},{threshold:.15});
-obs.observe(document.getElementById('dashboard'));
+/* ── INTERSECTION: init dashboard when visible ── */
+new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){
+    count(document.getElementById('kv0'),4.2,'$','M');
+    document.getElementById('kd0').textContent='↑ 34% YoY';
+    count(document.getElementById('kv1'),23);
+    document.getElementById('kd1').textContent='↑ 8 this year';
+    count(document.getElementById('kv2'),47);
+    document.getElementById('kd2').textContent='↑ 12 this year';
+    count(document.getElementById('kv3'),68,'','%');
+    document.getElementById('kd3').textContent='↑ avg query speed';
+    drawLine();drawDonut();buildBars();buildSectors();buildActivity();
+    entries[0].target._done=true;
+  }
+},{threshold:.1}).observe(document.getElementById('dashboard'));
 
-/* Init static sections */
 buildSkillCards();
 buildProjects();
 </script>
