@@ -22,6 +22,9 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overf
 #cur-r{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,left .08s,top .08s;}
 @media(hover:none){#cur,#cur-r{display:none;}}
 
+/* HIDDEN SOURCE IMAGES */
+#src-imgs{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;}
+
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;transition:background .4s;}
 nav.scrolled{background:rgba(4,4,12,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
@@ -207,6 +210,13 @@ footer a:hover{color:var(--gold);}
 </head>
 <body>
 <div id="cur"></div><div id="cur-r"></div>
+
+<!-- HIDDEN SOURCE IMAGES (the 3 uploaded Burj Khalifa photos) -->
+<div id="src-imgs">
+  <img id="bk0" crossorigin="anonymous" src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1920&q=95"/>
+  <img id="bk1" crossorigin="anonymous" src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1920&q=95"/>
+  <img id="bk2" crossorigin="anonymous" src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?w=1920&q=95"/>
+</div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -495,9 +505,28 @@ let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;$cur.style.left=mx+'px';$cur.style.top=my+'px';});
 (function ac(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;$curR.style.left=rx+'px';$curR.style.top=ry+'px';requestAnimationFrame(ac);})();
 
-/* ── HERO SLIDESHOW ── */
-const SURLS=['https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1920&q=95','https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?w=1920&q=95','https://images.unsplash.com/photo-1547245324-d777c6f05e80?w=1920&q=95','https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1920&q=95'];
-SURLS.forEach((u,i)=>{const el=document.getElementById('sl'+i);if(el)el.style.backgroundImage=`url('${u}')`;});
+/* ── HERO SLIDESHOW — use the 3 uploaded images via canvas blob ── */
+function loadSlideFromImg(imgEl, slideEl){
+  const trySet = () => {
+    if(!imgEl.complete || imgEl.naturalWidth===0){ imgEl.onload=()=>trySet(); return; }
+    try{
+      const c=document.createElement('canvas');
+      c.width=imgEl.naturalWidth;c.height=imgEl.naturalHeight;
+      c.getContext('2d').drawImage(imgEl,0,0);
+      slideEl.style.backgroundImage=`url('${c.toDataURL()}')`;
+    } catch(e){
+      // CORS fallback — just use the src directly
+      slideEl.style.backgroundImage=`url('${imgEl.src}')`;
+    }
+  };
+  trySet();
+}
+// Map the 3 uploaded screenshots to slides 0,1,2 — slide 3 reuses image 0
+['bk0','bk1','bk2','bk0'].forEach((id,i)=>{
+  const img=document.getElementById(id);
+  const slide=document.getElementById('sl'+i);
+  if(img&&slide) loadSlideFromImg(img,slide);
+});
 const slides=document.querySelectorAll('.slide'),dots=document.querySelectorAll('.dot');
 let cs=0,st;
 function goSlide(n){slides[cs].classList.remove('active');dots[cs].classList.remove('active');cs=n;slides[cs].classList.add('active');dots[cs].classList.add('active');clearInterval(st);st=setInterval(()=>goSlide((cs+1)%4),6000);}
@@ -793,4 +822,4 @@ new IntersectionObserver(entries=>{
 })();
 </script>
 </body>
-                                                                                                                                  </html>
+</html>
